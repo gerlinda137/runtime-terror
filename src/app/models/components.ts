@@ -1,6 +1,6 @@
 import { TYPOGRAPHY_VARIANTS, TypographyClasses } from "../shared/constants";
 
-export type SidebarItemType = {
+export interface ISidebarItem {
   label: string;
   icon?: string;
   link?: string;

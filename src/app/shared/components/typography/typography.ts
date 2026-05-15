@@ -12,7 +12,7 @@ import type { TypographyVariantsType, TypographyClassType } from '../../../model
 })
 export class Typography {
   @Input() variant: TypographyVariantsType = 'bodyText';
-  @Input() text: string = '';
+  @Input() text = '';
   @Input() className: TypographyClassType | '' = '';
   @Input() isReduce: true | undefined;
 }

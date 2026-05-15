@@ -4,7 +4,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { RouterLink } from '@angular/router';
 import { SIDEBAR_ITEMS } from '../../constants';
-import { SidebarItemType } from '../../../models';
+import type { ISidebarItem } from '../../../models';
 
 @Component({
   selector: 'app-sidebar-component',
@@ -18,6 +18,6 @@ import { SidebarItemType } from '../../../models';
   styleUrl: './sidebar-component.scss',
 })
 export class SidebarComponent {
-  menu: SidebarItemType[] = SIDEBAR_ITEMS;
+  menu: ISidebarItem[] = SIDEBAR_ITEMS;
   isMobile = false;
 }
