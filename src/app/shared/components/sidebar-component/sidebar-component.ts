@@ -24,7 +24,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
   standalone: true,
 })
 export class SidebarComponent implements OnInit {
-  @ViewChild('sidenav') sidenav!: MatSidenav;
+  @ViewChild('sidenav', { static: true }) sidenav!: MatSidenav;
   private bp = inject(BreakpointObserver);
 
   menu: ISidebarItem[] = SIDEBAR_ITEMS;
@@ -37,6 +37,7 @@ export class SidebarComponent implements OnInit {
       .subscribe(result => {
         this.isMobile = result.matches;
 
+        if (!this.sidenav) return;
         if (this.isMobile) {
           this.sidenav.close();
         } else {
