@@ -20,7 +20,7 @@
   --success: #10b981;
   --danger: #ef4444;
 
-  /* Размеры */
+  /* Sizes */
   --radius-lg: 1rem;
   /* 16px */
   --radius-md: 0.75rem;
@@ -34,6 +34,45 @@
   /* 12px */
 
   --shadow-card: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.08);
+
+  /* Typography scale */
+  --font-headingL: 2rem;
+  /* 32px */
+  --line-headingL: 2.5rem;
+  /* 40px */
+
+  --font-headingL-mobile: 1.5rem;
+  /* 24px */
+
+  --font-headingM: 1.5rem;
+  /* 24px */
+  --line-headingM: 2rem;
+  /* 32px */
+
+  --font-headingS: 1.25rem;
+  /* 20px */
+  --line-headingS: 1.75rem;
+  /* 28px */
+
+  --font-body: 1rem;
+  /* 16px */
+  --line-body: 1.5rem;
+  /* 24px */
+
+  --font-description: 0.875rem;
+  /* 14px */
+  --line-description: 1.25rem;
+  /* 20px */
+
+  --font-descriptionS: 0.75rem;
+  /* 12px */
+  --line-descriptionS: 1rem;
+  /* 16px */
+
+  /* Weights */
+  --weight-bold: 600;
+  --weight-medium: 500;
+  --weight-regular: 400;
 }
 
 /* ---------- DARK THEME ---------- */
@@ -58,7 +97,7 @@
   --success: #34d399;
   --danger: #f87171;
 
-  /* Размеры */
+  /* Sizes */
   --radius-lg: 1rem;
   --radius-md: 0.75rem;
   --radius-sm: 0.5rem;
@@ -67,4 +106,43 @@
   --padding-item: 0.75rem;
 
   --shadow-card: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.25);
+
+  /* Typography scale */
+  --font-headingL: 2rem;
+  /* 32px */
+  --line-headingL: 2.5rem;
+  /* 40px */
+
+  --font-headingL-mobile: 1.5rem;
+  /* 24px */
+
+  --font-headingM: 1.5rem;
+  /* 24px */
+  --line-headingM: 2rem;
+  /* 32px */
+
+  --font-headingS: 1.25rem;
+  /* 20px */
+  --line-headingS: 1.75rem;
+  /* 28px */
+
+  --font-body: 1rem;
+  /* 16px */
+  --line-body: 1.5rem;
+  /* 24px */
+
+  --font-description: 0.875rem;
+  /* 14px */
+  --line-description: 1.25rem;
+  /* 20px */
+
+  --font-descriptionS: 0.75rem;
+  /* 12px */
+  --line-descriptionS: 1rem;
+  /* 16px */
+
+  /* Weights */
+  --weight-bold: 600;
+  --weight-medium: 500;
+  --weight-regular: 400;
 }
