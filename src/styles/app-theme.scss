@@ -1,5 +1,5 @@
 /* ---------- LIGHT THEME ---------- */
-:root[data-theme="light"] {
+:root {
   --md-sys-color-primary: #3b82f6;
   --md-sys-color-on-primary: #ffffff;
 
@@ -16,6 +16,7 @@
 
   --text-primary: #111827;
   --text-secondary: #6b7280;
+  --text-secondary-2: #828282;
 
   --success: #10b981;
   --danger: #ef4444;

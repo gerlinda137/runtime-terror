@@ -5,7 +5,43 @@
 
     <mat-nav-list>
 
+      @for (item of menu; track item.label) {
 
+      @if (!item.children) {
+      <a
+        mat-list-item [routerLink]="item.link"
+        class="item active"
+        routerLinkActive="active">
+        <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+        <app-typography
+          matListItemTitle
+          [text]="item.label"
+          variant="bodyText" />
+      </a>
+      }
+
+      @if (item.children) {
+      <div class="parent" (click)="toggle(item.label)">
+        <mat-icon>{{ item.icon }}</mat-icon>
+        <app-typography [text]="item.label" variant="bodyText" />
+        <mat-icon class="arrow">
+          {{ openedItem === item.label ? 'expand_less' : 'expand_more' }}
+        </mat-icon>
+      </div>
+
+      <div class="children" [class.open]="openedItem === item.label">
+        @for (child of item.children; track child.label) {
+        <a
+          mat-list-item [routerLink]="child.link"
+          routerLinkActive="active"
+          class="child">
+          <app-typography [text]="child.label" variant="bodyText" />
+        </a>
+        }
+      </div>
+      }
+
+      }
 
     </mat-nav-list>
 

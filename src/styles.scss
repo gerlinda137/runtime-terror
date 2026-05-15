@@ -1,7 +1,14 @@
 @use '@angular/material' as mat;
 
 @use './styles/app-theme.scss';
+@use './styles/normalize.css';
 @include mat.core();
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 html {
   height: 100%;
