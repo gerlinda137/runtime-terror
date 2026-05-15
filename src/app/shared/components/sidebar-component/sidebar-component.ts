@@ -46,9 +46,14 @@ export class SidebarComponent implements OnInit {
       });
   }
 
-  closeBurger() {
+  toggleBurger() {
     if (!this.isMobile) { return }
-    this.sidenav.close();
+    if (this.sidenav.opened) {
+      this.sidenav.close();
+    } else {
+      this.sidenav.open();
+
+    }
   }
 
   toggle(label: string) {

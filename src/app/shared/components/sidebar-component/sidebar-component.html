@@ -1,11 +1,12 @@
+ @if (isMobile) {
+<button
+  mat-icon-button
+  (click)="toggleBurger()">
+  <mat-icon>menu</mat-icon>
+</button>
+}
 <mat-sidenav-container class="layout">
-  @if (isMobile) {
-  <button
-    mat-icon-button
-    (click)="sidenav.open()">
-    <mat-icon>menu</mat-icon>
-  </button>
-  }
+
   <mat-sidenav #sidenav
     [mode]="isMobile ? 'over' : 'side'"
     [opened]="!isMobile">
