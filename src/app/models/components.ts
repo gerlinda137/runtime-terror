@@ -4,7 +4,7 @@ export interface ISidebarItem {
   label: string;
   icon?: string;
   link?: string;
-  children?: Pick<SidebarItemType, 'label' | 'link'>[];
+  children?: Pick<ISidebarItem, 'label' | 'link'>[];
 };
 
 export type TypographyVariantsType = (typeof TYPOGRAPHY_VARIANTS)[keyof typeof TYPOGRAPHY_VARIANTS];
