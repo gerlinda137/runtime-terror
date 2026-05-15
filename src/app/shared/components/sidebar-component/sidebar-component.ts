@@ -1,4 +1,4 @@
-import { Component, effect, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
@@ -23,14 +23,14 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
   styleUrl: './sidebar-component.scss',
   standalone: true,
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
   @ViewChild('sidenav') sidenav!: MatSidenav;
+  private bp = inject(BreakpointObserver);
 
   menu: ISidebarItem[] = SIDEBAR_ITEMS;
   isMobile = false;
   openedItem: string | null = null;
 
-  constructor(private bp: BreakpointObserver) { }
 
   ngOnInit() {
     this.bp.observe([Breakpoints.Handset])

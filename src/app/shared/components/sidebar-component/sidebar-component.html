@@ -28,7 +28,11 @@
       }
 
       @if (item.children) {
-      <div class="parent" (click)="toggle(item.label)">
+      <div class="parent"
+        tabindex="0"
+        (click)="toggle(item.label)"
+        (keydown.enter)="toggle(item.label)"
+        (keydown.space)="toggle(item.label)">
         <mat-icon>{{ item.icon }}</mat-icon>
         <app-typography [text]="item.label" variant="bodyText" />
         <mat-icon class="arrow">
