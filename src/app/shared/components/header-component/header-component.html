@@ -1,1 +1,23 @@
-<p>header-component works!</p>
+<div class="logo-section">
+  <div class="logo-wrapper">
+    <img src="assets/icons/logo.svg" alt="Crypto Logo" class="brand-logo" />
+  </div>
+  <app-typography text="urCrypto" variant="headingM" />
+</div>
+
+<div class="header-section">
+  <div class="title-field">
+    <app-typography text="Welcome Zarror!" variant="headingL" class="main-title" />
+    <app-typography
+      text="Hope you are healthy and happy today..."
+      variant="descriptionS"
+      class="sub-title"
+    />
+  </div>
+  <div class="utilities-field">
+    <mat-form-field appearance="outline" class="app-search-input">
+      <input matInput placeholder="Search..." />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+</div>
