@@ -3,7 +3,7 @@
   height: 100vh;
   display: grid;
   grid-template-columns: 20rem auto;
-  grid-template-rows: 4rem auto;
+  grid-template-rows: max-content auto;
   gap: 1rem;
 
   &>.sidebar {
@@ -13,7 +13,7 @@
   }
 
   &>.header{
-    grid-row: 1/2;
+    grid-row: 1;
     grid-column: 1/3;
     width: 100%;
   }
