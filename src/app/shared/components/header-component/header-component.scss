@@ -11,24 +11,6 @@
   border-bottom: 1px solid var(--card-border);
   padding: var(--padding-card);
 
-  .logo-section {
-    flex-shrink: 0;
-    width: 20rem;
-    @include flex-align-center();
-    justify-content: flex-start;
-    gap: 0.5rem;
-
-    .logo-wrapper {
-      background-color: var(--md-sys-color-primary);
-      border-radius: var(--radius-md);
-      @include flex-align-center();
-      padding: 0.5rem;
-    }
-    .brand-logo {
-      height: 2rem;
-    }
-  }
-
   .header-section {
     @include flex-align-center();
     flex-grow: 1;
