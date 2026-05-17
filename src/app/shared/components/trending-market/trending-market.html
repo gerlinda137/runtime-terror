@@ -20,7 +20,7 @@
 
     <ng-container matColumnDef="lastPrice">
       <th mat-header-cell *matHeaderCellDef>Last Price</th>
-      <td mat-cell *matCellDef="let row">{{ row.lastPrice }}</td>
+      <td mat-cell *matCellDef="let row">{{ row.lastPrice | currency:'USD' }}</td>
     </ng-container>
 
     <ng-container matColumnDef="change24hour">

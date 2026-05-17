@@ -3,10 +3,11 @@ import { MatTableModule } from '@angular/material/table';
 import { CRYPTO_TOKENS } from '../../constants';
 import { Typography } from '../typography/typography';
 import { SymbolPipe } from '../../pipes/symbol-pipe';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-trending-market',
-  imports: [MatTableModule, Typography, SymbolPipe],
+  imports: [MatTableModule, Typography, SymbolPipe, CurrencyPipe],
   templateUrl: './trending-market.html',
   styleUrl: './trending-market.scss',
 })
