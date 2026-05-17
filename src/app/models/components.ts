@@ -8,7 +8,6 @@ export interface ISidebarItem {
 }
 
 export interface ICryptoToken {
-  icon: string;
   name: string;
   symbol: string;
   lastPrice: number;
