@@ -5,10 +5,18 @@ import { Typography } from '../typography/typography';
 import { SymbolPipe } from '../../pipes/symbol-pipe';
 import { CurrencyPipe } from '@angular/common';
 import { ChangeHourPipe } from '../../pipes/change-hour-pipe';
+import { ChangeColorDirective } from '../../directives/change-color';
 
 @Component({
   selector: 'app-trending-market',
-  imports: [MatTableModule, Typography, SymbolPipe, CurrencyPipe, ChangeHourPipe],
+  imports: [
+    MatTableModule,
+    Typography,
+    SymbolPipe,
+    CurrencyPipe,
+    ChangeHourPipe,
+    ChangeColorDirective,
+  ],
   templateUrl: './trending-market.html',
   styleUrl: './trending-market.scss',
 })

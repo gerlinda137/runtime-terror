@@ -25,7 +25,11 @@
 
     <ng-container matColumnDef="change24hour">
       <th mat-header-cell *matHeaderCellDef>24H Change</th>
-      <td mat-cell *matCellDef="let row">{{ row.change24hour |changeHour}}</td>
+      <td mat-cell *matCellDef="let row">
+        <span [appChangeColor]="row.change24hour" class="semibold">
+          {{ row.change24hour >= 0 ? '↑' : '↓' }} {{ row.change24hour | changeHour }}
+        </span>
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
