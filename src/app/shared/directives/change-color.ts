@@ -6,7 +6,7 @@ import { computed, Directive, input } from '@angular/core';
     '[style.color]': 'color()',
   },
 })
-export class ChangeColorDirective {
+export class ChangeColor {
   value = input.required<number>({ alias: 'appChangeColor' });
 
   protected color = computed(() => (this.value() >= 0 ? 'var(--success-alt)' : 'var(--danger)'));

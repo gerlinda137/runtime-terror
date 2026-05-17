@@ -43,8 +43,8 @@
   }
 
   .trending-market__view-all {
-    font-size: 14px;
-    font-weight: 600;
+    font-size: var(--font-description);
+    font-weight: var(--weight-bold);
     color: var(--md-sys-color-primary);
     cursor: pointer;
   }

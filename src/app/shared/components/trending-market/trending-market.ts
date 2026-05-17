@@ -5,7 +5,7 @@ import { Typography } from '../typography/typography';
 import { SymbolPipe } from '../../pipes/symbol-pipe';
 import { CurrencyPipe } from '@angular/common';
 import { ChangeHourPipe } from '../../pipes/change-hour-pipe';
-import { ChangeColorDirective } from '../../directives/change-color';
+import { ChangeColor } from '../../directives/change-color';
 import { CryptoIcon } from '../../directives/crypto-icon';
 
 @Component({
@@ -16,7 +16,7 @@ import { CryptoIcon } from '../../directives/crypto-icon';
     SymbolPipe,
     CurrencyPipe,
     ChangeHourPipe,
-    ChangeColorDirective,
+    ChangeColor,
     CryptoIcon,
   ],
   templateUrl: './trending-market.html',

@@ -1,16 +1,14 @@
-import { Directive, effect, ElementRef, inject, input } from '@angular/core';
+import { Directive, ElementRef, inject, input, OnInit } from '@angular/core';
 
 @Directive({
   selector: '[appCryptoIcon]',
 })
-export class CryptoIcon {
+export class CryptoIcon implements OnInit {
   symbol = input.required<string>({ alias: 'appCryptoIcon' });
   private el = inject(ElementRef);
 
-  constructor() {
-    effect(() => {
-      const ticker = this.symbol().replace('USDT', '').toLowerCase();
-      this.el.nativeElement.src = `assets/crypto-icons/${ticker}.svg`;
-    });
+  ngOnInit() {
+    const ticker = this.symbol().toLowerCase();
+    this.el.nativeElement.src = `assets/crypto-icons/${ticker}.svg`;
   }
 }
