@@ -10,8 +10,11 @@
 
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Token</th>
-      <td mat-cell *matCellDef="let row" class="name-cell"><img [appCryptoIcon]="row.symbol" [alt]="row.name" width="24"
-          height="24" class="crypto-icon" />{{ row.name }}</td>
+      <td mat-cell *matCellDef="let row" class="name-cell">
+        <div class="token-cell">
+          <img [appCryptoIcon]="row.symbol" [alt]="row.name" width="24" height="24" class="crypto-icon" />{{ row.name }}
+        </div>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="symbol">

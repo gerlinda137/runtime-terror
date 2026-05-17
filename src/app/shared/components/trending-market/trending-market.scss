@@ -53,8 +53,9 @@
     font-weight: var(--weight-bold);
   }
 
-  .crypto-icon {
-    margin-right: 12px;
-    transform: translateY(25%);
+  .token-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
 }
