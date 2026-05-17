@@ -1,0 +1,41 @@
+<div class="trending-market__header">
+  <app-typography variant="headingS" text="Trending Market" />
+  <a href="#" class="trending-market__view-all">View more markets</a>
+</div>
+
+
+<table mat-table [dataSource]="tokens">
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Token</th>
+    <td mat-cell *matCellDef="let row" class="name-cell">
+      <div class="token-cell">
+        <img [appCryptoIcon]="row.symbol | symbol" [alt]="row.name" width="24" height="24" class="crypto-icon" />{{
+        row.name }}
+      </div>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="symbol">
+    <th mat-header-cell *matHeaderCellDef>Symbol</th>
+    <td mat-cell *matCellDef="let row">{{ row.symbol | symbol }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="lastPrice">
+    <th mat-header-cell *matHeaderCellDef>Last Price</th>
+    <td mat-cell *matCellDef="let row">{{ row.lastPrice | currency:'USD' }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="change24hour">
+    <th mat-header-cell *matHeaderCellDef>24H Change</th>
+    <td mat-cell *matCellDef="let row">
+      <span [appChangeColor]="row.change24hour" class="semibold">
+        {{ row.change24hour >= 0 ? '↑' : '↓' }} {{ row.change24hour | changeHour }}
+      </span>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+</table>
