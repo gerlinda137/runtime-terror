@@ -25,9 +25,15 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              {
+                "src/assets",
+                {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "**/*.svg",
+                "input": "node_modules/cryptocurrency-icons/svg/color",
+                "output": "assets/crypto-icons"
               }
             ],
             "styles": ["src/styles.scss"]

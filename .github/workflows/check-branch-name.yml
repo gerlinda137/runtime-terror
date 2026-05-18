@@ -1,0 +1,52 @@
+# Проверяет, что название ветки соответствует конвенции:
+#   feature/описание
+#   bugfix/описание
+#   hotfix/описание
+#   chore/описание
+#   release/x.x.x
+#
+# Описание: только lowercase буквы, цифры и дефисы.
+# Примеры валидных веток:
+#   feature/add-login-page
+#   bugfix/fix-header-scroll
+#   chore/update-dependencies
+
+name: Check Branch Name
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+
+jobs:
+  branch-name:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate branch name
+        run: |
+          BRANCH="${{ github.head_ref }}"
+          PATTERN="^(feature|bugfix|hotfix|chore|release)\/[a-z0-9][a-z0-9\-]*$"
+
+          echo "Branch name: $BRANCH"
+
+          if [ "$BRANCH" = "develop" ]; then
+            echo "✅ Branch '$BRANCH' is exempt from naming rules."
+            exit 0
+          fi
+
+          if [[ ! "$BRANCH" =~ $PATTERN ]]; then
+            echo "::error::❌ Branch name '$BRANCH' doesn't match the required pattern."
+            echo ""
+            echo "Branch name must follow the convention:"
+            echo "  feature/short-description"
+            echo "  bugfix/short-description"
+            echo "  hotfix/short-description"
+            echo "  chore/short-description"
+            echo "  release/x.x.x"
+            echo ""
+            echo "Rules:"
+            echo "  - Only lowercase letters, numbers, and hyphens in the description"
+            echo "  - Must start with a letter or number after the prefix"
+            exit 1
+          fi
+
+          echo "✅ Branch name '$BRANCH' is valid!"
