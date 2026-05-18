@@ -28,6 +28,11 @@ jobs:
 
           echo "Branch name: $BRANCH"
 
+          if [ "$BRANCH" = "develop" ]; then
+            echo "✅ Branch '$BRANCH' is exempt from naming rules."
+            exit 0
+          fi
+
           if [[ ! "$BRANCH" =~ $PATTERN ]]; then
             echo "::error::❌ Branch name '$BRANCH' doesn't match the required pattern."
             echo ""
