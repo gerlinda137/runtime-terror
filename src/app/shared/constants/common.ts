@@ -10,3 +10,8 @@ export const TYPOGRAPHY_VARIANTS = {
 export const TypographyClasses = {
   highlight: 'highlight',
 } as const;
+
+export const THEMES = {
+  LIGHT: 'light',
+  DARK: 'dark',
+} as const;

@@ -1,13 +1,12 @@
 
 <div class="header-section">
   <div class="title-field">
-    <!-- instead of Zarror - username -->
-    <app-typography text="Welcome Zarror!" variant="headingL" class="main-title" />
+    <app-typography [text]="welcomeText"
+      variant="headingL" class="main-title" />
     <app-typography
       text="Hope you are healthy and happy today..."
       variant="descriptionS"
-      class="sub-title"
-    />
+      class="sub-title" />
   </div>
   <div class="utilities-field">
     <div class="search-bar">
@@ -17,20 +16,19 @@
 
     <div class="user-actions">
       <div matBadge="1" matBadgeSize="small" class="demo-section">
-        <img src="assets/icons/notif_icon.svg" alt="Notification icon" class="notif-icon" />
+        <img src="assets/icons/notif_icon.svg" alt="Notification icon"
+          class="notif-icon" />
       </div>
 
       <div
         class="menu-trigger-wrapper"
         [matMenuTriggerFor]="userMenu"
-        #menuTrigger="matMenuTrigger"
-      >
+        #menuTrigger="matMenuTrigger">
         <div class="user-icon-area">
           <img
-            [src]="isLogedin ? 'assets/icons/user.png' : 'assets/icons/default_user.svg'"
+            [src]="isLoggedIn && user ? user.logo : 'assets/icons/default_user.svg'"
             alt="User Profile Picture"
-            [class.def-user-icon]="!isLogedin"
-          />
+            [class.def-user-icon]="!isLoggedIn" />
         </div>
 
         <span class="arrow" [class.rotated]="menuTrigger.menuOpen">
@@ -39,24 +37,30 @@
       </div>
 
       <mat-menu #userMenu="matMenu" xPosition="before" class="custom-user-menu">
-        @if (isLogedin) {
-          <button mat-menu-item>
-            <mat-icon>account_circle</mat-icon>
-            <span>Profile</span>
-          </button>
-          <button mat-menu-item class="logout-btn">
-            <mat-icon>logout</mat-icon>
-            <span>Logout</span>
-          </button>
+        <button mat-menu-item
+          (click)="toggleTheme(theme === 'light' ? 'dark' : 'light')">
+          <mat-icon>{{ theme === 'light' ? 'dark_mode' : 'light_mode'
+            }}</mat-icon>
+          <span>{{ theme === 'light' ? 'Dark mode' : 'Light mode' }}</span>
+        </button>
+        @if (isLoggedIn) {
+        <button mat-menu-item>
+          <mat-icon>account_circle</mat-icon>
+          <span>Profile</span>
+        </button>
+        <button mat-menu-item class="logout-btn">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
         } @else {
-          <button mat-menu-item>
-            <mat-icon>login</mat-icon>
-            <span>Log In</span>
-          </button>
-          <button mat-menu-item>
-            <mat-icon>person_add</mat-icon>
-            <span>Sign Up</span>
-          </button>
+        <button mat-menu-item>
+          <mat-icon>login</mat-icon>
+          <span>Log In</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>person_add</mat-icon>
+          <span>Sign Up</span>
+        </button>
         }
       </mat-menu>
     </div>
