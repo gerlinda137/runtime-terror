@@ -12,12 +12,16 @@
 
 html {
   height: 100%;
-  @include mat.theme((color: (primary: mat.$cyan-palette,
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$cyan-palette,
         tertiary: mat.$orange-palette,
       ),
       typography: Roboto,
       density: 0,
-    ));
+    )
+  );
 }
 
 body {
@@ -57,12 +61,13 @@ button[mat-raised-button] {
   /* 14px */
 }
 
-button[color="primary"] {
+button[color='primary'] {
   background: var(--md-sys-color-primary);
   color: var(--md-sys-color-on-primary);
 }
 
-button[color="secondary"] {
+button[color='secondary'] {
   background: var(--md-sys-color-secondary);
   color: var(--md-sys-color-on-secondary);
 }
+
