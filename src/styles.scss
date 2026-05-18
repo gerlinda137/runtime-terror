@@ -217,3 +217,9 @@ button[color='secondary'] {
   background: var(--md-sys-color-secondary);
   color: var(--md-sys-color-on-secondary);
 }
+
+
+// ----
+.mat-mdc-menu-content{
+  background-color: var(--card-bg);
+}
