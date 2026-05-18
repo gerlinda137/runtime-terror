@@ -1,3 +1,11 @@
-<app-header-component class="header"></app-header-component>
-<app-sidebar-component class="sidebar"></app-sidebar-component>
+<app-header-component
+  class="header"
+  [isLoggedIn]="isLoggedIn"
+  [user]="user"
+  [theme]="theme()"
+  [toggleTheme]="toggleTheme.bind(this)" />
+<aside class="main-aside">
+  <app-logo />
+  <app-sidebar-component class="sidebar" />
+</aside>
 <router-outlet />
