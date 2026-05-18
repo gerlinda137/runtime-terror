@@ -40,8 +40,10 @@
           padding-left: 2.75rem;
           border-radius: var(--radius-sm);
           background-color: var(--card-bg);
+          caret-color: var(--text-primary);
+          color: var(--text-primary);
 
-          &::placeholder{
+          &::placeholder {
             color: var(--text-primary);
           }
 
@@ -70,7 +72,7 @@
         .notif-icon {
           height: 1.5rem;
           width: 1.5rem;
-          color: var(--text-primary)
+          color: var(--text-primary);
         }
 
         .menu-trigger-wrapper {
@@ -90,9 +92,9 @@
             }
 
             .def-user-icon {
-                width: 1.5rem;
-                height: 1.5rem;
-              }
+              width: 1.5rem;
+              height: 1.5rem;
+            }
           }
 
           span.arrow {
@@ -100,7 +102,7 @@
             cursor: pointer;
             transition: transform 0.2s ease;
 
-            mat-icon{
+            mat-icon {
               color: var(--text-primary);
             }
 
