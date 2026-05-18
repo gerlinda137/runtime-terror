@@ -19,4 +19,8 @@
     grid-column: 2/3;
     width: 100%;
   }
+
+  &>.page {
+    grid-column: 2/3;
+  }
 }
