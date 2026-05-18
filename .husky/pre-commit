@@ -1,1 +1,21 @@
+#!/bin/sh
+
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+PATTERN="^(feature|bugfix|hotfix|chore|release)\/[a-z0-9][a-z0-9\-]*$"
+
+if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "develop" ]; then
+  npx lint-staged
+  exit 0
+fi
+
+if ! echo "$BRANCH" | grep -qE "$PATTERN"; then
+  echo ""
+  echo "❌ Branch name '$BRANCH' doesn't match the naming convention."
+  echo ""
+  echo "Rename your branch:"
+  echo "  git branch -m <new-name>"
+  echo ""
+  exit 1
+fi
+
 npx lint-staged
