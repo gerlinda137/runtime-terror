@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, signal, WritableSignal } from '@angular/core';
+import { Component, DOCUMENT, inject, signal, WritableSignal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from "./shared/components/sidebar-component/sidebar-component";
 import { HeaderComponent } from "./shared/components/header-component/header-component";
@@ -13,7 +13,7 @@ import { MOCK_USER, THEMES } from './shared/constants';
   styleUrl: './app.scss'
 })
 export class App {
-  private host = inject(ElementRef);
+  private document = inject(DOCUMENT);
   protected readonly theme: WritableSignal<ThemeType> = signal(THEMES.LIGHT);
 
   protected readonly title = signal('crypto-trade');
@@ -25,9 +25,9 @@ export class App {
     this.theme.set(theme);
 
     if (theme === THEMES.DARK) {
-      this.host.nativeElement.setAttribute('data-theme', THEMES.DARK);
+      this.document.documentElement.setAttribute('data-theme', THEMES.DARK);
     } else {
-      this.host.nativeElement.removeAttribute('data-theme');
+      this.document.documentElement.removeAttribute('data-theme');
     }
   }
 }
