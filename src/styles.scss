@@ -217,3 +217,25 @@ button[color='secondary'] {
   background: var(--md-sys-color-secondary);
   color: var(--md-sys-color-on-secondary);
 }
+
+.custom-user-menu {
+  &.mat-mdc-menu-panel {
+    background-color: var(--card-bg) !important;
+  }
+
+  .mat-mdc-menu-item {
+    color: var(--text-primary) !important;
+
+    .mdc-list-item__primary-text {
+      color: var(--text-primary) !important;
+    }
+
+    .mat-icon {
+      color: var(--text-primary) !important;
+    }
+
+    &:hover {
+      background-color: var(--md-sys-color-surface-variant) !important;
+    }
+  }
+}
