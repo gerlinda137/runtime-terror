@@ -7,7 +7,7 @@ import type { ISidebarItem } from '../../../models';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from "@angular/router";
 import { Typography } from "../typography/typography";
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-sidebar-component',
@@ -33,7 +33,7 @@ export class SidebarComponent implements OnInit {
 
 
   ngOnInit() {
-    this.bp.observe([Breakpoints.Handset])
+    this.bp.observe(['(max-width: 768px)'])
       .subscribe(result => {
         this.isMobile = result.matches;
 

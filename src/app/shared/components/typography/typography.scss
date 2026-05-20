@@ -16,116 +16,193 @@
   .heading-1 {
     font-size: 56px;
     font-weight: 700;
-    line-height: 125%;
+    line-height: 70px; // 125%
   }
 
   .heading-2 {
     font-size: 48px;
     font-weight: 700;
-    line-height: 125%;
+    line-height: 60px; // 125%
   }
 
   .heading-3 {
     font-size: 40px;
     font-weight: 700;
-    line-height: 120%;
+    line-height: 48px; // 120%
   }
 
   .heading-4 {
     font-size: 32px;
     font-weight: 700;
-    line-height: 120%;
+    line-height: 38px; // 120%
   }
 
   .heading-5 {
     font-size: 24px;
     font-weight: 700;
-    line-height: 125%;
+    line-height: 30px; // 125%
   }
 
   .heading-6 {
     font-size: 20px;
     font-weight: 700;
-    line-height: 130%;
+    line-height: 26px; // 130%
   }
 
   .display-1 {
     font-size: 32px;
     font-weight: 700;
-    line-height: 120%;
+    line-height: 38px; // 120%
   }
 
   .double_extra_large_text_semibold {
     font-size: 20px;
     font-weight: 700;
-    line-height: 120%;
-    font-family: $font-secondary;
+    line-height: 24px; // 120%
   }
 
   .double-extra-large-text-regular {
     font-size: 20px;
     font-weight: 400;
-    line-height: 120%;
+    line-height: 24px; // 120%
   }
 
   .extra-large-text-semibold {
     font-size: 18px;
     font-weight: 600;
-    line-height: 145%;
+    line-height: 26px; // 145%
   }
 
   .extra-large-text-regular {
     font-size: 18px;
     font-weight: 400;
-    line-height: 145%;
+    line-height: 26px; // 145%
   }
 
   .large-text-semibold {
     font-size: 16px;
     font-weight: 600;
-    line-height: 150%;
+    line-height: 24px; // 150%
   }
 
   .large-text-regular {
     font-size: 16px;
     font-weight: 400;
-    line-height: 150%;
+    line-height: 24px; // 150%
   }
 
   .medium-text-semibold {
     font-size: 14px;
     font-weight: 600;
-    line-height: 160%;
+    line-height: 22px; // 160%
   }
 
   .medium-text-regular {
     font-size: 14px;
     font-weight: 400;
-    line-height: 160%;
+    line-height: 22px; // 160%
   }
 
   .small-text-semibold {
     font-size: 12px;
     font-weight: 600;
-    line-height: 170%;
+    line-height: 20px; // 170%
   }
 
   .small-text-regular {
     font-size: 12px;
     font-weight: 400;
-    line-height: 170%;
+    line-height: 20px; // 170%
   }
 
   .extra-small-text-semibold {
     font-size: 10px;
     font-weight: 600;
-    line-height: 165%;
+    line-height: 16px; // 165%
   }
 
   .extra-small-text-regular {
     font-size: 10px;
     font-weight: 400;
-    line-height: 165%;
+    line-height: 16px; // 165%
+  }
+
+  @media (max-width: $max-mobile) {
+    .heading-1 {
+      font-size: 40px;
+    }
+
+    .heading-2 {
+      font-size: 32px;
+    }
+
+    .heading-3 {
+      font-size: 30px;
+    }
+
+    .heading-4 {
+      font-size: 28px;
+    }
+
+    .heading-5 {
+      font-size: 22px;
+    }
+
+    .heading-6 {
+      font-size: 18px;
+    }
+
+    .display-1 {
+      font-size: 28px;
+    }
+
+    .double_extra_large_text_semibold {
+      font-size: 18px;
+    }
+
+    .double-extra-large-text-regular {
+      font-size: 18px;
+    }
+
+    .extra-large-text-semibold {
+      font-size: 16px;
+    }
+
+    .extra-large-text-regular {
+      font-size: 16px;
+    }
+
+    .large-text-semibold {
+      font-size: 14px;
+    }
+
+    .large-text-regular {
+      font-size: 14px;
+    }
+
+    .medium-text-semibold {
+      font-size: 12px;
+    }
+
+    .medium-text-regular {
+      font-size: 12px;
+    }
+
+    .small-text-semibold {
+      font-size: 10px;
+    }
+
+    .small-text-regular {
+      font-size: 10px;
+    }
+
+    .extra-small-text-semibold {
+      font-size: 8px;
+    }
+
+    .extra-small-text-regular {
+      font-size: 8px;
+    }
   }
 
   .highlight {
