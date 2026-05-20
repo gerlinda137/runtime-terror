@@ -1,23 +1,30 @@
-@switch (variant) {
-@case ('headingL') {
-<h1
-  [ngClass]="[variant, className]">{{text}}</h1>
-}
-@case ('headingM') {
-<h2 [ngClass]="[variant, className]">{{text}}</h2>
-}
-@case ('headingS') {
-<h3 [ngClass]="[variant, className]">{{text}}</h3>
-}
-@case ('bodyText') {
-<p [ngClass]="[variant, className, isReduce ? 'cut-multi-line':'']">{{text}}</p>
-}
-@case ('descriptionS') {
-<span
-  [ngClass]="[variant, className, isReduce ? 'cut-multi-line':'']">{{text}}</span>
-}
-@default {
-<span
-  [ngClass]="[variant, className, isReduce ? 'cut-multi-line':'']">{{text}}</span>
-}
+<ng-template
+  #content>
+</ng-template>
+
+@switch (tag()) {
+@case ('h1') { <h1 [ngClass]="componentClasses()"
+  [ngTemplateOutlet]="content"> {{ text() }}
+</h1> }
+@case ('h2') { <h2 [ngClass]="componentClasses()"
+  [ngTemplateOutlet]="content"> {{ text() }}
+</h2> }
+@case ('h3') { <h3 [ngClass]="componentClasses()"
+  [ngTemplateOutlet]="content"> {{ text() }}
+</h3> }
+@case ('h4') { <h4 [ngClass]="componentClasses()"
+  [ngTemplateOutlet]="content"> {{ text() }}
+</h4> }
+@case ('h5') { <h5 [ngClass]="componentClasses()"
+  [ngTemplateOutlet]="content"> {{ text() }}
+</h5> }
+@case ('h6') { <h6 [ngClass]="componentClasses()"
+  [ngTemplateOutlet]="content"> {{ text() }}
+</h6> }
+@case ('p') { <p [ngClass]="componentClasses()"
+  [ngTemplateOutlet]="content"> {{ text() }}
+</p> }
+@case ('span') { <span [ngClass]="componentClasses()"
+  [ngTemplateOutlet]="content"> {{ text() }}
+</span> }
 }

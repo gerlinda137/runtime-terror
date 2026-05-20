@@ -1,8 +1,10 @@
 
 <div class="header-section">
   <div class="title-field">
-    <app-typography [text]="welcomeText"
-      variant="headingL" class="main-title" />
+    <app-typography
+      tag="h2"
+      [text]="welcomeText"
+      variant="headingM" class="main-title" />
     <app-typography
       text="Hope you are healthy and happy today..."
       variant="descriptionS"
@@ -16,7 +18,7 @@
 
     <div class="user-actions">
       <div matBadge="1" matBadgeSize="small" class="demo-section">
-        <mat-icon 
+        <mat-icon
           class="notif-icon">notifications</mat-icon>
       </div>
 
