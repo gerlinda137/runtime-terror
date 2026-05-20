@@ -9,47 +9,123 @@
     }
   }
 
-  .Heading_1 {
+  .secondary-font {
+    font-family: $font-secondary;
+  }
+
+  .heading-1 {
     font-size: 56px;
     font-weight: 700;
     line-height: 125%;
   }
 
-  .Heading_2 {
+  .heading-2 {
     font-size: 48px;
     font-weight: 700;
     line-height: 125%;
   }
 
-  .Heading_3 {
+  .heading-3 {
     font-size: 40px;
     font-weight: 700;
     line-height: 120%;
   }
 
-  .Heading_4 {
+  .heading-4 {
     font-size: 32px;
     font-weight: 700;
     line-height: 120%;
   }
 
-  .Heading_5 {
+  .heading-5 {
     font-size: 24px;
     font-weight: 700;
     line-height: 125%;
   }
 
-  .Display {
+  .heading-6 {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 130%;
+  }
+
+  .display-1 {
     font-size: 32px;
+    font-weight: 700;
+    line-height: 120%;
+  }
+
+  .double_extra_large_text_semibold {
+    font-size: 20px;
     font-weight: 700;
     line-height: 120%;
     font-family: $font-secondary;
   }
 
-  .Heading_6 {
+  .double-extra-large-text-regular {
     font-size: 20px;
-    font-weight: 700;
-    line-height: 130%;
+    font-weight: 400;
+    line-height: 120%;
+  }
+
+  .extra-large-text-semibold {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 145%;
+  }
+
+  .extra-large-text-regular {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 145%;
+  }
+
+  .large-text-semibold {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 150%;
+  }
+
+  .large-text-regular {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 150%;
+  }
+
+  .medium-text-semibold {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 160%;
+  }
+
+  .medium-text-regular {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 160%;
+  }
+
+  .small-text-semibold {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 170%;
+  }
+
+  .small-text-regular {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 170%;
+  }
+
+  .extra-small-text-semibold {
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 165%;
+  }
+
+  .extra-small-text-regular {
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 165%;
   }
 
   .highlight {

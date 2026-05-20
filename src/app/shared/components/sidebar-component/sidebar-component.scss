@@ -112,6 +112,6 @@
   border-radius: 0.5rem !important;
 }
 
-:host ::ng-deep a.active p {
+:host ::ng-deep a.active span {
   color: var(--md-sys-color-on-primary) !important;
 }

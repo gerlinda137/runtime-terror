@@ -13,7 +13,8 @@ import { MAIN_FONT_VARIANT } from '../../constants';
 })
 export class Typography {
   tag = input<'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span'>('p');
-  variant = input<TypographyVariantsType>('medium-text-semibold');
+  //16px 600
+  variant = input<TypographyVariantsType>('large-text-semibold');
   text = input<string>('');
   className = input<TypographyClassType | ''>('');
   isReduce = input<true | undefined>(undefined);
