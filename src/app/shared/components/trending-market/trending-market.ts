@@ -5,8 +5,8 @@ import { Typography } from '../../directives/typography/typography';
 import { SymbolPipe } from '../../pipes/symbol-pipe';
 import { CurrencyPipe } from '@angular/common';
 import { ChangeHourPipe } from '../../pipes/change-hour-pipe';
-import { ChangeColor } from '../../directives/change-color';
-import { CryptoIcon } from '../../directives/crypto-icon';
+import { ChangeColor } from '../../directives';
+import { CryptoIcon } from '../../directives';
 
 @Component({
   selector: 'app-trending-market',

@@ -3,7 +3,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import type { User, ThemeType } from '../../../models';
-import { Typography } from "../../directives/typography/typography";
+import { Typography } from "../../directives";
 
 
 @Component({

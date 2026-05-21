@@ -6,7 +6,7 @@ import { SIDEBAR_ITEMS } from '../../constants';
 import type { SidebarItem } from '../../../models';
 import { CommonModule } from '@angular/common';
 import { RouterLink, ɵEmptyOutletComponent } from "@angular/router";
-import { Typography } from '../../directives/typography/typography';
+import { Typography } from '../../directives';
 import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
