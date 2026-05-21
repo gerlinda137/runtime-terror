@@ -1,159 +1,10 @@
-// toDo @use 'styles/variables' as *;
 @use '@angular/material' as mat;
+@use 'styles/app-theme.scss' as *;
+@use 'styles//fonts.scss' as *;
+@use 'styles/variable.scss' as *;
+@use 'styles/normalize.css' as *;
 
-@use './styles/normalize.css';
 @include mat.core();
-
-/* ---------- LIGHT THEME ---------- */
-:root {
-  --md-sys-color-primary: #3b82f6;
-  --md-sys-color-on-primary: #ffffff;
-
-  --md-sys-color-secondary: #22d3ee;
-  --md-sys-color-on-secondary: #00333a;
-
-  --md-sys-color-background: #f5f7fa;
-  --md-sys-color-surface: #ffffff;
-  --md-sys-color-surface-variant: #e5e7eb;
-  --md-sys-color-on-surface: #111827;
-
-  --card-bg: #ffffff;
-  --card-border: #e5e7eb;
-
-  --text-primary: #111827;
-  --text-secondary: #6b7280;
-  --text-secondary-2: #828282;
-
-  --success: #10b981;
-  --danger: #ef4444;
-
-  /* Sizes */
-  --radius-lg: 1rem;
-  /* 16px */
-  --radius-md: 0.75rem;
-  /* 12px */
-  --radius-sm: 0.5rem;
-  /* 8px */
-
-  --padding-card: 1.25rem;
-  /* 20px */
-  --padding-item: 0.75rem;
-  /* 12px */
-
-  --shadow-card: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.08);
-
-  /* Typography scale */
-  --font-headingL: 2rem;
-  /* 32px */
-  --line-headingL: 2.5rem;
-  /* 40px */
-
-  --font-headingL-mobile: 1.5rem;
-  /* 24px */
-
-  --font-headingM: 1.5rem;
-  /* 24px */
-  --line-headingM: 2rem;
-  /* 32px */
-
-  --font-headingS: 1.25rem;
-  /* 20px */
-  --line-headingS: 1.75rem;
-  /* 28px */
-
-  --font-body: 1rem;
-  /* 16px */
-  --line-body: 1.5rem;
-  /* 24px */
-
-  --font-description: 0.875rem;
-  /* 14px */
-  --line-description: 1.25rem;
-  /* 20px */
-
-  --font-descriptionS: 0.75rem;
-  /* 12px */
-  --line-descriptionS: 1rem;
-  /* 16px */
-
-  /* Weights */
-  --weight-bold: 600;
-  --weight-medium: 500;
-  --weight-regular: 400;
-}
-
-/* ---------- DARK THEME ---------- */
-[data-theme="dark"] {
-  --md-sys-color-primary: #60a5fa;
-  --md-sys-color-on-primary: #0a0f1a;
-
-  --md-sys-color-secondary: #2dd4bf;
-  --md-sys-color-on-secondary: #002b26;
-
-  --md-sys-color-background: #0f172a;
-  --md-sys-color-surface: #1e293b;
-  --md-sys-color-surface-variant: #334155;
-  --md-sys-color-on-surface: #e2e8f0;
-
-  --card-bg: #1e293b;
-  --card-border: #334155;
-
-  --text-primary: #f1f5f9;
-  --text-secondary: #94a3b8;
-
-  --success: #34d399;
-  --danger: #f87171;
-
-  /* Sizes */
-  --radius-lg: 1rem;
-  --radius-md: 0.75rem;
-  --radius-sm: 0.5rem;
-
-  --padding-card: 1.25rem;
-  --padding-item: 0.75rem;
-
-  --shadow-card: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.25);
-
-  /* Typography scale */
-  --font-headingL: 2rem;
-  /* 32px */
-  --line-headingL: 2.5rem;
-  /* 40px */
-
-  --font-headingL-mobile: 1.5rem;
-  /* 24px */
-
-  --font-headingM: 1.5rem;
-  /* 24px */
-  --line-headingM: 2rem;
-  /* 32px */
-
-  --font-headingS: 1.25rem;
-  /* 20px */
-  --line-headingS: 1.75rem;
-  /* 28px */
-
-  --font-body: 1rem;
-  /* 16px */
-  --line-body: 1.5rem;
-  /* 24px */
-
-  --font-description: 0.875rem;
-  /* 14px */
-  --line-description: 1.25rem;
-  /* 20px */
-
-  --font-descriptionS: 0.75rem;
-  /* 12px */
-  --line-descriptionS: 1rem;
-  /* 16px */
-
-  /* Weights */
-  --weight-bold: 600;
-  --weight-medium: 500;
-  --weight-regular: 400;
-}
-
 
 *,
 *::before,
@@ -172,14 +23,7 @@ html {
 }
 
 body {
-  // Default the application to a light color theme. This can be changed to
-  // `dark` to enable the dark color theme, or to `light dark` to defer to the
-  // user's system settings.
   color-scheme: light;
-
-  // Set a default background, font and text colors for the application using
-  // Angular Material's system-level CSS variables. Learn more about these
-  // variables at https://material.angular.dev/guide/system-variables
   background-color: var(--mat-sys-surface);
   color: var(--mat-sys-on-surface);
   font: var(--mat-sys-body-medium);
@@ -187,6 +31,8 @@ body {
   // Reset the user agent margin.
   margin: 0;
   height: 100%;
+
+  font-family: $font-main;
 }
 
 //  examples for components styles

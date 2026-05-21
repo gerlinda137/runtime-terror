@@ -22,9 +22,10 @@
         routerLinkActive="active">
         <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
         <app-typography
+          tag="span"
           matListItemTitle
           [text]="item.label"
-          variant="bodyText" />
+          variant="medium-text-semibold" />
       </a>
       }
 
@@ -35,7 +36,8 @@
         (keydown.enter)="toggle(item.label)"
         (keydown.space)="toggle(item.label)">
         <mat-icon>{{ item.icon }}</mat-icon>
-        <app-typography [text]="item.label" variant="bodyText" />
+        <app-typography [text]="item.label" variant="medium-text-semibold"
+          tag="span" />
         <mat-icon class="arrow">
           {{ openedItem === item.label ? 'expand_less' : 'expand_more' }}
         </mat-icon>
@@ -47,7 +49,8 @@
           mat-list-item [routerLink]="child.link"
           routerLinkActive="active"
           class="child">
-          <app-typography [text]="child.label" variant="bodyText" />
+          <app-typography tag="span" [text]="child.label"
+            variant="medium-text-semibold" />
         </a>
         }
       </div>

@@ -78,7 +78,7 @@
 }
 
 /* ---------- DARK THEME ---------- */
-:root[data-theme="dark"] {
+[data-theme="dark"] {
   --md-sys-color-primary: #60a5fa;
   --md-sys-color-on-primary: #0a0f1a;
 

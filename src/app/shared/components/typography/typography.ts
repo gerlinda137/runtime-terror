@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 
 import type { TypographyVariantsType, TypographyClassType } from '../../../models';
+import { MAIN_FONT_VARIANT } from '../../constants';
 
 @Component({
   selector: 'app-typography',
@@ -11,8 +12,17 @@ import type { TypographyVariantsType, TypographyClassType } from '../../../model
   styleUrl: './typography.scss',
 })
 export class Typography {
-  @Input() variant: TypographyVariantsType = 'bodyText';
-  @Input() text = '';
-  @Input() className: TypographyClassType | '' = '';
-  @Input() isReduce: true | undefined;
+  tag = input<'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span'>('p');
+  //16px 600
+  variant = input<TypographyVariantsType>('large-text-semibold');
+  text = input<string>('');
+  className = input<TypographyClassType | ''>('');
+  isReduce = input<true | undefined>(undefined);
+
+  componentClasses = computed(() => {
+    const v = this.variant();
+    const cls = this.className();
+
+    return `${v} ${MAIN_FONT_VARIANT.includes(v as (typeof MAIN_FONT_VARIANT)[number]) ? 'secondary-font' : ''} ${cls ? cls : ''}`.trim();
+  });
 }
