@@ -1,4 +1,4 @@
-import { Directive, ElementRef, effect, signal } from '@angular/core';
+import { Directive, ElementRef, effect, inject, signal } from '@angular/core';
 
 import { TYPOGRAPHY_CLASSES } from '../../constants';
 import type { TypographyVariantsType } from '../../../models';
