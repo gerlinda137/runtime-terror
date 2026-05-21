@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from "./shared/components/sidebar-component/sidebar-component";
 import { HeaderComponent } from "./shared/components/header-component/header-component";
 import { Logo } from './shared/components/logo/logo';
-import { User, ThemeType } from './models';
+import { User, ThemeType } from './shared/models';
 import { MOCK_USER, THEMES } from './shared/constants';
 
 @Component({

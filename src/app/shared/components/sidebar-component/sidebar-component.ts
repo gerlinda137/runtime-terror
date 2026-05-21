@@ -2,12 +2,14 @@ import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
-import { SIDEBAR_ITEMS } from '../../constants';
-import type { SidebarItem } from '../../../models';
+
 import { CommonModule } from '@angular/common';
-import { RouterLink, ɵEmptyOutletComponent } from "@angular/router";
-import { Typography } from '../../directives';
+import { RouterLink } from "@angular/router";
 import { BreakpointObserver } from '@angular/cdk/layout';
+
+import { SIDEBAR_ITEMS } from '../../constants';
+import { Typography } from '../../directives';
+import type { SidebarItem } from '../../models';
 
 @Component({
   selector: 'app-sidebar-component',
@@ -17,9 +19,8 @@ import { BreakpointObserver } from '@angular/cdk/layout';
     MatListModule,
     MatIconModule,
     RouterLink,
-    Typography,
-    ɵEmptyOutletComponent
-],
+    Typography
+  ],
   templateUrl: './sidebar-component.html',
   styleUrl: './sidebar-component.scss',
   standalone: true,
