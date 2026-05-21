@@ -26,14 +26,5 @@ export const TYPOGRAPHY_VARIANTS = {
   extra_small_text_semibold: 'extra-small-text-semibold',
   extra_small_text_regular: 'extra-small-text-regular',
 } as const;
-const { heading_1, heading_2, heading_3, heading_4, heading_5, heading_6 } = TYPOGRAPHY_VARIANTS;
-export const MAIN_FONT_VARIANT = [heading_1, heading_2, heading_3, heading_4, heading_5, heading_6] as const;
 
-export const TypographyClasses = {
-  highlight: 'highlight',
-} as const;
-
-export const THEMES = {
-  LIGHT: 'light',
-  DARK: 'dark',
-} as const;
+export const TYPOGRAPHY_CLASSES = Object.values(TYPOGRAPHY_VARIANTS);

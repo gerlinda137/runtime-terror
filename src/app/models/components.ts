@@ -1,13 +1,13 @@
-import { TYPOGRAPHY_VARIANTS, TypographyClasses } from '../shared/constants';
+import { TYPOGRAPHY_VARIANTS } from '../shared/constants';
 
-export interface ISidebarItem {
+export interface SidebarItem {
   label: string;
   icon?: string;
   link?: string;
-  children?: Pick<ISidebarItem, 'label' | 'link'>[];
+  children?: Pick<SidebarItem, 'label' | 'link'>[];
 }
 
-export interface ICryptoToken {
+export interface CryptoToken {
   name: string;
   symbol: string;
   lastPrice: number;
@@ -15,4 +15,4 @@ export interface ICryptoToken {
 }
 
 export type TypographyVariantsType = (typeof TYPOGRAPHY_VARIANTS)[keyof typeof TYPOGRAPHY_VARIANTS];
-export type TypographyClassType = (typeof TypographyClasses)[keyof typeof TypographyClasses];
+export type TypographyClassType = TypographyVariantsType;

@@ -1,14 +1,14 @@
 
 <div class="header-section">
   <div class="title-field">
-    <app-typography
-      tag="h2"
-      [text]="welcomeText"
-      variant="heading-5" class="main-title" />
-    <app-typography
-      text="Hope you are healthy and happy today..."
-      variant="medium-text-regular"
-      class="sub-title" />
+    <h2
+      appTypography="heading-5" class="main-title">
+      {{welcomeText}}
+    </h2>
+    <h4
+      appTypography="medium-text-regular"
+      class="sub-title">
+      Hope you are healthy and happy today...</h4>
   </div>
   <div class="utilities-field">
     <div class="search-bar">
@@ -28,9 +28,9 @@
         #menuTrigger="matMenuTrigger">
         <div class="user-icon-area">
           <img
-            [src]="isLoggedIn && user ? user.logo : 'assets/icons/default_user.svg'"
+            [src]="isLoggedIn() && user() ? user()?.logo : 'assets/icons/default_user.svg'"
             alt="User Profile Picture"
-            [class.def-user-icon]="!isLoggedIn" />
+            [class.def-user-icon]="!isLoggedIn()" />
         </div>
 
         <span class="arrow" [class.rotated]="menuTrigger.menuOpen">
@@ -40,12 +40,13 @@
 
       <mat-menu #userMenu="matMenu" xPosition="before" class="custom-user-menu">
         <button mat-menu-item
-          (click)="toggleTheme(theme === 'light' ? 'dark' : 'light')">
-          <mat-icon>{{ theme === 'light' ? 'dark_mode' : 'light_mode'
+          (click)="toggleTheme()?.(theme()=== 'light' ? 'dark' : 'light')">
+          <mat-icon>{{ theme() === 'light' ? 'dark_mode' : 'light_mode'
             }}</mat-icon>
-          <span>{{ theme === 'light' ? 'Dark mode' : 'Light mode' }}</span>
+          <span>{{ theme() === 'light' ? 'Dark mode' : 'Light mode' }}</span>
         </button>
-        @if (isLoggedIn) {
+
+        @if (isLoggedIn()) {
         <button mat-menu-item>
           <mat-icon>account_circle</mat-icon>
           <span>Profile</span>

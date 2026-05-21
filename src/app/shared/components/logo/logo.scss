@@ -1,22 +1,16 @@
 :host {
   width: 100%;
   padding: 1rem;
-  padding-left: 2rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
 
   .logo-btn {
-    width: 3rem;
-    height: 3rem;
-    border-radius: 12px;
-    background: var(--md-sys-color-primary);
-    font-style: italic;
-    color: var(--md-sys-color-on-primary);
+    width: 129px;
+    height: 32px;
+    background: none;
+
+    color: var(--text-primary);
   }
 
-  .logo-txt {
-    color: var(--md-sys-color-primary);
-
-  }
 }

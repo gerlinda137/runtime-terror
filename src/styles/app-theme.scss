@@ -22,59 +22,56 @@
   --success-alt: #53d258;
   --danger: #ef4444;
 
+  /* figma variable */
+  /* primary */
+  --primary-100: #2752e7;
+  --primary-80: #5275ec;
+  --primary-60: #7d97f1;
+  --primary-40: #d0d8ff;
+  --primary-20: #f5f8fe;
+
+  /* base */
+  --base-100: #2c3131;
+  --base-80: #626262;
+  --base-60: #a9a9a9;
+  --base-40: #cacaca;
+  --base-20: #e3e3e3;
+  --base-0: #ffffff;
+
+  /* success */
+  --success-100: #53d258;
+  --success-80: #75db79;
+  --success-60: #98e49b;
+  --success-40: #baebc0;
+  --success-20: #ddf6de;
+
+  /* error */
+  --error-100: #e25c5c;
+  --error-80: #eb7d7d;
+  --error-60: #ee999d;
+  --error-40: #f3bebe;
+  --error-20: #f9dede;
+
+  /* ui */
+  --background: var(--base-0);
+  --surface: var(--base-20);
+  --text-primary: var(--base-100);
+  --text-secondary: var(--base-60);
+
   /* Sizes */
+  /* 16px */
   --radius-lg: 1rem;
-  /* 16px */
+  /* 12px */
   --radius-md: 0.75rem;
-  /* 12px */
-  --radius-sm: 0.5rem;
-  /* 8px */
+  /* 6px */
+  --radius-sm: 0.375rem;
 
+  /* 20px */
   --padding-card: 1.25rem;
-  /* 20px */
+  /* 12px */
   --padding-item: 0.75rem;
-  /* 12px */
-
-  --shadow-card: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.08);
-
-  /* Typography scale */
-  --font-headingL: 2rem;
-  /* 32px */
-  --line-headingL: 2.5rem;
-  /* 40px */
-
-  --font-headingL-mobile: 1.5rem;
-  /* 24px */
-
-  --font-headingM: 1.5rem;
-  /* 24px */
-  --line-headingM: 2rem;
-  /* 32px */
-
-  --font-headingS: 1.25rem;
-  /* 20px */
-  --line-headingS: 1.75rem;
-  /* 28px */
-
-  --font-body: 1rem;
   /* 16px */
-  --line-body: 1.5rem;
-  /* 24px */
-
-  --font-description: 0.875rem;
-  /* 14px */
-  --line-description: 1.25rem;
-  /* 20px */
-
-  --font-descriptionS: 0.75rem;
-  /* 12px */
-  --line-descriptionS: 1rem;
-  /* 16px */
-
-  /* Weights */
-  --weight-bold: 600;
-  --weight-medium: 500;
-  --weight-regular: 400;
+  --p-base: 1rem;
 }
 
 /* ---------- DARK THEME ---------- */
@@ -100,52 +97,38 @@
   --success-alt: #53d258;
   --danger: #f87171;
 
-  /* Sizes */
-  --radius-lg: 1rem;
-  --radius-md: 0.75rem;
-  --radius-sm: 0.5rem;
+  /* primary (lightened for dark bg) */
+  --primary-100: #6a8cff;
+  --primary-80: #8da6ff;
+  --primary-60: #afc0ff;
+  --primary-40: #d6ddff;
+  --primary-20: #eef2ff;
 
-  --padding-card: 1.25rem;
-  --padding-item: 0.75rem;
+  /* base */
+  --base-100: #ffffff;
+  --base-80: #e3e3e3;
+  --base-60: #cacaca;
+  --base-40: #a9a9a9;
+  --base-20: #626262;
+  --base-0: #2c3131;
 
-  --shadow-card: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.25);
+  /* success */
+  --success-100: #7bef80;
+  --success-80: #9af5a0;
+  --success-60: #b8f8bd;
+  --success-40: #d6fbe0;
+  --success-20: #ecfff0;
 
-  /* Typography scale */
-  --font-headingL: 2rem;
-  /* 32px */
-  --line-headingL: 2.5rem;
-  /* 40px */
+  /* error */
+  --error-100: #ff7a7a;
+  --error-80: #ff9a9a;
+  --error-60: #ffb8b8;
+  --error-40: #ffdada;
+  --error-20: #fff0f0;
 
-  --font-headingL-mobile: 1.5rem;
-  /* 24px */
-
-  --font-headingM: 1.5rem;
-  /* 24px */
-  --line-headingM: 2rem;
-  /* 32px */
-
-  --font-headingS: 1.25rem;
-  /* 20px */
-  --line-headingS: 1.75rem;
-  /* 28px */
-
-  --font-body: 1rem;
-  /* 16px */
-  --line-body: 1.5rem;
-  /* 24px */
-
-  --font-description: 0.875rem;
-  /* 14px */
-  --line-description: 1.25rem;
-  /* 20px */
-
-  --font-descriptionS: 0.75rem;
-  /* 12px */
-  --line-descriptionS: 1rem;
-  /* 16px */
-
-  /* Weights */
-  --weight-bold: 600;
-  --weight-medium: 500;
-  --weight-regular: 400;
+  /* ui */
+  --background: var(--base-0);
+  --surface: var(--base-20);
+  --text-primary: var(--base-100);
+  --text-secondary: var(--base-60);
 }
