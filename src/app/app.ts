@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from "./shared/components/sidebar-component/sidebar-component";
 import { HeaderComponent } from "./shared/components/header-component/header-component";
 import { Logo } from './shared/components/logo/logo';
-import { IUser, ThemeType } from './models';
+import { User, ThemeType } from './models';
 import { MOCK_USER, THEMES } from './shared/constants';
 
 @Component({
@@ -18,7 +18,7 @@ export class App {
 
   protected readonly title = signal('crypto-trade');
   isLoggedIn = true;
-  user: IUser = MOCK_USER;
+  user: User = MOCK_USER;
 
 
   protected toggleTheme(theme: ThemeType) {

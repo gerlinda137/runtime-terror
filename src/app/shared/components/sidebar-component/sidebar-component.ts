@@ -5,7 +5,7 @@ import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { SIDEBAR_ITEMS } from '../../constants';
 import type { SidebarItem } from '../../../models';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from "@angular/router";
+import { RouterLink, ɵEmptyOutletComponent } from "@angular/router";
 import { Typography } from '../../directives/typography/typography';
 import { BreakpointObserver } from '@angular/cdk/layout';
 
@@ -17,8 +17,9 @@ import { BreakpointObserver } from '@angular/cdk/layout';
     MatListModule,
     MatIconModule,
     RouterLink,
-    Typography
-  ],
+    Typography,
+    ɵEmptyOutletComponent
+],
   templateUrl: './sidebar-component.html',
   styleUrl: './sidebar-component.scss',
   standalone: true,

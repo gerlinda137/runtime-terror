@@ -2,7 +2,7 @@ import { Component, input, OnInit } from '@angular/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
-import { IUser, ThemeType } from '../../../models';
+import type { User, ThemeType } from '../../../models';
 import { Typography } from "../../directives/typography/typography";
 
 
@@ -14,7 +14,7 @@ import { Typography } from "../../directives/typography/typography";
 })
 export class HeaderComponent implements OnInit {
   isLoggedIn = input<boolean>(false);
-  user = input<IUser | null>(null);
+  user = input<User | null>(null);
   theme = input<ThemeType>();
   toggleTheme = input<(theme: ThemeType) => void>();
   welcomeText = '';
