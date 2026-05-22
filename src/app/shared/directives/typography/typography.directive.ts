@@ -1,6 +1,5 @@
-import { Directive, ElementRef, effect, inject, signal } from '@angular/core';
+import { Directive, ElementRef, inject, signal } from '@angular/core';
 
-import { TYPOGRAPHY_CLASSES } from '../../constants';
 import type { TypographyVariantsType } from '../../models';
 
 @Directive({
@@ -12,15 +11,6 @@ export class Typography {
   private variant = signal<TypographyVariantsType>('large-text-regular');
 
   constructor() {
-    effect(() => {
-      const v = this.variant();
-
-      this.el.nativeElement.classList.remove(
-        ...Array.from(this.el.nativeElement.classList)
-          .filter(cl => TYPOGRAPHY_CLASSES.includes(cl as TypographyVariantsType))
-      );
-
-      this.el.nativeElement.classList.add(v);
-    });
+    this.el.nativeElement.classList.add(this.variant());
   }
 }

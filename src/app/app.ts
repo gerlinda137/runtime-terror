@@ -1,4 +1,4 @@
-import { Component, DOCUMENT, inject, signal, WritableSignal } from '@angular/core';
+import { Component, DOCUMENT, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { Logo, HeaderComponent, SidebarComponent } from './shared/components';
@@ -13,14 +13,14 @@ import type { User, ThemeType } from './shared/models';
 })
 export class App {
   private document = inject(DOCUMENT);
-  protected readonly theme: WritableSignal<ThemeType> = signal(THEMES.LIGHT);
 
   protected readonly title = signal('crypto-trade');
   isLoggedIn = true;
   user: User = MOCK_USER;
+  theme = signal<ThemeType>(THEMES.LIGHT);
 
-
-  protected toggleTheme(theme: ThemeType) {
+  toggleTheme = () => {
+    const theme = this.theme() === THEMES.LIGHT ? THEMES.DARK : THEMES.LIGHT;
     this.theme.set(theme);
 
     if (theme === THEMES.DARK) {
@@ -28,5 +28,5 @@ export class App {
     } else {
       this.document.documentElement.removeAttribute('data-theme');
     }
-  }
+  };
 }

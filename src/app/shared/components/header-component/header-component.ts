@@ -17,14 +17,25 @@ export class HeaderComponent implements OnInit {
   isLoggedIn = input<boolean>(false);
   user = input<User | null>(null);
   theme = input<ThemeType>();
-  toggleTheme = input<(theme: ThemeType) => void>();
+  toggleTheme = input<() => void>();
   welcomeText = '';
   userLogo = '';
-
 
   ngOnInit() {
     const { logo, name } = this.user() ?? { logo: 'assets/icons/default_user.svg', name: '' };
     this.welcomeText = `Welcome ${name}!`;
     this.userLogo = logo;
+  }
+
+  handleTheme() {
+    const handler = this.toggleTheme();
+
+    if (handler) {
+      handler();
+    }
+  }
+
+  handleMode() {
+    return this.theme() === 'light' ? 'dark_mode' : 'light_mode';
   }
 }

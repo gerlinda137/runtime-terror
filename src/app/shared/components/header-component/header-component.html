@@ -40,9 +40,10 @@
 
       <mat-menu #userMenu="matMenu" xPosition="before" class="custom-user-menu">
         <button mat-menu-item
-          (click)="toggleTheme()?.(theme()=== 'light' ? 'dark' : 'light')">
-          <mat-icon>{{ theme() === 'light' ? 'dark_mode' : 'light_mode'
-            }}</mat-icon>
+          (click)="handleTheme()">
+          <mat-icon>
+            {{ handleMode() }}
+          </mat-icon>
           <span>{{ theme() === 'light' ? 'Dark mode' : 'Light mode' }}</span>
         </button>
 
