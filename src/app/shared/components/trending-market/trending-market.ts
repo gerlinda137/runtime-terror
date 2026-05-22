@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
-import { CRYPTO_TOKENS } from '../../constants';
-import { SymbolPipe } from '../../pipes/symbol-pipe';
 import { CurrencyPipe } from '@angular/common';
-import { ChangeHourPipe } from '../../pipes/change-hour-pipe';
+
+import { CRYPTO_TOKENS } from '../../constants';
 import { ChangeColor,CryptoIcon, Typography } from '../../directives';
+import { SymbolPipe, ChangeHourPipe } from '../../pipes';
 
 // import { ChangeColor } from '../../directives';
 // import { Typography } from '../../directives/typography/typography';

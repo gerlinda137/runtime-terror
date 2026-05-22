@@ -1,10 +1,9 @@
 import { Component, DOCUMENT, inject, signal, WritableSignal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { SidebarComponent } from "./shared/components/sidebar-component/sidebar-component";
-import { HeaderComponent } from "./shared/components/header-component/header-component";
-import { Logo } from './shared/components/logo/logo';
-import { User, ThemeType } from './shared/models';
+
+import { Logo, HeaderComponent, SidebarComponent } from './shared/components';
 import { MOCK_USER, THEMES } from './shared/constants';
+import type { User, ThemeType } from './shared/models';
 
 @Component({
   selector: 'app-root',
