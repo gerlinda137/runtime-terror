@@ -3,11 +3,9 @@
   [isLoggedIn]="isLoggedIn"
   [user]="user"
   [theme]="theme()"
-  [toggleTheme]="toggleTheme.bind(this)" />
-<aside class="main-aside">
-  <app-logo />
-  <app-sidebar-component class="sidebar" />
-</aside>
+  [toggleTheme]="toggleTheme" />
+<app-logo class="web-logo" />
+<app-sidebar-component class="web-sidebar" />
 <div class="page">
   <router-outlet />
 </div>

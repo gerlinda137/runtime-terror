@@ -1,10 +1,9 @@
-import { Component, DOCUMENT, inject, signal, WritableSignal } from '@angular/core';
+import { Component, DOCUMENT, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { SidebarComponent } from "./shared/components/sidebar-component/sidebar-component";
-import { HeaderComponent } from "./shared/components/header-component/header-component";
-import { Logo } from './shared/components/logo/logo';
-import { IUser, ThemeType } from './models';
+
+import { Logo, HeaderComponent, SidebarComponent } from './shared/components';
 import { MOCK_USER, THEMES } from './shared/constants';
+import type { User, ThemeType } from './shared/models';
 
 @Component({
   selector: 'app-root',
@@ -14,14 +13,14 @@ import { MOCK_USER, THEMES } from './shared/constants';
 })
 export class App {
   private document = inject(DOCUMENT);
-  protected readonly theme: WritableSignal<ThemeType> = signal(THEMES.LIGHT);
 
   protected readonly title = signal('crypto-trade');
   isLoggedIn = true;
-  user: IUser = MOCK_USER;
+  user: User = MOCK_USER;
+  theme = signal<ThemeType>(THEMES.LIGHT);
 
-
-  protected toggleTheme(theme: ThemeType) {
+  toggleTheme = () => {
+    const theme = this.theme() === THEMES.LIGHT ? THEMES.DARK : THEMES.LIGHT;
     this.theme.set(theme);
 
     if (theme === THEMES.DARK) {
@@ -29,5 +28,5 @@ export class App {
     } else {
       this.document.documentElement.removeAttribute('data-theme');
     }
-  }
+  };
 }

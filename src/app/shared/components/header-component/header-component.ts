@@ -1,29 +1,41 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Typography } from "../typography/typography";
+import { Component, input, OnInit } from '@angular/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
-import { IUser, ThemeType } from '../../../models';
+
+import type { User, ThemeType } from '../../models';
+import { Typography } from "../../directives";
 
 
 @Component({
   selector: 'app-header-component',
-  imports: [Typography, MatBadgeModule, MatMenuModule, MatIconModule],
+  imports: [Typography, MatBadgeModule, MatMenuModule, MatIconModule, Typography],
   templateUrl: './header-component.html',
   styleUrl: './header-component.scss',
 })
 export class HeaderComponent implements OnInit {
-  @Input() isLoggedIn = false;
-  @Input() user: IUser | null = null;
-  @Input() theme!: ThemeType;
-  @Input() toggleTheme!: (theme: ThemeType) => void;
+  isLoggedIn = input<boolean>(false);
+  user = input<User | null>(null);
+  theme = input<ThemeType>();
+  toggleTheme = input<() => void>();
   welcomeText = '';
-  userLogo = 'assets/icons/default_user.svg';
-
+  userLogo = '';
 
   ngOnInit() {
-    if (!this.user) return;
-    this.welcomeText = `Welcome ${this.user.name ?? ''}!`;
-    this.userLogo = this.user.logo;
+    const { logo, name } = this.user() ?? { logo: 'assets/icons/default_user.svg', name: '' };
+    this.welcomeText = `Welcome ${name}!`;
+    this.userLogo = logo;
+  }
+
+  handleTheme() {
+    const handler = this.toggleTheme();
+
+    if (handler) {
+      handler();
+    }
+  }
+
+  handleMode() {
+    return this.theme() === 'light' ? 'dark_mode' : 'light_mode';
   }
 }

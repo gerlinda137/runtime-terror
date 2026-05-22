@@ -2,12 +2,14 @@ import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
-import { SIDEBAR_ITEMS } from '../../constants';
-import type { ISidebarItem } from '../../../models';
+
 import { CommonModule } from '@angular/common';
 import { RouterLink } from "@angular/router";
-import { Typography } from "../typography/typography";
 import { BreakpointObserver } from '@angular/cdk/layout';
+
+import { SIDEBAR_ITEMS } from '../../constants';
+import { Typography } from '../../directives';
+import type { SidebarItem } from '../../models';
 
 @Component({
   selector: 'app-sidebar-component',
@@ -27,7 +29,7 @@ export class SidebarComponent implements OnInit {
   @ViewChild('sidenav', { static: true }) sidenav!: MatSidenav;
   private bp = inject(BreakpointObserver);
 
-  menu: ISidebarItem[] = SIDEBAR_ITEMS;
+  menu: SidebarItem[] = SIDEBAR_ITEMS;
   isMobile = false;
   openedItem: string | null = null;
 

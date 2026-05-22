@@ -1,6 +1,6 @@
-import type { ICryptoToken } from '../../models';
+import type { CryptoToken } from '../models';
 
-export const CRYPTO_TOKENS: ICryptoToken[] = [
+export const CRYPTO_TOKENS: CryptoToken[] = [
   {
     name: 'BNB',
     symbol: 'BNBUSDT',

@@ -4,6 +4,7 @@ Topic: Project Setup & Component Basics
 Date: 12/05/2026-19/05/2026
 
 **What was done:**
+week_1:
 1. Implemented Light/Dark Theme System
 - Added global CSS variable–based theming
 - Introduced data-theme attribute switching
@@ -31,18 +32,60 @@ Date: 12/05/2026-19/05/2026
 - Applied Material components in sidebar
 - Unified Material tokens with custom theme variables
 
+week_2
+1. Fix layout according to the Figma project (apply UI colors and typography styles)
+2. Remove the Typography component and add a typography directive
+3. Remove @Input and migrate to signals
+4. Rename interfaces following Angular style guide best practices
+5. Start backend development
+
 **Problems:**
-themes variable, root
+week_1:
+- themes variable, root
+
+week_2:
+- Resolved layout conflicts related to misplaced @if structural directive
+- Cleaned up lint errors: removed unused Input, migrated constructor DI to inject()
+- Refactored project structure: reorganized constants according to feature‑based architecture
+- Migrated from Typography component to a standalone typography directive
+- Analyzed public Angular repositories to refine project structure
+
 
 **Solutions:**
-add variable in styles.scss
+week_1:
+- add variable in styles.scss
+week_2:
+- Replaced the Typography component with a typography directive
+- Migrated from @Input() bindings to signal‑based inputs
+- Updated theme variables and unified naming
+- Renamed interfaces according to Angular style guide conventions
+- Refactored layout based on the Figma design
 
-**What I learned:**
-signal() ))))
+
+week_1:
+- signal()
+week_2:
+- How to replace a component with a standalone directive (typography refactor)
+- How to migrate from @Input() to signal‑based inputs (signal(), input(), computed())
+- How to apply Angular style guide rules when renaming interfaces
+- How to organize constants, shared UI, and feature folders in a modern Angular structure
+- How to resolve template rendering issues related to structural directives (@for, @if)
+- How to use inject() instead of constructor DI in standalone components
 
 **Plans:**
-add routes, pages components
+week_1:
+- refactor typography
+- migrate to signals
+- fix layout 
+week_2:
+- Start backend implamentation
+- Study Angular directives and the pattern for creating reusable UI behavior
+- Analyze a public API to determine which components can be added to the project, which routes are relevant, and which pages need to be implemented
+- Explore whether the backend should be integrated directly into the project or developed in a separate repository
 
 **Time spent:**
-18 houres
+week_1:
+18 h
+week_2:
+16 h
 
