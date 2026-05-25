@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from "@angular/router";
 import { BreakpointObserver } from '@angular/cdk/layout';
 
-import { Typography } from '../../shared/directives';
+import { Typography } from '../../shared/typography/typography.directive';
 
 import { SIDEBAR_ITEMS } from './sidebar.constant';
 import type { SidebarItem } from './sidebar.model';

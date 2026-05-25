@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { CurrencyPipe } from '@angular/common';
 
-import { CRYPTO_TOKENS } from '../../shared/constants';
-import { Typography } from '../../shared/directives';
+import { Typography } from '../../shared/typography/typography.directive';
+
+import { CRYPTO_TOKENS } from '../shared/tokens.mock';
 
 import { ChangeColor } from '../shared/change-color.directive';
 import { CryptoIcon } from '../shared/crypto-icon.directive';

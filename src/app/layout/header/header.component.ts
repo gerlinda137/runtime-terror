@@ -3,8 +3,9 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 
-import type { User, ThemeType } from '../../shared/models';
-import { Typography } from '../../shared/directives';
+import type { User } from '../../shared/user/user.model';
+import type { ThemeType } from '../../shared/theme/theme.model';
+import { Typography } from '../../shared/typography/typography.directive';
 
 
 @Component({
