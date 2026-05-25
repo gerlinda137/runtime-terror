@@ -10,10 +10,10 @@ import type { User, ThemeType } from './shared/models';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, SidebarComponent, HeaderComponent, Logo],
-  templateUrl: './app.html',
-  styleUrl: './app.scss'
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.scss'
 })
-export class App {
+export class AppComponent {
   private document = inject(DOCUMENT);
 
   protected readonly title = signal('crypto-trade');
