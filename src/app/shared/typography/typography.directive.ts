@@ -1,6 +1,6 @@
 import { Directive, ElementRef, inject, signal } from '@angular/core';
 
-import type { TypographyVariantsType } from '../../models';
+import type { TypographyVariantsType } from './typography.model';
 
 @Directive({
   selector: '[appTypography]',

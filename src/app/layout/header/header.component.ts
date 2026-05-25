@@ -3,15 +3,16 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 
-import type { User, ThemeType } from '../../models';
-import { Typography } from "../../directives";
+import type { User } from '../../shared/user/user.model';
+import type { ThemeType } from '../../shared/theme/theme.model';
+import { Typography } from '../../shared/typography/typography.directive';
 
 
 @Component({
-  selector: 'app-header-component',
-  imports: [Typography, MatBadgeModule, MatMenuModule, MatIconModule, Typography],
-  templateUrl: './header-component.html',
-  styleUrl: './header-component.scss',
+  selector: 'app-header',
+  imports: [Typography, MatBadgeModule, MatMenuModule, MatIconModule],
+  templateUrl: './header.component.html',
+  styleUrl: './header.component.scss',
 })
 export class HeaderComponent implements OnInit {
   isLoggedIn = input<boolean>(false);

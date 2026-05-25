@@ -1,4 +1,4 @@
-import type { CryptoToken } from '../models';
+import type { CryptoToken } from './crypto.model';
 
 export const CRYPTO_TOKENS: CryptoToken[] = [
   {

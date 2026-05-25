@@ -7,12 +7,13 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from "@angular/router";
 import { BreakpointObserver } from '@angular/cdk/layout';
 
-import { SIDEBAR_ITEMS } from '../../constants';
-import { Typography } from '../../directives';
-import type { SidebarItem } from '../../models';
+import { Typography } from '../../shared/typography/typography.directive';
+
+import { SIDEBAR_ITEMS } from './sidebar.constant';
+import type { SidebarItem } from './sidebar.model';
 
 @Component({
-  selector: 'app-sidebar-component',
+  selector: 'app-sidebar',
   imports: [
     CommonModule,
     MatSidenavModule,
@@ -21,8 +22,8 @@ import type { SidebarItem } from '../../models';
     RouterLink,
     Typography
   ],
-  templateUrl: './sidebar-component.html',
-  styleUrl: './sidebar-component.scss',
+  templateUrl: './sidebar.component.html',
+  styleUrl: './sidebar.component.scss',
   standalone: true,
 })
 export class SidebarComponent implements OnInit {

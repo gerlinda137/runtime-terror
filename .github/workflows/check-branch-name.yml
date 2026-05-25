@@ -24,7 +24,7 @@ jobs:
       - name: Validate branch name
         run: |
           BRANCH="${{ github.head_ref }}"
-          PATTERN="^(feature|bugfix|hotfix|chore|release)\/[a-z0-9][a-z0-9\-]*$"
+          PATTERN="^(feature|bugfix|hotfix|chore|release|refactor)\/[a-z0-9][a-z0-9\-]*$"
 
           echo "Branch name: $BRANCH"
 
@@ -42,6 +42,7 @@ jobs:
             echo "  hotfix/short-description"
             echo "  chore/short-description"
             echo "  release/x.x.x"
+            echo "  refactor/short-description"
             echo ""
             echo "Rules:"
             echo "  - Only lowercase letters, numbers, and hyphens in the description"

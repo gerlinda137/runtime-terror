@@ -1,17 +1,21 @@
 import { Component, DOCUMENT, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { Logo, HeaderComponent, SidebarComponent } from './shared/components';
-import { MOCK_USER, THEMES } from './shared/constants';
-import type { User, ThemeType } from './shared/models';
+import { HeaderComponent } from './layout/header/header.component';
+import { SidebarComponent } from './layout/sidebar/sidebar.component';
+import { Logo } from './shared/logo/logo.component';
+import { MOCK_USER } from './shared/user/user.mock';
+import type { User } from './shared/user/user.model';
+import { THEMES } from './shared/theme/theme.constant';
+import type { ThemeType } from './shared/theme/theme.model';
 
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, SidebarComponent, HeaderComponent, Logo],
-  templateUrl: './app.html',
-  styleUrl: './app.scss'
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.scss'
 })
-export class App {
+export class AppComponent {
   private document = inject(DOCUMENT);
 
   protected readonly title = signal('crypto-trade');
