@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { TrendingMarket } from '../shared/components/trending-market/trending-market';
+import { TrendingMarketComponent } from './trending-market/trending-market.component';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [TrendingMarket],
+  imports: [TrendingMarketComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
