@@ -1,7 +1,9 @@
 import { Component, DOCUMENT, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { Logo, HeaderComponent, SidebarComponent } from './shared/components';
+import { Logo } from './shared/components';
+import { HeaderComponent } from './layout/header/header.component';
+import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { MOCK_USER, THEMES } from './shared/constants';
 import type { User, ThemeType } from './shared/models';
 
