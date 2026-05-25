@@ -5,41 +5,45 @@ Date: 12/05/2026-19/05/2026
 
 **What was done:**
 week_1:
-1. Implemented Light/Dark Theme System
-- Added global CSS variable–based theming
+- Implemented Light/Dark Theme System
+- Added global CSS‑variable–based theming
 - Introduced data-theme attribute switching
 - Created full light and dark palettes (colors, typography, spacing, shadows)
 - Ensured theme propagation across all components
 - Integrated theme toggle into the header menu
-
-2. Add main grid layout
-
-3. Added Typography Component
+- Created main grid layout
+- Added Typography Component → later refactored into a Typography Directive
 - Implemented reusable <app-typography> component
-- Added support for multiple text variants (heading, body, description, etc.)
+- Added multiple text variants (heading, body, description, etc.)
 - Connected typography to global CSS variables
 - Ensured responsive scaling for mobile and desktop
-
-4. Added Sidebar Component
-- Created a standalone sidebar with navigation items list
+- Added Sidebar Component
+- Created standalone sidebar with navigation list
 - Implemented responsive layout and Material icons
-- Integrated with the main application grid structure
+- Integrated sidebar into the main grid layout
 - Styled using theme variables for full light/dark support
-
-5. Integrated Angular Material
+- Integrated Angular Material
 - Installed and configured Angular Material 17+
-- Enabled Material Design tokens and theming system
-- Applied Material components in sidebar
+- Enabled Material Design tokens and theming
+- Applied Material components in the sidebar
 - Unified Material tokens with custom theme variables
 
-week_2
-1. Fix layout according to the Figma project (apply UI colors and typography styles)
-2. Remove the Typography component and add a typography directive
-3. Remove @Input and migrate to signals
-4. Rename interfaces following Angular style guide best practices
-5. Start backend development
+Week 2
+- Fixed layout according to the Figma design (colors, typography, spacing)
+- Removed Typography Component and replaced it with a Typography Directive
+- Removed @Input() and migrated to signals
+- Renamed interfaces following Angular Style Guide conventions
+- Started backend development
+-- Created backend repository
+-- Initialized NestJS project
+-- Added Docker configuration
+-- Added Prisma + User schema
+-- Implemented Auth module
+-- Added Swagger documentation
+
 
 **Problems:**
+
 week_1:
 - themes variable, root
 
@@ -54,6 +58,7 @@ week_2:
 **Solutions:**
 week_1:
 - add variable in styles.scss
+
 week_2:
 - Replaced the Typography component with a typography directive
 - Migrated from @Input() bindings to signal‑based inputs
@@ -61,9 +66,15 @@ week_2:
 - Renamed interfaces according to Angular style guide conventions
 - Refactored layout based on the Figma design
 
-
+**Learned:**
 week_1:
-- signal()
+- How to configure a global CSS‑variable theming system (light/dark mode)
+- How to propagate theme variables across the entire Angular application
+- How to integrate Angular Material 17+ with custom design tokens
+- How to combine Material theming with custom CSS variables
+- How to design a standalone sidebar component with responsive behavior
+- How to organize global styles (root variables, theme layers, spacing, typography)
+
 week_2:
 - How to replace a component with a standalone directive (typography refactor)
 - How to migrate from @Input() to signal‑based inputs (signal(), input(), computed())
@@ -77,15 +88,19 @@ week_1:
 - refactor typography
 - migrate to signals
 - fix layout 
+
 week_2:
 - Start backend implamentation
 - Study Angular directives and the pattern for creating reusable UI behavior
+
+week_3:
 - Analyze a public API to determine which components can be added to the project, which routes are relevant, and which pages need to be implemented
-- Explore whether the backend should be integrated directly into the project or developed in a separate repository
+- inplament Auth Module
+- implament pages routings
 
 **Time spent:**
 week_1:
 18 h
 week_2:
-16 h
+32 h
 
