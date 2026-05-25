@@ -1,0 +1,79 @@
+@use './typography.mixins.scss' as *;
+
+@use './typography.mixins.scss' as *;
+
+.heading-1 {
+  @include heading-1;
+}
+
+.heading-2 {
+  @include heading-2;
+}
+
+.heading-3 {
+  @include heading-3;
+}
+
+.heading-4 {
+  @include heading-4;
+}
+
+.heading-5 {
+  @include heading-5;
+}
+
+.heading-6 {
+  @include heading-6;
+}
+
+.display-1 {
+  @include display-1;
+}
+
+.double-extra-large-text-semibold {
+  @include double-extra-large-text-semibold;
+}
+
+.double-extra-large-text-regular {
+  @include double-extra-large-text-regular;
+}
+
+.extra-large-text-semibold {
+  @include extra-large-text-semibold;
+}
+
+.extra-large-text-regular {
+  @include extra-large-text-regular;
+}
+
+.large-text-semibold {
+  @include large-text-semibold;
+}
+
+.large-text-regular {
+  @include large-text-regular;
+}
+
+.medium-text-semibold {
+  @include medium-text-semibold;
+}
+
+.medium-text-regular {
+  @include medium-text-regular;
+}
+
+.small-text-semibold {
+  @include small-text-semibold;
+}
+
+.small-text-regular {
+  @include small-text-regular;
+}
+
+.extra-small-text-semibold {
+  @include extra-small-text-semibold;
+}
+
+.extra-small-text-regular {
+  @include extra-small-text-regular;
+}
