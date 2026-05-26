@@ -8,6 +8,8 @@ import { ACCESS_TOKEN } from '../../shared/constants';
 
 describe('Auth1Service', () => {
   let service: AuthService;
+  interface TestErrType { status: number }
+
   const testUser: UserPayload = {
     email: 'test@mail.com',
     password: '12345678',
@@ -31,8 +33,10 @@ describe('Auth1Service', () => {
       expect(res.accessToken).toBeTruthy();
       expect(service.token()).toBe(res.accessToken);
       expect(localStorage.getItem(ACCESS_TOKEN)).toBe(res.accessToken);
-    } catch (err: { status: number }) {
-      expect(err.status).toBe(400);
+    } catch (err: unknown) {
+      const { status } = err as TestErrType;
+
+      expect(status).toBe(400);
     }
   });
 
@@ -57,10 +61,12 @@ describe('Auth1Service', () => {
       expect(service.user()?.email).toBe(testUser.email);
 
 
-    } catch (err: { status: number }) {
+    } catch (err: unknown) {
+      const { status } = err as TestErrType;
+
       console.log('login error', err);
 
-      expect([400, 401, 404]).toContain(err.status);
+      expect([400, 401, 404]).toContain(status);
     }
   });
 });
