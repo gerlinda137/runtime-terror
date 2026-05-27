@@ -3,10 +3,8 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 
-import type { User } from '../../shared/user/user.model';
-import type { ThemeType } from '../../shared/theme/theme.model';
-import { Typography } from '../../shared/typography/typography.directive';
-
+import type { ThemeType, User } from '../../core/models';
+import { Typography } from '../../shared/directive';
 
 @Component({
   selector: 'app-header',
@@ -15,6 +13,7 @@ import { Typography } from '../../shared/typography/typography.directive';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent implements OnInit {
+
   isLoggedIn = input<boolean>(false);
   user = input<User | null>(null);
   theme = input<ThemeType>();
@@ -23,7 +22,8 @@ export class HeaderComponent implements OnInit {
   userLogo = '';
 
   ngOnInit() {
-    const { logo, name } = this.user() ?? { logo: 'assets/icons/default_user.svg', name: '' };
+    const { name } = this.user() ?? { name: '' };
+    const logo = 'assets/icons/default_user.svg';
     this.welcomeText = `Welcome ${name}!`;
     this.userLogo = logo;
   }
