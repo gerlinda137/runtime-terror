@@ -23,4 +23,18 @@ export const routes: Routes = [
       },
     ],
   },
+  {
+    path: ROUTES.SETTINGS,
+    loadComponent: () =>
+      import('../app/settings/pages/settings-page/settings-page')
+        .then(m => m.SettingsPage),
+    children: [
+      {
+        path: ROUTES.AUTH,
+        loadComponent: () =>
+          import('../app/settings/pages/api-keys-page/api-keys-page')
+            .then(m => m.ApiKeysPage),
+      }
+    ]
+  }
 ];

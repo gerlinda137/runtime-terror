@@ -3,6 +3,8 @@ export const ROUTES = {
   AUTH: 'auth',
   LOGIN: 'login',
   REGISTER: 'register',
+  SETTINGS: 'settings',
+  API_KEYS: 'api-keys'
 } as const
 const { AUTH, LOGIN, REGISTER } = ROUTES;
 
