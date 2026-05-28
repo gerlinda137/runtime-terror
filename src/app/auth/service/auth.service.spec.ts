@@ -5,9 +5,11 @@ import { UserPayload } from '../../core/models';
 import { provideHttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { ACCESS_TOKEN } from '../../shared/constants';
+import { TokenService } from './token.service';
 
 describe('Auth1Service', () => {
   let service: AuthService;
+  let tokenService: TokenService;
   interface TestErrType { status: number }
 
   const testUser: UserPayload = {
@@ -15,14 +17,21 @@ describe('Auth1Service', () => {
     password: '12345678',
     name: 'TestUser'
   };
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         AuthService,
+        TokenService,
         provideHttpClient()
       ],
     });
     service = TestBed.inject(AuthService);
+    tokenService = TestBed.inject(TokenService);
+  });
+
+  afterEach(() => {
+    localStorage.clear();
   });
 
   it('should register user or handle existing user', async () => {
@@ -59,8 +68,6 @@ describe('Auth1Service', () => {
 
       expect(service.user()).toBeTruthy();
       expect(service.user()?.email).toBe(testUser.email);
-
-
     } catch (err: unknown) {
       const { status } = err as TestErrType;
 
