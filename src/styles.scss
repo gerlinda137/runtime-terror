@@ -3,6 +3,7 @@
 @use 'styles//fonts.scss' as *;
 @use 'styles/variable.scss' as *;
 @use 'styles/normalize.css' as *;
+@use 'styles/typography.scss' as *;
 
 @include mat.core();
 

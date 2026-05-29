@@ -4,8 +4,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ROUTES } from './shared/constants';
 
 export const routes: Routes = [
-  { path: '', redirectTo: ROUTES.HOME, pathMatch: 'full' },
-  { path: ROUTES.HOME, component: DashboardComponent },
+  { path: '', component: DashboardComponent, pathMatch: 'full' },
+  { path: 'dashboard', redirectTo: '', pathMatch: 'full' },
   {
     path: ROUTES.AUTH,
     children: [
@@ -24,13 +24,16 @@ export const routes: Routes = [
     ],
   },
   {
-    path: ROUTES.SETTINGS,
-    loadComponent: () =>
-      import('../app/settings/pages/settings-page/settings-page')
-        .then(m => m.SettingsPage),
+    path: ROUTES.ACCOUNT,
     children: [
       {
-        path: ROUTES.AUTH,
+        path: ROUTES.SETTINGS,
+        loadComponent: () =>
+          import('../app/settings/pages/settings-page/settings-page')
+            .then(m => m.SettingsPage),
+      },
+      {
+        path: ROUTES.API_KEYS,
         loadComponent: () =>
           import('../app/settings/pages/api-keys-page/api-keys-page')
             .then(m => m.ApiKeysPage),

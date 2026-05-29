@@ -1,3 +1,4 @@
+import { FOOL_ROUTES, ROUTES } from "../../shared/constants";
 
 export const SIDEBAR_ITEMS = [
   {
@@ -6,19 +7,11 @@ export const SIDEBAR_ITEMS = [
     link: '/'
   },
   {
-    label: 'Analytics',
-    icon: 'analytics',
+    label: ROUTES.ACCOUNT,
+    icon: 'account_circle',
     children: [
-      { label: 'Overview', link: '/analytics/overview' },
-      { label: 'Reports', link: '/analytics/reports' }
+      { label: ROUTES.SETTINGS, link: FOOL_ROUTES.ACCOUNT_SETTINGS },
+      { label: ROUTES.API_KEYS, link: FOOL_ROUTES.ACCOUNT_KEYS }
     ]
   },
-  {
-    label: 'Portfolio',
-    icon: 'account_balance_wallet',
-    children: [
-      { label: 'My Assets', link: '/portfolio/assets' },
-      { label: 'Transactions', link: '/portfolio/transactions' }
-    ]
-  }
 ];

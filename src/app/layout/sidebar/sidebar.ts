@@ -4,7 +4,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 
 import { CommonModule } from '@angular/common';
-import { RouterLink } from "@angular/router";
+import { RouterLink, RouterLinkActive } from "@angular/router";
 import { BreakpointObserver } from '@angular/cdk/layout';
 
 import { Typography } from '../../shared/directive';
@@ -20,6 +20,7 @@ import type { SidebarItem } from './model';
     MatListModule,
     MatIconModule,
     RouterLink,
+    RouterLinkActive,
     Typography
   ],
   templateUrl: './sidebar.html',

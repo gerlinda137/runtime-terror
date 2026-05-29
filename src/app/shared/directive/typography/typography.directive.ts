@@ -1,16 +1,28 @@
-import { Directive, ElementRef, inject, signal } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, inject, input } from '@angular/core';
+import { TypographyVariantsType } from './typography.model';
 
-import type { TypographyVariantsType } from './typography.model';
-
+/** example:
+ *  * <span appTypography="medium-text-semibold">hello world</span>
+ * Hello world
+ * <span appTypography="medium-text-semibold" [isLowercase]="true">Hello World</span>
+ * hello World
+ */
 @Directive({
   selector: '[appTypography]',
   standalone: true,
 })
-export class Typography {
-  private el = inject(ElementRef<HTMLElement>);
-  private variant = signal<TypographyVariantsType>('large-text-regular');
+export class Typography implements AfterViewInit {
+  variant = input<TypographyVariantsType | ''>('large-text-regular', { alias: 'appTypography' });
+  isLowercase = input<boolean>(false);
 
-  constructor() {
-    this.el.nativeElement.classList.add(this.variant());
+  private el = inject(ElementRef<HTMLElement>);
+  ngAfterViewInit() {
+    const element = this.el.nativeElement;
+    const finalClass = this.variant()?.trim()
+      ? this.variant()
+      : 'large-text-regular';
+    const regCase = `first-letter-${this.isLowercase() ? 'lowercase' : 'uppercase'}`;
+
+    element.classList.add(finalClass, regCase);
   }
 }
