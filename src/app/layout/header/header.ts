@@ -9,10 +9,10 @@ import { Typography } from '../../shared/directive';
 @Component({
   selector: 'app-header',
   imports: [Typography, MatBadgeModule, MatMenuModule, MatIconModule],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.scss',
+  templateUrl: './header.html',
+  styleUrl: './header.scss',
 })
-export class HeaderComponent implements OnInit {
+export class Header implements OnInit {
 
   isLoggedIn = input<boolean>(false);
   user = input<User | null>(null);

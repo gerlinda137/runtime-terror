@@ -4,13 +4,13 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 
 import { CommonModule } from '@angular/common';
-import { RouterLink } from "@angular/router";
+import { RouterLink, RouterLinkActive } from "@angular/router";
 import { BreakpointObserver } from '@angular/cdk/layout';
 
 import { Typography } from '../../shared/directive';
 
-import { SIDEBAR_ITEMS } from './sidebar.constant';
-import type { SidebarItem } from './sidebar.model';
+import { SIDEBAR_ITEMS } from './constant';
+import type { SidebarItem } from './model';
 
 @Component({
   selector: 'app-sidebar',
@@ -20,13 +20,14 @@ import type { SidebarItem } from './sidebar.model';
     MatListModule,
     MatIconModule,
     RouterLink,
+    RouterLinkActive,
     Typography
   ],
-  templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.scss',
+  templateUrl: './sidebar.html',
+  styleUrl: './sidebar.scss',
   standalone: true,
 })
-export class SidebarComponent implements OnInit {
+export class Sidebar implements OnInit {
   @ViewChild('sidenav', { static: true }) sidenav!: MatSidenav;
   private bp = inject(BreakpointObserver);
 

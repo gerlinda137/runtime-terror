@@ -18,12 +18,12 @@
 
         @if (!item.children) {
         <a
-          mat-list-item [routerLink]="item.link"
-          class="item active"
-          routerLinkActive="active">
+          [routerLink]="item.link"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLinkActive="active"
+          class="item">
           <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
           <span
-            matListItemTitle
             appTypography="medium-text-semibold">
             {{ item.label}}
           </span>
@@ -49,7 +49,7 @@
         <div class="children" [class.open]="openedItem === item.label">
           @for (child of item.children; track child.label) {
           <a
-            mat-list-item [routerLink]="child.link"
+            [routerLink]="child.link"
             routerLinkActive="active"
             class="child">
             <span
@@ -60,7 +60,7 @@
           }
         </div>
         }
-      }
+        }
 
       </mat-nav-list>
 
