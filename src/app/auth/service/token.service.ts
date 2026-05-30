@@ -7,6 +7,7 @@ import { ACCESS_TOKEN } from '../../shared/constants';
 export class TokenService {
   private readonly _token = signal<string | null>(localStorage.getItem(ACCESS_TOKEN));
   readonly token = computed(() => this._token());
+  readonly isAuthenticated = computed(() => Boolean(this._token()));
 
   setToken(token: string): void {
     this._token.set(token);
@@ -20,9 +21,5 @@ export class TokenService {
   removeToken(): void {
     this._token.set(null);
     localStorage.removeItem(ACCESS_TOKEN);
-  }
-
-  isAuthenticated(): boolean {
-    return Boolean(this._token());
   }
 }
