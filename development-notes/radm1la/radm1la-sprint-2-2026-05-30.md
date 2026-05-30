@@ -14,7 +14,7 @@ Today i created interceptor which ,in brief, connects JWT token to HTTP requests
 woudn't call it a problem,but i had never written tests and guard before, so i struggled with them a bit and as always had some issues with GitHub branches, but i am learning.
 - **Solutions:** 
 Well, i read some information on internet, checked my old project i did in angular where i had already used interceptor ,and asked a lot of questions to AI.
-**What I learned:**
+- **What I learned:**
 How to create Guard and use it on routes/components via canActivate: [GUARDS NAME]. 
 Whats createUrlTree and that before this developers explicitly returned f.e. false and plus used routes.navigate() ,but createUlTree does both for you.
 - **Plans:** write 404 not found page, implement route for it using ,maybe, lazy loading.
