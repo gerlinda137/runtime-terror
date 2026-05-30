@@ -6,20 +6,21 @@ import { environment } from '../../../environments/environments';
 
 import { AuthResponse, User, UserPayload } from '../../core/models';
 import { ACCESS_TOKEN, FOOL_ROUTES, USER } from '../../shared/constants';
+import { TokenService } from './token.service';
 
 // ToDo: add custom error catcher
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private http = inject(HttpClient);
+  private tokenService = inject(TokenService);
 
   private readonly _user = signal<User | null>(null);
-  private readonly _token = signal<string | null>(null);
   private readonly _isLoading = signal(false);
   private readonly _base_Url = environment.apiUrl;
 
   readonly user = computed(() => this._user());
-  readonly token = computed(() => this._token());
-  readonly isAuthenticated = computed(() => Boolean(this._token()));
+  readonly token = computed(() => this.tokenService.token());
+  readonly isAuthenticated = computed(() => this.tokenService.isAuthenticated());
   readonly isLoading = computed(() => this._isLoading());
 
   constructor() {
@@ -58,23 +59,19 @@ export class AuthService {
 
   logout() {
     this._user.set(null);
-    this._token.set(null);
-    localStorage.removeItem(ACCESS_TOKEN);
+    this.tokenService.removeToken();
     localStorage.removeItem(USER);
   }
 
   private setSession(res: AuthResponse) {
-    this._token.set(res.accessToken);
+    this.tokenService.setToken(res.accessToken);
     this._user.set(res.user);
-    localStorage.setItem(ACCESS_TOKEN, res.accessToken);
     localStorage.setItem(USER, JSON.stringify(res.user));
   }
 
   private restoreFromStorage() {
-    const token = localStorage.getItem(ACCESS_TOKEN);
     const userRaw = localStorage.getItem(USER);
-    if (token && userRaw) {
-      this._token.set(token);
+    if (this.tokenService.isAuthenticated() && userRaw) {
       this._user.set(JSON.parse(userRaw));
     }
   }
