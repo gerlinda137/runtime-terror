@@ -6,15 +6,11 @@ import { ACCESS_TOKEN } from '../../shared/constants';
 })
 export class TokenService {
   private readonly _token = signal<string | null>(localStorage.getItem(ACCESS_TOKEN));
-  readonly token = computed(() => this._token());
+  readonly token = this._token.asReadonly();
 
   setToken(token: string): void {
     this._token.set(token);
     localStorage.setItem(ACCESS_TOKEN, token);
-  }
-
-  getToken(): string | null {
-    return this._token();
   }
 
   removeToken(): void {
