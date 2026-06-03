@@ -74,7 +74,7 @@ export class AuthService {
 
   private restoreFromStorage() {
     const userRaw = localStorage.getItem(USER);
-    if (this.isAuthenticated() && userRaw) {
+    if (this.tokenService.getToken() && userRaw) {
       this._user.set(JSON.parse(userRaw));
     }
   }
