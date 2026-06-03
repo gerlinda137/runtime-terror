@@ -27,6 +27,7 @@ export const routes: Routes = [
   {
     path: ROUTES.ACCOUNT,
     canActivate:[authGuard],
+    canActivateChild:[authGuard],
     children: [
       {
         path: ROUTES.SETTINGS,

@@ -5,7 +5,7 @@ import { catchError, tap, throwError } from 'rxjs';
 import { environment } from '../../../environments/environments';
 
 import { AuthResponse, User, UserPayload } from '../../core/models';
-import { ACCESS_TOKEN, FOOL_ROUTES, USER } from '../../shared/constants';
+import { FOOL_ROUTES, USER } from '../../shared/constants';
 import { TokenService } from './token.service';
 
 // ToDo: add custom error catcher
@@ -19,9 +19,10 @@ export class AuthService {
   private readonly _base_Url = environment.apiUrl;
 
   readonly user = computed(() => this._user());
-  readonly token = computed(() => this.tokenService.token());
-  readonly isAuthenticated = computed(() => this.tokenService.isAuthenticated());
+  readonly token = this.tokenService.token;//tokenService's token is already computed()
   readonly isLoading = computed(() => this._isLoading());
+
+  readonly isAuthenticated = computed(() => Boolean(this.tokenService.token()));
 
   constructor() {
     this.restoreFromStorage();
@@ -29,7 +30,8 @@ export class AuthService {
 
   login(payload: UserPayload) {
     this._isLoading.set(true);
-    return this.http.post<AuthResponse>(`${this._base_Url}/${FOOL_ROUTES.AUTH_LOGIN}`, payload)
+    return this.http
+      .post<AuthResponse>(`${this._base_Url}/${FOOL_ROUTES.AUTH_LOGIN}`, payload)
       .pipe(
         tap((res) => {
           this.setSession(res);
@@ -44,7 +46,8 @@ export class AuthService {
 
   register(payload: UserPayload) {
     this._isLoading.set(true);
-    return this.http.post<AuthResponse>(`${this._base_Url}/${FOOL_ROUTES.AUTH_REGISTER}`, payload)
+    return this.http
+      .post<AuthResponse>(`${this._base_Url}/${FOOL_ROUTES.AUTH_REGISTER}`, payload)
       .pipe(
         tap((res) => {
           this.setSession(res);
@@ -71,7 +74,7 @@ export class AuthService {
 
   private restoreFromStorage() {
     const userRaw = localStorage.getItem(USER);
-    if (this.tokenService.isAuthenticated() && userRaw) {
+    if (this.isAuthenticated() && userRaw) {
       this._user.set(JSON.parse(userRaw));
     }
   }
