@@ -6,20 +6,24 @@ import { catchError, throwError } from 'rxjs';
 
 // Attaches JWT token to all outgoing HTTP requests and handles 401 unauthorized errors
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-   const tokenService = inject(TokenService);
-   const authService = inject(AuthService);
+  const tokenService = inject(TokenService);
+  const authService = inject(AuthService);
 
-   const token = tokenService.getToken();
+  const token = tokenService.getToken();
 
-   const clonedReq = token ? req.clone({setHeaders: {Authorization: `Bearer ${token}`}}) : req;
+  // Do not attach token to login/register requests because user is not authenticated yet
+  // TODO: review
+  const isAuthRequest = req.url.includes('/login') || req.url.includes('/register');
 
-   return next(clonedReq).pipe(
-    catchError((err : HttpErrorResponse)=>{
-      if(err.status === 401){
+  const clonedReq = token && !isAuthRequest ? req.clone({ setHeaders: { Authorization: `Bearer ${token}` } }) : req;
+
+  return next(clonedReq).pipe(
+    catchError((err: HttpErrorResponse) => {
+      if (err.status === 401) {
         authService.logout();
       }
 
-      return throwError(()=> err);
-    })
-   )
+      return throwError(() => err);
+    }),
+  );
 };
