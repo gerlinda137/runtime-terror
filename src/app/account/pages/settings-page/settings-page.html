@@ -1,0 +1,4 @@
+<h2 appTypography="heading-3">Account Settings</h2>
+@if(user() !== null) {
+<app-user-avatar [userData]="user()"></app-user-avatar>
+}

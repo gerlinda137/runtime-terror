@@ -1,0 +1,6 @@
+@use '../../../../styles/mixins/page.scss' as *;
+
+:host {
+  @include page-layout();
+  border: 1px solid black;
+}

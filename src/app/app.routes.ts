@@ -32,13 +32,13 @@ export const routes: Routes = [
       {
         path: ROUTES.SETTINGS,
         loadComponent: () =>
-          import('../app/settings/pages/settings-page/settings-page')
+          import('../app/account/pages/settings-page/settings-page')
             .then(m => m.SettingsPage),
       },
       {
         path: ROUTES.API_KEYS,
         loadComponent: () =>
-          import('../app/settings/pages/api-keys-page/api-keys-page')
+          import('../app/account/pages/api-keys-page/api-keys-page')
             .then(m => m.ApiKeysPage),
       }
     ]

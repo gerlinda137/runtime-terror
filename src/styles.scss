@@ -1,9 +1,10 @@
 @use '@angular/material' as mat;
+@use 'styles/common.scss' as *;
 @use 'styles/app-theme.scss' as *;
 @use 'styles//fonts.scss' as *;
-@use 'styles/variable.scss' as *;
 @use 'styles/normalize.css' as *;
 @use 'styles/typography.scss' as *;
+@use 'styles/map.scss' as *;
 
 @include mat.core();
 
@@ -14,7 +15,7 @@
 }
 
 html {
-  height: 100%;
+  height: 100vh;
   @include mat.theme((color: (primary: mat.$cyan-palette,
         tertiary: mat.$orange-palette,
       ),
@@ -25,14 +26,13 @@ html {
 
 body {
   color-scheme: light;
-  background-color: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
-  font: var(--mat-sys-body-medium);
+  background-color: var(--background);
+  color: var(--text-primary);
+  font: var(--text-primary);
 
   // Reset the user agent margin.
   margin: 0;
   height: 100%;
-
   font-family: $font-main;
 }
 
@@ -41,7 +41,7 @@ body {
   background: var(--card-bg);
   border: 0.0625rem solid var(--card-border);
   /* 1px */
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   padding: var(--padding-card);
   box-shadow: var(--shadow-card);
 }
@@ -56,13 +56,13 @@ button[mat-raised-button] {
 }
 
 button[color='primary'] {
-  background: var(--md-sys-color-primary);
-  color: var(--md-sys-color-on-primary);
+  background: var(--primary-20);
+  color: var(--primary-100);
 }
 
 button[color='secondary'] {
-  background: var(--md-sys-color-secondary);
-  color: var(--md-sys-color-on-secondary);
+  background: var(--base-80);
+  color: var(--base-100);
 }
 
 .custom-user-menu {
@@ -82,7 +82,7 @@ button[color='secondary'] {
     }
 
     &:hover {
-      background-color: var(--md-sys-color-surface-variant) !important;
+      background-color: var(--background) !important;
     }
   }
 }

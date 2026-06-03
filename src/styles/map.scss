@@ -1,0 +1,22 @@
+$spacing: (
+  /* 4px */
+  padding-extra-s: 0.25rem,
+  /* 8px */
+  padding-xxs: 0.5rem,
+  /* 12px */
+  padding-xs: 0.75rem,
+  /* 16px */
+  padding-s: 1rem,
+  /* 20px */
+  padding-sm: 1.25rem,
+  /* 24px */
+  padding-m: 1.5rem,
+  /* 32px */
+  padding-l: 2rem,
+  /* 20px */
+  padding-card: var(--padding-sm),
+  /* 12px */
+  padding-item: var(--padding-xs),
+  /* 8px */
+  padding-item-child: var(--padding-xxs),
+);

@@ -79,24 +79,20 @@
 
           a.child {
             border-radius: var(--radius-sm);
-            padding: var(--padding-Child-item);
+            padding: var(--padding-item-child);
             cursor: pointer;
           }
         }
       }
 
-      .active,
-      .active .mat-list-item-content a {
+      a.active,
+      a.active .mat-list-item-content a {
         background: var(--primary-20) !important;
         border-left: 1px solid var(--base-60);
         color: var(--text-primary) !important;
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
+        border-top-left-radius: none;
+        border-bottom-left-radius: none;
         pointer-events: none;
-      }
-
-      a.active {
-        background: red;
       }
 
       .active mat-icon {

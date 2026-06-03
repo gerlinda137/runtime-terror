@@ -7,7 +7,7 @@
   display: flex;
   height: 100%;
   width: 100%;
-  background-color: var(--card-bg);
+  background-color: var(--background);
   border-bottom: 1px solid var(--card-border);
   padding: var(--padding-card);
 
@@ -17,9 +17,13 @@
     justify-content: space-between;
 
     .title-field {
+      display: flex;
+      flex-direction: column;
+
       .main-title {
         color: var(--text-primary);
       }
+
       .sub-title {
         color: var(--text-secondary);
       }
@@ -78,6 +82,7 @@
         .menu-trigger-wrapper {
           @include flex-align-center();
           gap: 0.5rem;
+
           .user-icon-area {
             @include flex-align-center();
             justify-content: center;

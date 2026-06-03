@@ -1,6 +1,4 @@
-@use './typography.mixins.scss' as *;
-
-@use './typography.mixins.scss' as *;
+@use './mixins/typography.scss' as *;
 
 .heading-1 {
   @include heading-1;
