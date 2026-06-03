@@ -1,7 +1,11 @@
 <div class="name-editor" appClickOutside (clickOutside)="cancel()">
 
   @if (!editing()) {
-  <span appTypography="large-text-semibold">{{ name() }}</span>
+  <span
+    appTypography="large-text-semibold"
+    matTooltip="User name"
+    matTooltipPosition="above">{{ name() }}
+  </span>
   } @else {
   <input
     class="name-editor-input"

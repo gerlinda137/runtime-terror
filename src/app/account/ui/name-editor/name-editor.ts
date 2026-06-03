@@ -2,6 +2,7 @@ import { Component, effect, model, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
 import { ClickOutside, Typography } from '../../../shared/directive';
 
 @Component({
@@ -12,6 +13,7 @@ import { ClickOutside, Typography } from '../../../shared/directive';
     ClickOutside,
     MatIconModule,
     MatButtonModule,
+    MatTooltip,
   ],
   templateUrl: './name-editor.html',
   styleUrl: './name-editor.scss',
