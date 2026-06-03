@@ -2,5 +2,21 @@
 
 :host {
   @include page-layout();
-  border: 1px solid black;
+  grid-template-columns: max-content auto;
+  grid-template-rows: max-content repeat(3, max-content);
+
+  .settings-heading {
+    grid-column: 1 / 3;
+    grid-row: 1;
+  }
+
+  app-user-avatar {
+    grid-column: 1;
+    grid-row: 2 / 5;
+  }
+
+  app-name-editor {
+    grid-column: 2;
+    grid-row: 2/3;
+  }
 }

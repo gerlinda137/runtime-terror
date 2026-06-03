@@ -3,11 +3,20 @@
 
   .wrap {
     display: flex;
+    align-items: center;
+    justify-content: center;
     width: 8rem;
     max-width: 100%;
     aspect-ratio: 1 / 1;
     border-radius: var(--radius-sm);
     border: 1px solid var(--card-border);
     background-color: var(--card-bg);
+    box-shadow: var(--shadow-card);
+    cursor: pointer;
+
+    span {
+      font-size: 3rem;
+      color: var(--text-primary);
+    }
   }
 }

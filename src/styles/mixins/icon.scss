@@ -1,0 +1,28 @@
+@mixin icon-button {
+  color: var(--icon-color);
+  transition: all 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--icon-color-hover);
+  }
+
+  &:active {
+    color: var(--icon-color-active);
+  }
+}
+
+@mixin icon-lg {
+  @include icon-button();
+  width: 32px;
+}
+
+@mixin icon-md {
+  @include icon-button();
+  width: 24px;
+}
+
+@mixin icon-sm {
+  @include icon-button();
+  width: 18px;
+}

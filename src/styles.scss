@@ -4,7 +4,6 @@
 @use 'styles//fonts.scss' as *;
 @use 'styles/normalize.css' as *;
 @use 'styles/typography.scss' as *;
-@use 'styles/map.scss' as *;
 
 @include mat.core();
 
@@ -25,7 +24,7 @@ html {
 }
 
 body {
-  color-scheme: light;
+  color-scheme: dark light;
   background-color: var(--background);
   color: var(--text-primary);
   font: var(--text-primary);
@@ -57,7 +56,7 @@ button[mat-raised-button] {
 
 button[color='primary'] {
   background: var(--primary-20);
-  color: var(--primary-100);
+  color: var(--text-primary);
 }
 
 button[color='secondary'] {

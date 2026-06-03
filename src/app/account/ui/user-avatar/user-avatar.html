@@ -1,3 +1,14 @@
-<div class="wrap">
-
-</div>
+<button class="wrap">
+  @if (userData()?.avatarUrl) {
+  <img
+    [src]="userData()?.avatarUrl"
+    [alt]="userData()?.name"
+    class="avatar-img" />
+  } @else {
+  <span
+    class="avatar-fallback"
+    typography="heading-3">
+    {{ userData()?.name?.[0] | uppercase }}
+  </span>
+  }
+</button>
