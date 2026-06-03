@@ -4,7 +4,8 @@
   <span
     appTypography="large-text-semibold"
     matTooltip="User name"
-    matTooltipPosition="above">{{ name() }}
+    matTooltipPosition="above"
+    matTooltipClass="tooltip-left">{{ name() }}
   </span>
   } @else {
   <input
@@ -13,7 +14,10 @@
     (keydown.enter)="save()" />
   }
 
-  <button mat-icon-button (click)="editing() ? save() : startEdit()">
+  <button mat-icon-button
+    (click)="editing() ? save() : startEdit()"
+    [matTooltip]="editing() ? 'Save name':'Edit name'"
+    matTooltipPosition="above">
     <mat-icon>{{editing() ? 'check': 'edit'}}</mat-icon>
   </button>
 </div>

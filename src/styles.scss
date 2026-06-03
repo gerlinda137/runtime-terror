@@ -85,3 +85,16 @@ button[color='secondary'] {
     }
   }
 }
+
+.mat-mdc-tooltip-panel {
+  .mdc-tooltip__surface {
+    border: 1px solid var(--card-border);
+    background: var(--base-80);
+    color: var(--base-20);
+    border: var(--radius-sm);
+  }
+}
+
+.tooltip-left {
+  transform: translateX(-100%) !important;
+}
