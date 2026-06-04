@@ -20,8 +20,12 @@
     <mat-error>Password must be at least 8 characters</mat-error>
     }
   </mat-form-field>
+  @if (errorMessage()) {
+    <p class="login__error" appTypography="small-text-regular">{{ errorMessage() }}</p>
+  }
+
   <div class="login__btns">
-    <button color="primary" matButton="outlined" [disabled]="form.invalid">Log In</button>
+    <button color="primary" matButton="outlined" [disabled]="form.invalid || isLoading()">Log In</button>
     <button matButton type="button" [routerLink]="registerLink">Create an account</button>
   </div>
 

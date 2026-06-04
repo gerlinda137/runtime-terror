@@ -19,6 +19,12 @@
     width: 100%;
   }
 
+  &__error {
+    margin: 0;
+    color: var(--danger);
+    text-align: center;
+  }
+
   &__btns {
     display: flex;
     align-items: center;
