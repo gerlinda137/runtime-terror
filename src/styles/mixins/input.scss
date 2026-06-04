@@ -36,7 +36,7 @@
 }
 
 
-@mixin input-l {
+@mixin input-lg {
   @include input-base;
   width: 100%;
   height: 40px;
@@ -45,7 +45,7 @@
   font-size: 1rem;
 }
 
-@mixin input-m {
+@mixin input-md {
   @include input-base;
   width: 100%;
   height: 32px;
@@ -54,7 +54,7 @@
   font-size: 0.875rem;
 }
 
-@mixin input-s {
+@mixin input-sm {
   @include input-base;
   width: 100%;
   height: 24px;

@@ -4,6 +4,7 @@
 @use 'styles//fonts.scss' as *;
 @use 'styles/normalize.css' as *;
 @use 'styles/typography.scss' as *;
+@use 'styles/animations.scss' as *;
 
 @include mat.core();
 
@@ -46,13 +47,14 @@ body {
 }
 
 button[mat-raised-button] {
-  border-radius: var(--radius-md);
+  width: fit-content;
+  height: 32px;
+  border-radius: var(--radius-sm);
   font-weight: 600;
-  padding: 0.625rem 1.25rem;
+  padding: var(--padding-xxs) var(--padding-xs);
   /* 10px 20px */
   font-size: 0.875rem;
   /* 14px */
-  background: none;
 }
 
 button[mat-icon-button] {
@@ -68,7 +70,7 @@ button[color='primary'] {
 
 button[color='secondary'] {
   background: var(--base-80);
-  color: var(--base-100);
+  color: var(--base-20);
 }
 
 .custom-user-menu {

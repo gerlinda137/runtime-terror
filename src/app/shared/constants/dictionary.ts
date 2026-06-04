@@ -23,6 +23,7 @@ export const {
   NEW_PASS,
   OLD_PASS,
   SAVE_PASS,
+  CURRENT_PASS,
 } = {
   EDIT_NAME: `${EDIT} ${NAME}`,
   EDIT_PASS: `${EDIT} ${PASS}`,
@@ -30,4 +31,5 @@ export const {
   OLD_PASS: `${OLD} ${PASS}`,
   NEW_PASS: `${NEW} ${PASS}`,
   SAVE_PASS: `${SAVE} ${PASS}`,
+  CURRENT_PASS: 'current password',
 };
