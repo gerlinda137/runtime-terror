@@ -11,9 +11,5 @@
 
   @media (max-width: $max-mobile) {
     height: fit-content;
-    display: flex;
-    flex-direction: column;
-    padding: var(--padding-s);
-    gap: var(--padding-s);
   }
 }

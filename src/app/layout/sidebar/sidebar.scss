@@ -1,3 +1,5 @@
+@use '../../../styles/mixins/icon.scss' as *;
+
 :host {
   * {
     box-sizing: border-box;
@@ -8,15 +10,20 @@
   height: 100%;
   width: 100%;
 
-  button {
+  button[mat-icon-button] {
     position: absolute;
-    width: 1.5rem;
-    height: 1.5rem;
     left: 1rem;
+    padding: var(--padding-extra-sm);
+    border-radius: var(--radius-sm);
+    background-color: var(--card-bg);
     z-index: 3;
-    border-radius: 0.25rem;
-    background-color: var(--md-sys-color-surface);
+
+    mat-icon.burger {
+      @include icon-lg();
+    }
   }
+
+
 
   mat-sidenav-container {
     width: 100%;
