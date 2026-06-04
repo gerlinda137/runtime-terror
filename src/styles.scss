@@ -55,6 +55,10 @@ button[mat-raised-button] {
   /* 10px 20px */
   font-size: 0.875rem;
   /* 14px */
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
 }
 
 button[mat-icon-button] {
