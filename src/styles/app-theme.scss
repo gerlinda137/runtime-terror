@@ -49,7 +49,6 @@
   --card-bg: var(--base-20);
   --card-border: var(--base-40);
 
-
   /* Sizes */
   /* 16px */
   --radius-lg: 1rem;
@@ -81,7 +80,7 @@
 }
 
 /* ---------- DARK THEME ---------- */
-[data-theme="dark"] {
+[data-theme='dark'] {
   --text-primary: #f1f5f9;
   --text-secondary: #94a3b8;
 

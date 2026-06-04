@@ -30,9 +30,9 @@ html {
 
 body {
   color-scheme: dark light;
-  background-color: var(--background);
-  color: var(--text-primary);
-  font: var(--text-primary);
+  background-color: var(--md-sys-color-background);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
 
   // Reset the user agent margin.
   margin: 0;
