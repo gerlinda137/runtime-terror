@@ -1,4 +1,4 @@
-import { Component, output, signal } from '@angular/core';
+import { Component, DestroyRef, inject, output, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Typography, ClickOutside } from "../../../shared/directive";
 import { UpdatePassword } from '../../../core/models';
@@ -20,7 +20,9 @@ import { MatIcon } from "@angular/material/icon";
   styleUrl: './password-editor.scss',
 })
 export class PasswordEditorComponent {
-  isEditMode = signal(true);
+  private destroyRef = inject(DestroyRef);
+
+  isEditMode = signal(false);
   passwordData = output<UpdatePassword | null>();
   changePass = CHANGE_PASS;
   newPass = NEW_PASS;
@@ -32,6 +34,14 @@ export class PasswordEditorComponent {
     oldPassword: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     newPassword: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
   });
+
+
+  constructor() {
+    this.destroyRef.onDestroy(() => {
+      console.log('PasswordEditor destroyed');
+      this.cancel();
+    });
+  }
 
   startEdit() {
     this.isEditMode.set(true);
