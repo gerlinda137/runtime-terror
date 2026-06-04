@@ -3,9 +3,9 @@
     <mat-label>e-mail</mat-label>
     <input matInput placeholder="e-mail" formControlName="email">
     @if (form.controls.email.hasError('required')) {
-      <mat-error>E-mail is required</mat-error>
+    <mat-error>E-mail is required</mat-error>
     } @else if (form.controls.email.hasError('email')) {
-      <mat-error>Insert correct e-mail</mat-error>
+    <mat-error>Insert correct e-mail</mat-error>
     }
   </mat-form-field>
 
@@ -13,10 +13,14 @@
     <mat-label>password</mat-label>
     <input matInput placeholder="password" formControlName="password" type="password">
     @if (form.controls.password.hasError('required')) {
-      <mat-error>Password is required</mat-error>
+    <mat-error>Password is required</mat-error>
     } @else if (form.controls.password.hasError('minlength')) {
-      <mat-error>Password must be at least 8 characters</mat-error>
+    <mat-error>Password must be at least 8 characters</mat-error>
     }
   </mat-form-field>
-  <button color="primary" matButton="outlined" [disabled]="form.invalid">Log In</button>
+  <div class="login__btns">
+    <button color="primary" matButton="outlined" [disabled]="form.invalid">Log In</button>
+    <button matButton type="button" [routerLink]="registerLink">Create an account</button>
+  </div>
+
 </form>
