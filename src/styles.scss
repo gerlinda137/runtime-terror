@@ -52,6 +52,13 @@ button[mat-raised-button] {
   /* 10px 20px */
   font-size: 0.875rem;
   /* 14px */
+  background: none;
+}
+
+button[mat-icon-button] {
+  background: none !important;
+  cursor: pointer;
+  outline: none;
 }
 
 button[color='primary'] {
@@ -92,6 +99,10 @@ button[color='secondary'] {
     background: var(--base-80);
     color: var(--base-20);
     border: var(--radius-sm);
+
+    &::first-letter {
+      text-transform: uppercase;
+    }
   }
 }
 

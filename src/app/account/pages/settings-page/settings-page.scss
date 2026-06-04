@@ -2,7 +2,7 @@
 
 :host {
   @include page-layout();
-  grid-template-columns: max-content auto;
+  grid-template-columns: max-content 20rem;
   grid-template-rows: max-content repeat(3, max-content);
 
   .settings-heading {

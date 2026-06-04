@@ -11,3 +11,8 @@ export interface User {
   avatarUrl: string | null;
   createdAt: string;
 }
+
+export interface UpdatePassword {
+  oldPassword: string;
+  newPassword: string;
+}

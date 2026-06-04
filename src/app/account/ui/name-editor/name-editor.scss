@@ -2,7 +2,6 @@
 @use '../../../../styles/mixins/icon.scss' as *;
 
 :host {
-  width: 20rem;
   max-width: 100%;
   height: 100%;
   display: flex;
@@ -33,11 +32,6 @@
       display: flex;
       align-items: center;
       gap: var(--padding-extra-s);
-
-      mat-form-field {
-        width: 12rem;
-        max-width: 100%;
-      }
     }
   }
 }

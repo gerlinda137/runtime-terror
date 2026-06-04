@@ -3,6 +3,7 @@
   appTypography="heading-3">
   Account Settings</h2>
 @if(user() !== null) {
-<app-user-avatar [userData]="user()" />
-<app-name-editor [name]="user()!.name" />
+  <app-user-avatar [userData]="user()" />
+  <app-name-editor [name]="user()!.name" />
+  <app-password-editor />
 }
