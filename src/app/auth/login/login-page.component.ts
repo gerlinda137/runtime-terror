@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 
+import { Typography } from '../../shared/directive';
 import { ROUTES } from '../../shared/constants';
 
 @Component({
@@ -14,6 +15,7 @@ import { ROUTES } from '../../shared/constants';
   imports: [
     ReactiveFormsModule,
     RouterLink,
+    Typography,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,

@@ -1,4 +1,6 @@
 <form class="login" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h1 appTypography="heading-3" class="login__title">Log In</h1>
+
   <mat-form-field appearance="outline">
     <mat-label>e-mail</mat-label>
     <input matInput placeholder="e-mail" formControlName="email">
