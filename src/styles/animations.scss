@@ -1,23 +1,11 @@
-@keyframes panel-enter {
-  from {
+@keyframes show-panel {
+  0% {
     opacity: 0;
-    transform: translateY(-8px);
+    transform: scaleY(0);
   }
 
-  to {
+  100% {
     opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes panel-leave {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  to {
-    opacity: 0;
-    transform: translateY(-8px);
+    transform: scaleY(1);
   }
 }

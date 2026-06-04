@@ -2,6 +2,9 @@
   color: var(--icon-color);
   transition: all 0.2s;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
     color: var(--icon-color-hover);
@@ -15,14 +18,20 @@
 @mixin icon-lg {
   @include icon-button();
   width: 32px;
+  height: 32px;
+  font-size: 22px;
 }
 
 @mixin icon-md {
   @include icon-button();
   width: 24px;
+  height: 24px;
+  font-size: 16px;
 }
 
 @mixin icon-sm {
   @include icon-button();
   width: 18px;
+  height: 18px;
+  font-size: 12px;
 }

@@ -15,7 +15,7 @@
     gap: var(--padding-xxs);
 
     mat-icon {
-      @include icon-sm();
+      @include icon-md();
     }
 
     .name-editor-input {
