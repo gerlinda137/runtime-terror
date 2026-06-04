@@ -71,20 +71,6 @@ button[mat-icon-button] {
   outline: none;
 }
 
-button[color='primary']:not(:disabled) {
-  background: var(--md-sys-color-primary);
-  color: var(--md-sys-color-on-primary);
-
-  .mdc-button__label {
-    color: var(--md-sys-color-on-primary);
-  }
-}
-
-button[color='secondary'] {
-  background: var(--base-80);
-  color: var(--base-20);
-}
-
 .custom-user-menu {
   &.mat-mdc-menu-panel {
     padding: 0 var(--padding-xxs);
