@@ -7,10 +7,9 @@ describe('TokenService', () => {
   let service: TokenService;
 
   beforeEach(() => {
+    localStorage.clear();
     TestBed.configureTestingModule({
-      providers: [
-        TokenService
-      ]
+      providers: [TokenService],
     });
     service = TestBed.inject(TokenService);
   });
@@ -23,24 +22,23 @@ describe('TokenService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should return null if there is no token'), () => {
+  it('should return null if there is no token', () => {
     expect(service.token()).toBeNull();
-  }
+  });
 
   it('should clear the token from signal and localStorage', () => {
     service.setToken('temporary-token');
 
     service.removeToken();
 
-    expect(service.getToken()).toBeNull();
+    expect(service.token()).toBeNull();
     expect(localStorage.getItem(ACCESS_TOKEN)).toBeNull();
   });
 
-  it('should return true when token exists, and false when it does not', () => {
-    expect(service.isAuthenticated()).toBeFalsy();
+  it('should set the token in signal and localStorage', () => {
+    service.setToken('test-token');
 
-    service.setToken('valid-token');
-    expect(service.isAuthenticated()).toBeTruthy();
+    expect(service.token()).toBe('test-token');
+    expect(localStorage.getItem(ACCESS_TOKEN)).toBe('test-token');
   });
-
 });

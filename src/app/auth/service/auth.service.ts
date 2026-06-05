@@ -19,9 +19,10 @@ export class AuthService {
   private readonly _base_Url = environment.apiUrl;
 
   readonly user = computed(() => this._user());
-  readonly token = computed(() => this.tokenService.token());
-  readonly isAuthenticated = computed(() => this.tokenService.isAuthenticated());
+  readonly token = this.tokenService.token;//tokenService's token is already computed()
   readonly isLoading = computed(() => this._isLoading());
+
+  readonly isAuthenticated = computed(() => Boolean(this.tokenService.token()));
 
   constructor() {
     this.restoreFromStorage();
@@ -71,7 +72,7 @@ export class AuthService {
 
   private restoreFromStorage() {
     const userRaw = localStorage.getItem(USER);
-    if (this.tokenService.isAuthenticated() && userRaw) {
+    if (this.tokenService.token() && userRaw) {
       this._user.set(JSON.parse(userRaw));
     }
   }
