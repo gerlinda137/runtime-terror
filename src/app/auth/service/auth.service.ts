@@ -5,7 +5,7 @@ import { catchError, tap, throwError } from 'rxjs';
 import { environment } from '../../../environments/environments';
 
 import { AuthResponse, User, UserPayload } from '../../core/models';
-import { FOOL_ROUTES, USER } from '../../shared/constants';
+import { FULL_ROUTES, USER } from '../../shared/constants';
 import { TokenService } from './token.service';
 
 // ToDo: add custom error catcher
@@ -30,8 +30,7 @@ export class AuthService {
 
   login(payload: UserPayload) {
     this._isLoading.set(true);
-    return this.http
-      .post<AuthResponse>(`${this._base_Url}/${FOOL_ROUTES.AUTH_LOGIN}`, payload)
+    return this.http.post<AuthResponse>(`${this._base_Url}/${FULL_ROUTES.AUTH_LOGIN}`, payload)
       .pipe(
         tap((res) => {
           this.setSession(res);
@@ -46,8 +45,7 @@ export class AuthService {
 
   register(payload: UserPayload) {
     this._isLoading.set(true);
-    return this.http
-      .post<AuthResponse>(`${this._base_Url}/${FOOL_ROUTES.AUTH_REGISTER}`, payload)
+    return this.http.post<AuthResponse>(`${this._base_Url}/${FULL_ROUTES.AUTH_REGISTER}`, payload)
       .pipe(
         tap((res) => {
           this.setSession(res);
