@@ -9,7 +9,7 @@ export const ROUTES = {
 } as const
 const { AUTH, LOGIN, REGISTER, ACCOUNT, SETTINGS, API_KEYS } = ROUTES;
 
-export const FOOL_ROUTES = {
+export const FULL_ROUTES = {
   AUTH_LOGIN: `${AUTH}/${LOGIN}`,
   AUTH_REGISTER: `${AUTH}/${REGISTER}`,
   ACCOUNT_SETTINGS: `${ACCOUNT}/${SETTINGS}`,
