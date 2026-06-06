@@ -1,5 +1,5 @@
 import { AfterViewInit, Directive, ElementRef, inject, input } from '@angular/core';
-import { TypographyVariantsType } from './typography.model';
+import { TypographyVariantsType } from './model';
 
 /** example:
  *  * <span appTypography="medium-text-semibold">hello world</span>

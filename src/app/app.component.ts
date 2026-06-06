@@ -18,16 +18,24 @@ export class AppComponent {
   protected readonly title = signal('crypto-trade');
   isLoggedIn = true;
   user: User = MOCK_USER;
-  theme = signal<ThemeType>(THEMES.LIGHT);
+  theme = signal<ThemeType>(THEMES.DARK);
 
-  toggleTheme = () => {
-    const theme = this.theme() === THEMES.LIGHT ? THEMES.DARK : THEMES.LIGHT;
-    this.theme.set(theme);
+  constructor() {
+    this.themeApply(this.theme());
+  }
 
+  themeApply(theme: ThemeType) {
     if (theme === THEMES.DARK) {
       this.document.documentElement.setAttribute('data-theme', THEMES.DARK);
     } else {
       this.document.documentElement.removeAttribute('data-theme');
     }
+  }
+
+  toggleTheme = () => {
+    const theme = this.theme() === THEMES.LIGHT ? THEMES.DARK : THEMES.LIGHT;
+    this.theme.set(theme);
+    this.themeApply(theme);
   };
+
 }

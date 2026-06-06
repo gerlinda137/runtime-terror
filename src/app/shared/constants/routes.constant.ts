@@ -14,4 +14,4 @@ export const FULL_ROUTES = {
   AUTH_REGISTER: `${AUTH}/${REGISTER}`,
   ACCOUNT_SETTINGS: `${ACCOUNT}/${SETTINGS}`,
   ACCOUNT_KEYS: `${ACCOUNT}/${API_KEYS}`
-}
+} as const;

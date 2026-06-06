@@ -1,9 +1,10 @@
 @use '@angular/material' as mat;
+@use 'styles/common.scss' as *;
 @use 'styles/app-theme.scss' as *;
 @use 'styles//fonts.scss' as *;
-@use 'styles/variable.scss' as *;
 @use 'styles/normalize.css' as *;
 @use 'styles/typography.scss' as *;
+@use 'styles/animations.scss' as *;
 
 @include mat.core();
 
@@ -14,7 +15,7 @@
 }
 
 html {
-  height: 100%;
+  height: 100vh;
   @include mat.theme((color: (primary: mat.$cyan-palette,
         tertiary: mat.$orange-palette,
       ),
@@ -24,15 +25,14 @@ html {
 }
 
 body {
-  color-scheme: light;
-  background-color: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
-  font: var(--mat-sys-body-medium);
+  color-scheme: dark light;
+  background-color: var(--background);
+  color: var(--text-primary);
+  font: var(--text-primary);
 
   // Reset the user agent margin.
   margin: 0;
   height: 100%;
-
   font-family: $font-main;
 }
 
@@ -41,28 +41,40 @@ body {
   background: var(--card-bg);
   border: 0.0625rem solid var(--card-border);
   /* 1px */
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   padding: var(--padding-card);
   box-shadow: var(--shadow-card);
 }
 
 button[mat-raised-button] {
-  border-radius: var(--radius-md);
+  width: fit-content;
+  height: 32px;
+  border-radius: var(--radius-sm);
   font-weight: 600;
-  padding: 0.625rem 1.25rem;
+  padding: var(--padding-xxs) var(--padding-xs);
   /* 10px 20px */
   font-size: 0.875rem;
   /* 14px */
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
+}
+
+button[mat-icon-button] {
+  background: none !important;
+  cursor: pointer;
+  outline: none;
 }
 
 button[color='primary'] {
-  background: var(--md-sys-color-primary);
-  color: var(--md-sys-color-on-primary);
+  background: var(--primary-20);
+  color: var(--text-primary);
 }
 
 button[color='secondary'] {
-  background: var(--md-sys-color-secondary);
-  color: var(--md-sys-color-on-secondary);
+  background: var(--base-80);
+  color: var(--base-20);
 }
 
 .custom-user-menu {
@@ -82,7 +94,24 @@ button[color='secondary'] {
     }
 
     &:hover {
-      background-color: var(--md-sys-color-surface-variant) !important;
+      background-color: var(--background) !important;
     }
   }
+}
+
+.mat-mdc-tooltip-panel {
+  .mdc-tooltip__surface {
+    border: 1px solid var(--card-border);
+    background: var(--base-80);
+    color: var(--base-20);
+    border: var(--radius-sm);
+
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+}
+
+.tooltip-left {
+  transform: translateX(-100%) !important;
 }

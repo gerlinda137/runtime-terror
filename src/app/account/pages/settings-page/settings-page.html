@@ -1,0 +1,11 @@
+<h2
+  class="settings-heading"
+  appTypography="heading-3">
+  Account Settings</h2>
+
+@let userData = user();
+@if(userData) {
+<app-user-avatar [userData]="userData" />
+<app-name-editor [name]="userData.name" />
+<app-password-editor />
+}

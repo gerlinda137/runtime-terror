@@ -1,19 +1,4 @@
-/* ---------- LIGHT THEME ---------- */
 :root {
-  --md-sys-color-primary: #3b82f6;
-  --md-sys-color-on-primary: #ffffff;
-
-  --md-sys-color-secondary: #22d3ee;
-  --md-sys-color-on-secondary: #00333a;
-
-  --md-sys-color-background: #f5f7fa;
-  --md-sys-color-surface: #ffffff;
-  --md-sys-color-surface-variant: #e5e7eb;
-  --md-sys-color-on-surface: #111827;
-
-  --card-bg: #ffffff;
-  --card-border: #e5e7eb;
-
   --text-primary: #111827;
   --text-secondary: #6b7280;
   --text-secondary-2: #828282;
@@ -57,6 +42,12 @@
   --surface: var(--base-20);
   --text-primary: var(--base-100);
   --text-secondary: var(--base-60);
+  --icon-color: var(--base-60);
+  --icon-color-hover: var(--base-80);
+  --icon-color-active: var(--base-100);
+  --card-bg: var(--base-20);
+  --card-border: var(--base-40);
+
 
   /* Sizes */
   /* 16px */
@@ -66,32 +57,30 @@
   /* 6px */
   --radius-sm: 0.375rem;
 
-  /* 20px */
-  --padding-card: 1.25rem;
-  /* 12px */
-  --padding-item: 0.75rem;
-  /* 16px */
-  --p-base: 1rem;
+  /* 4px */
+  --padding-extra-sm: 0.25rem;
   /* 8px */
-  --padding-Child-item: 0.5rem;
+  --padding-xxs: 0.5rem;
+  /* 12px */
+  --padding-xs: 0.75rem;
+  /* 16px */
+  --padding-s: 1rem;
+  /* 20px */
+  --padding-sm: 1.25rem;
+  /* 24px */
+  --padding-m: 1.5rem;
+  /* 32px */
+  --padding-l: 2rem;
+  /* 20px */
+  --padding-card: var(--padding-sm);
+  /* 12px */
+  --padding-item: var(--padding-xs);
+  /* 8px */
+  --padding-item-child: var(--padding-xxs);
 }
 
 /* ---------- DARK THEME ---------- */
 [data-theme="dark"] {
-  --md-sys-color-primary: #60a5fa;
-  --md-sys-color-on-primary: #0a0f1a;
-
-  --md-sys-color-secondary: #2dd4bf;
-  --md-sys-color-on-secondary: #002b26;
-
-  --md-sys-color-background: #0f172a;
-  --md-sys-color-surface: #1e293b;
-  --md-sys-color-surface-variant: #334155;
-  --md-sys-color-on-surface: #e2e8f0;
-
-  --card-bg: #1e293b;
-  --card-border: #334155;
-
   --text-primary: #f1f5f9;
   --text-secondary: #94a3b8;
 
@@ -105,7 +94,6 @@
   --primary-60: #7d97f1;
   --primary-40: #5275ec;
   --primary-20: #2752e7;
-
 
   /* base */
   --base-100: #ffffff;
@@ -128,10 +116,4 @@
   --error-60: #ffb8b8;
   --error-40: #ffdada;
   --error-20: #fff0f0;
-
-  /* ui */
-  --background: var(--base-0);
-  --surface: var(--base-20);
-  --text-primary: var(--base-100);
-  --text-secondary: var(--base-60);
 }

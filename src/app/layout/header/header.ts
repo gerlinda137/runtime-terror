@@ -5,10 +5,11 @@ import { MatIconModule } from '@angular/material/icon';
 
 import type { ThemeType, User } from '../../core/models';
 import { Typography } from '../../shared/directive';
+import { Logo } from '../../shared/ui';
 
 @Component({
   selector: 'app-header',
-  imports: [Typography, MatBadgeModule, MatMenuModule, MatIconModule],
+  imports: [Typography, MatBadgeModule, MatMenuModule, MatIconModule, Logo],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })
