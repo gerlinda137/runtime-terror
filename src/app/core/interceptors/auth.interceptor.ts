@@ -12,7 +12,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  const token = tokenService.getToken();
+  const token = tokenService.token();
 
   // Do not attach token to login/register requests because user is not authenticated yet
   const isAuthRequest =
