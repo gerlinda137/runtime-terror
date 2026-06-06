@@ -3,14 +3,14 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
-import { ClickOutside, Typography } from '../../../shared/directive';
+import { ClickOutsideDirective, Typography } from '../../../shared/directive';
 
 @Component({
   selector: 'app-name-editor',
   imports: [
     ReactiveFormsModule,
     Typography,
-    ClickOutside,
+    ClickOutsideDirective,
     MatIconModule,
     MatButtonModule,
     MatTooltip,
@@ -44,7 +44,7 @@ export class NameEditorComponent {
   }
 
   cancel() {
-    if (!this.editing) return;
+    if (!this.editing()) return;
     this.editing.set(false);
   }
 }

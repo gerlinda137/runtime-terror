@@ -1,6 +1,8 @@
-<div class="name-editor" appClickOutside (clickOutside)="cancel()">
+<div class="name-editor"
+  appClickOutside (clickOutside)="cancel()">
 
-  @if (!editing()) {
+  @let isEditMode = editing();
+  @if (!isEditMode) {
   <span
     appTypography="large-text-semibold"
     matTooltip="User name"
@@ -15,9 +17,9 @@
   }
 
   <button mat-icon-button
-    (click)="editing() ? save() : startEdit()"
-    [matTooltip]="editing() ? 'Save name':'Edit name'"
+    (click)="isEditMode ? save() : startEdit()"
+    [matTooltip]="isEditMode ? 'Save name':'Edit name'"
     matTooltipPosition="above">
-    <mat-icon>{{editing() ? 'check': 'edit'}}</mat-icon>
+    <mat-icon>{{isEditMode ? 'check': 'edit'}}</mat-icon>
   </button>
 </div>

@@ -1,4 +1,4 @@
-import { TYPOGRAPHY_VARIANTS } from './typography.constant';
+import { TYPOGRAPHY_VARIANTS } from './constant';
 
 
 

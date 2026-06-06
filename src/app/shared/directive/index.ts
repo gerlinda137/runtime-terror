@@ -1,2 +1,2 @@
-export * from './typography/typography.directive';
-export { ClickOutside } from './clickOutside';
+export * from './typography/typography';
+export { ClickOutsideDirective } from './click-outside';
