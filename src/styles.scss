@@ -79,11 +79,14 @@ button[color='secondary'] {
 
 .custom-user-menu {
   &.mat-mdc-menu-panel {
-    background-color: var(--card-bg) !important;
+    padding: 0 var(--padding-xxs);
+    background-color: var(--base) !important;
+    transform: translateY(1rem);
   }
 
   .mat-mdc-menu-item {
     color: var(--text-primary) !important;
+    transition: all 0.3s;
 
     .mdc-list-item__primary-text {
       color: var(--text-primary) !important;
@@ -94,7 +97,8 @@ button[color='secondary'] {
     }
 
     &:hover {
-      background-color: var(--background) !important;
+      border-radius: var(--radius-sm);
+      background-color: var(--base-0) !important;
     }
   }
 }

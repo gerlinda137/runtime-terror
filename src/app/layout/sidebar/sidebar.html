@@ -1,70 +1,20 @@
-<ng-content>
-  @if (isMobile) {
-  <button
-    mat-icon-button
-    (click)="toggleBurger()">
-    <mat-icon class="burger">menu</mat-icon>
-  </button>
-  }
-  <mat-sidenav-container class="layout">
+ <button
+  class="burger-icon"
+  mat-icon-button
+  (click)="isOpen() ? closeMenu(): openMenu()">
+  <mat-icon class="burger">menu</mat-icon>
+</button>
 
-    <mat-sidenav #sidenav
-      [mode]="isMobile ? 'over' : 'side'"
-      [opened]="!isMobile">
+<div class="web-menu">
+  <app-menu />
+</div>
 
-      <mat-nav-list>
-
-        @for (item of menu; track item.label) {
-
-        @if (!item.children) {
-        <a
-          [routerLink]="item.link"
-          [routerLinkActiveOptions]="{ exact: true }"
-          routerLinkActive="active"
-          class="item">
-          <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
-          <span
-            appTypography="medium-text-semibold">
-            {{ item.label}}
-          </span>
-        </a>
-        }
-
-        @if (item.children) {
-        <div class="parent"
-          tabindex="0"
-          (click)="toggle(item.label)"
-          (keydown.enter)="toggle(item.label)"
-          (keydown.space)="toggle(item.label)">
-          <mat-icon>{{ item.icon }}</mat-icon>
-          <span
-            appTypography="medium-text-semibold">
-            {{item.label}}
-          </span>
-          <mat-icon class="arrow">
-            {{ openedItem === item.label ? 'expand_less' : 'expand_more' }}
-          </mat-icon>
-        </div>
-
-        <div class="children" [class.open]="openedItem === item.label">
-          @for (child of item.children; track child.label) {
-          <a
-            [routerLink]="child.link"
-            routerLinkActive="active"
-            class="child">
-            <span
-              appTypography="medium-text-semibold">
-              {{child.label}}
-            </span>
-          </a>
-          }
-        </div>
-        }
-        }
-
-      </mat-nav-list>
-
-    </mat-sidenav>
-
-  </mat-sidenav-container>
-</ng-content>
+@if(isOpen()){
+<div
+  class="burger-menu"
+  animate.enter="burger-enter"
+  animate.leave="burger-leave"
+  appClickOutside (clickOutside)="closeMenu()">
+  <app-menu />
+</div>
+}

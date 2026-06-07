@@ -18,7 +18,7 @@ export class AppComponent {
   protected readonly title = signal('crypto-trade');
   isLoggedIn = true;
   user: User = MOCK_USER;
-  theme = signal<ThemeType>(THEMES.DARK);
+  theme = signal<ThemeType>(THEMES.LIGHT);
 
   constructor() {
     this.themeApply(this.theme());
