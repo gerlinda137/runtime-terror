@@ -3,6 +3,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { ROUTES } from './shared/constants';
 import { authGuard } from './core/guards/auth.guard';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 export const routes: Routes = [
   { path: '', component: DashboardComponent, pathMatch: 'full' },
@@ -13,34 +14,40 @@ export const routes: Routes = [
       {
         path: ROUTES.LOGIN,
         loadComponent: () =>
-          import('../app/auth/login/login-page.component')
-            .then(m => m.LoginPageComponent),
+          import('../app/auth/login/login-page.component').then((m) => m.LoginPageComponent),
       },
       {
         path: ROUTES.REGISTER,
         loadComponent: () =>
-          import('../app/auth/register/register-page.component')
-            .then(m => m.RegisterPageComponent),
+          import('../app/auth/register/register-page.component').then(
+            (m) => m.RegisterPageComponent,
+          ),
       },
     ],
   },
   {
     path: ROUTES.ACCOUNT,
-    canActivate:[authGuard],
-    canActivateChild:[authGuard],
+    canActivate: [authGuard],
+    canActivateChild: [authGuard],
     children: [
       {
         path: ROUTES.SETTINGS,
         loadComponent: () =>
-          import('../app/account/pages/settings-page/settings-page')
-            .then(m => m.SettingsPage),
+          import('../app/account/pages/settings-page/settings-page').then((m) => m.SettingsPage),
       },
       {
         path: ROUTES.API_KEYS,
         loadComponent: () =>
-          import('../app/account/pages/api-keys-page/api-keys-page')
-            .then(m => m.ApiKeysPage),
-      }
-    ]
-  }
+          import('../app/account/pages/api-keys-page/api-keys-page').then((m) => m.ApiKeysPage),
+      },
+    ],
+  },
+  {
+    path: 'not-found',
+    component: NotFoundComponent,
+  },
+  {
+    path: '**',
+    redirectTo: 'not-found',
+  },
 ];
