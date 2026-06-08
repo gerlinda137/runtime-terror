@@ -15,20 +15,24 @@
 }
 
 html {
-  height: 100vh;
-  @include mat.theme((color: (primary: mat.$cyan-palette,
+  height: 100%;
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$cyan-palette,
         tertiary: mat.$orange-palette,
       ),
       typography: Roboto,
       density: 0,
-    ));
+    )
+  );
 }
 
 body {
   color-scheme: dark light;
-  background-color: var(--background);
-  color: var(--text-primary);
-  font: var(--text-primary);
+  background-color: var(--md-sys-color-background);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
 
   // Reset the user agent margin.
   margin: 0;
@@ -47,6 +51,8 @@ body {
 }
 
 button[mat-raised-button] {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
   width: fit-content;
   height: 32px;
   border-radius: var(--radius-sm);
@@ -67,14 +73,8 @@ button[mat-icon-button] {
   outline: none;
 }
 
-button[color='primary'] {
-  background: var(--primary-20);
-  color: var(--text-primary);
-}
-
-button[color='secondary'] {
-  background: var(--base-80);
-  color: var(--base-20);
+.register__stepper .mat-horizontal-content-container {
+  padding-top: 0.5rem;
 }
 
 .custom-user-menu {
