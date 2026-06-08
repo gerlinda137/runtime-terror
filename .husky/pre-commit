@@ -1,7 +1,7 @@
 #!/bin/sh
 
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
-PATTERN="^(feature|bugfix|hotfix|chore|release|refactor)\/[a-z0-9][a-z0-9\-]*$"
+PATTERN="^(feature|bugfix|hotfix|chore|release|refactor|docs)\/[a-z0-9][a-z0-9\-]*$"
 
 if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "develop" ]; then
   npx lint-staged
@@ -16,6 +16,7 @@ if ! echo "$BRANCH" | grep -qE "$PATTERN"; then
   echo "  feature/add-login-page"
   echo "  bugfix/fix-header-scroll"
   echo "  chore/update-deps"
+  echo "  docs/sprint-diary"
   echo ""
   echo "Rename your branch:"
   echo "  git branch -m <new-name>"
