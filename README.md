@@ -2,6 +2,9 @@
 
 Cryptocurrency analysis and trading application built with Angular 20+. The app provides real-time market data, portfolio tracking, and trading simulation using the Binance Testnet API.
 
+## Deploy
+[deploy link](https://runtime-terror-crypto-trade.netlify.app/)
+
 ## Runtime Terror Team
 
 | Name | GitHub | Location |
