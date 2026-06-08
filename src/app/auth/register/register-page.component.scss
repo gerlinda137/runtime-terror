@@ -1,0 +1,14 @@
+:host {
+  background-color: var(--md-sys-color-surface);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--padding-card);
+}
+
+.register {
+  &__stepper {
+    width: 100%;
+  }
+}
