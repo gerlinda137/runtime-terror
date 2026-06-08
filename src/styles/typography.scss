@@ -1,6 +1,4 @@
-@use './typography.mixins.scss' as *;
-
-@use './typography.mixins.scss' as *;
+@use './mixins/typography.scss' as *;
 
 .heading-1 {
   @include heading-1;
@@ -76,4 +74,20 @@
 
 .extra-small-text-regular {
   @include extra-small-text-regular;
+}
+
+.first-letter-lowercase {
+  display: inline-block;
+
+  &::first-letter {
+    text-transform: lowercase !important;
+  }
+}
+
+.first-letter-uppercase {
+  display: inline-block;
+
+  &::first-letter {
+    text-transform: uppercase !important;
+  }
 }

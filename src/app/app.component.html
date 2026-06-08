@@ -3,9 +3,12 @@
   [isLoggedIn]="isLoggedIn"
   [user]="user"
   [theme]="theme()"
-  [toggleTheme]="toggleTheme" />
-<app-logo class="web-logo" />
-<app-sidebar class="web-sidebar" />
+  [toggleTheme]="toggleTheme"
+/>
+@if (!isNotFound()) {
+  <app-logo class="web-logo" />
+  <app-sidebar class="web-sidebar" />
+}
 <div class="page">
   <router-outlet />
 </div>

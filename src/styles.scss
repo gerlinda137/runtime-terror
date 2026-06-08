@@ -1,8 +1,10 @@
 @use '@angular/material' as mat;
+@use 'styles/common.scss' as *;
 @use 'styles/app-theme.scss' as *;
 @use 'styles//fonts.scss' as *;
-@use 'styles/variable.scss' as *;
 @use 'styles/normalize.css' as *;
+@use 'styles/typography.scss' as *;
+@use 'styles/animations.scss' as *;
 
 @include mat.core();
 
@@ -14,24 +16,27 @@
 
 html {
   height: 100%;
-  @include mat.theme((color: (primary: mat.$cyan-palette,
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$cyan-palette,
         tertiary: mat.$orange-palette,
       ),
       typography: Roboto,
       density: 0,
-    ));
+    )
+  );
 }
 
 body {
-  color-scheme: light;
-  background-color: var(--mat-sys-surface);
+  color-scheme: dark light;
+  background-color: var(--md-sys-color-background);
   color: var(--mat-sys-on-surface);
   font: var(--mat-sys-body-medium);
 
   // Reset the user agent margin.
   margin: 0;
   height: 100%;
-
   font-family: $font-main;
 }
 
@@ -40,37 +45,48 @@ body {
   background: var(--card-bg);
   border: 0.0625rem solid var(--card-border);
   /* 1px */
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   padding: var(--padding-card);
   box-shadow: var(--shadow-card);
 }
 
 button[mat-raised-button] {
-  border-radius: var(--radius-md);
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: 32px;
+  border-radius: var(--radius-sm);
   font-weight: 600;
-  padding: 0.625rem 1.25rem;
+  padding: var(--padding-xxs) var(--padding-xs);
   /* 10px 20px */
   font-size: 0.875rem;
   /* 14px */
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
 }
 
-button[color='primary'] {
-  background: var(--md-sys-color-primary);
-  color: var(--md-sys-color-on-primary);
+button[mat-icon-button] {
+  background: none !important;
+  cursor: pointer;
+  outline: none;
 }
 
-button[color='secondary'] {
-  background: var(--md-sys-color-secondary);
-  color: var(--md-sys-color-on-secondary);
+.register__stepper .mat-horizontal-content-container {
+  padding-top: 0.5rem;
 }
 
 .custom-user-menu {
   &.mat-mdc-menu-panel {
-    background-color: var(--card-bg) !important;
+    padding: 0 var(--padding-xxs);
+    background-color: var(--base) !important;
+    transform: translateY(1rem);
   }
 
   .mat-mdc-menu-item {
     color: var(--text-primary) !important;
+    transition: all 0.3s;
 
     .mdc-list-item__primary-text {
       color: var(--text-primary) !important;
@@ -81,7 +97,25 @@ button[color='secondary'] {
     }
 
     &:hover {
-      background-color: var(--md-sys-color-surface-variant) !important;
+      border-radius: var(--radius-sm);
+      background-color: var(--base-0) !important;
     }
   }
+}
+
+.mat-mdc-tooltip-panel {
+  .mdc-tooltip__surface {
+    border: 1px solid var(--card-border);
+    background: var(--base-80);
+    color: var(--base-20);
+    border: var(--radius-sm);
+
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+}
+
+.tooltip-left {
+  transform: translateX(-100%) !important;
 }

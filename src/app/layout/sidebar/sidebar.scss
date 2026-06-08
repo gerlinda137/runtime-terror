@@ -1,0 +1,62 @@
+@use '../../../styles/mixins/icon.scss' as *;
+@use '../../../styles/common.scss' as *;
+
+:host {
+  height: 100%;
+
+  position: relative;
+  display: block;
+  height: 100%;
+
+  .burger-icon {
+    position: absolute;
+    display: none;
+    left: 0;
+    top: -56px;
+    padding: var(--padding-extra-sm);
+    border-radius: var(--radius-sm);
+    background-color: var(--card-bg);
+    z-index: 3;
+
+    mat-icon.burger {
+      @include icon-lg();
+    }
+
+    @media (max-width: $max-mobile) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .web-menu {
+    display: block;
+    height: 100%;
+    width: 100%;
+
+    @media (max-width: $max-mobile) {
+      display: none;
+    }
+  }
+
+  .burger-menu {
+    display: none;
+
+    @media (max-width: $max-mobile) {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      width: $sidebar-width;
+      height: 70vh;
+    }
+  }
+
+  .burger-enter {
+    animation: open-left-panel 0.3s;
+  }
+
+  .burger-leave {
+    animation: close-left-panel 0.3s;
+  }
+}

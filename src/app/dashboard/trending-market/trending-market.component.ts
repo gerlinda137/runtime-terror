@@ -2,14 +2,12 @@ import { Component } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { CurrencyPipe } from '@angular/common';
 
-import { Typography } from '../../shared/typography/typography.directive';
+import { Typography } from '../../shared/directive';
 
 import { CRYPTO_TOKENS } from '../shared/tokens.mock';
 
-import { ChangeColor } from '../shared/change-color.directive';
-import { CryptoIcon } from '../shared/crypto-icon.directive';
-import { ChangeHourPipe } from '../shared/change-hour.pipe';
-import { SymbolPipe } from '../shared/symbol.pipe';
+import { ChangeColor, CryptoIcon } from '../shared/directive';
+import { ChangeHourPipe, SymbolPipe } from '../shared/pipes';
 
 @Component({
   selector: 'app-trending-market',

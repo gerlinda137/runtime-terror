@@ -1,0 +1,32 @@
+<form class="login" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h1 appTypography="heading-3" class="login__title">Log In</h1>
+
+  <mat-form-field appearance="outline">
+    <mat-label>e-mail</mat-label>
+    <input matInput placeholder="e-mail" formControlName="email">
+    @if (form.controls.email.hasError('required')) {
+    <mat-error>E-mail is required</mat-error>
+    } @else if (form.controls.email.hasError('email')) {
+    <mat-error>Insert correct e-mail</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>password</mat-label>
+    <input matInput placeholder="password" formControlName="password" type="password">
+    @if (form.controls.password.hasError('required')) {
+    <mat-error>Password is required</mat-error>
+    } @else if (form.controls.password.hasError('minlength')) {
+    <mat-error>Password must be at least 8 characters</mat-error>
+    }
+  </mat-form-field>
+  @if (errorMessage()) {
+    <p class="login__error" appTypography="small-text-regular">{{ errorMessage() }}</p>
+  }
+
+  <div class="login__btns">
+    <button color="primary" matButton="outlined" [disabled]="form.invalid || isLoading()">Log In</button>
+    <button matButton type="button" [routerLink]="registerLink">Create an account</button>
+  </div>
+
+</form>

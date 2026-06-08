@@ -1,0 +1,152 @@
+@use '../../../styles/common.scss' as *;
+
+@mixin flex-align-center {
+  display: flex;
+  align-items: center;
+}
+
+:host {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  background-color: var(--background);
+  border-bottom: 1px solid var(--base-40);
+  padding: var(--padding-card);
+
+  .header-section {
+    @include flex-align-center();
+    flex-grow: 1;
+    justify-content: space-between;
+
+    @media (max-width: 495px) {
+      flex-direction: column;
+      align-items: flex-end;
+      gap: var(--padding-xs);
+    }
+
+    app-logo {
+      display: none;
+
+      @media (max-width: $max-mobile) {
+        display: flex;
+        align-self: self-start;
+      }
+    }
+
+    .title-field {
+
+      display: flex;
+      flex-direction: column;
+
+      @media (max-width: $max-mobile) {
+        display: none;
+      }
+
+      .main-title {
+        color: var(--text-primary);
+      }
+
+      .sub-title {
+        color: var(--text-secondary);
+
+      }
+    }
+
+    .utilities-field {
+      @include flex-align-center();
+      gap: 1rem;
+
+      @media (max-width: $max-laptop) {
+        flex-direction: column;
+        padding: var(--padding-s);
+        gap: var(--padding-s);
+        align-items: flex-end;
+      }
+
+      .search-bar {
+        @include flex-align-center();
+        position: relative;
+
+        input {
+          border: 1px solid var(--text-secondary);
+          font-size: var(--font-description);
+          padding: 0.75rem 2rem;
+          padding-left: 2.75rem;
+          border-radius: var(--radius-sm);
+          background-color: var(--card-bg);
+          caret-color: var(--text-primary);
+          color: var(--text-primary);
+
+          &::placeholder {
+            color: var(--text-primary);
+          }
+
+          &:focus {
+            border-color: var(--md-sys-color-primary);
+          }
+        }
+
+        mat-icon {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          left: 0.625rem;
+          color: var(--text-primary);
+        }
+      }
+
+      .user-actions {
+        @include flex-align-center();
+        gap: 1rem;
+
+        .demo-section {
+          @include flex-align-center();
+        }
+
+        .notif-icon {
+          height: 1.5rem;
+          width: 1.5rem;
+          color: var(--text-primary);
+        }
+
+        .menu-trigger-wrapper {
+          @include flex-align-center();
+          gap: 0.5rem;
+
+          .user-icon-area {
+            @include flex-align-center();
+            justify-content: center;
+            height: 2rem;
+            width: 2rem;
+            border-radius: 50%;
+            background-color: #d4d4d4;
+
+            img {
+              height: 100%;
+              border-radius: 50%;
+            }
+
+            .def-user-icon {
+              width: 1.5rem;
+              height: 1.5rem;
+            }
+          }
+
+          span.arrow {
+            @include flex-align-center();
+            cursor: pointer;
+            transition: transform 0.2s ease;
+
+            mat-icon {
+              color: var(--text-primary);
+            }
+
+            &.rotated {
+              transform: rotate(180deg);
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+:host {
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--md-sys-color-surface);
+  border-bottom: 1px solid var(--card-border);
+
+  .logo-btn {
+    width: 129px;
+    height: 32px;
+    background: none;
+
+    color: var(--text-primary);
+  }
+}

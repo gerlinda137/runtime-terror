@@ -1,0 +1,25 @@
+<div class="name-editor"
+  appClickOutside (clickOutside)="cancel()">
+
+  @let isEditMode = editing();
+  @if (!isEditMode) {
+  <span
+    appTypography="large-text-semibold"
+    matTooltip="User name"
+    matTooltipPosition="above"
+    matTooltipClass="tooltip-left">{{ name() }}
+  </span>
+  } @else {
+  <input
+    class="name-editor-input"
+    [formControl]="control"
+    (keydown.enter)="save()" />
+  }
+
+  <button mat-icon-button
+    (click)="isEditMode ? save() : startEdit()"
+    [matTooltip]="isEditMode ? 'Save name':'Edit name'"
+    matTooltipPosition="above">
+    <mat-icon>{{isEditMode ? 'check': 'edit'}}</mat-icon>
+  </button>
+</div>

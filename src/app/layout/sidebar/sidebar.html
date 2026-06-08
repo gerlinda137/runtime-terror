@@ -1,0 +1,20 @@
+ <button
+  class="burger-icon"
+  mat-icon-button
+  (click)="isOpen() ? closeMenu(): openMenu()">
+  <mat-icon class="burger">menu</mat-icon>
+</button>
+
+<div class="web-menu">
+  <app-menu />
+</div>
+
+@if(isOpen()){
+<div
+  class="burger-menu"
+  animate.enter="burger-enter"
+  animate.leave="burger-leave"
+  appClickOutside (clickOutside)="closeMenu()">
+  <app-menu />
+</div>
+}
