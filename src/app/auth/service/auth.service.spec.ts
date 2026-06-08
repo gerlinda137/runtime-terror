@@ -9,25 +9,21 @@ import { TokenService } from './token.service';
 
 describe('Auth1Service', () => {
   let service: AuthService;
-  let tokenService: TokenService;
-  interface TestErrType { status: number }
+  interface TestErrType {
+    status: number;
+  }
 
   const testUser: UserPayload = {
     email: 'test@mail.com',
     password: '12345678',
-    name: 'TestUser'
+    name: 'TestUser',
   };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        AuthService,
-        TokenService,
-        provideHttpClient()
-      ],
+      providers: [AuthService, TokenService, provideHttpClient()],
     });
     service = TestBed.inject(AuthService);
-    tokenService = TestBed.inject(TokenService);
   });
 
   afterEach(() => {
@@ -37,7 +33,6 @@ describe('Auth1Service', () => {
   it('should register user or handle existing user', async () => {
     try {
       const res = await firstValueFrom(service.register(testUser));
-      ;
       expect(res).toBeTruthy();
       expect(res.accessToken).toBeTruthy();
       expect(service.token()).toBe(res.accessToken);
