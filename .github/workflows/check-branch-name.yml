@@ -3,6 +3,7 @@
 #   bugfix/описание
 #   hotfix/описание
 #   chore/описание
+#   docs/описание
 #   release/x.x.x
 #
 # Описание: только lowercase буквы, цифры и дефисы.
@@ -24,7 +25,7 @@ jobs:
       - name: Validate branch name
         run: |
           BRANCH="${{ github.head_ref }}"
-          PATTERN="^(feature|bugfix|hotfix|chore|release|refactor)\/[a-z0-9][a-z0-9\-]*$"
+          PATTERN="^(feature|bugfix|hotfix|chore|release|refactor|docs)\/[a-z0-9][a-z0-9\-]*$"
 
           echo "Branch name: $BRANCH"
 
@@ -43,6 +44,7 @@ jobs:
             echo "  chore/short-description"
             echo "  release/x.x.x"
             echo "  refactor/short-description"
+            echo "  docs/short-description"
             echo ""
             echo "Rules:"
             echo "  - Only lowercase letters, numbers, and hyphens in the description"
