@@ -3,7 +3,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { ROUTES } from './shared/constants';
 import { authGuard } from './core/guards/auth.guard';
-import { NotFoundComponent } from './not-found/not-found.component';
 
 export const routes: Routes = [
   { path: '', component: DashboardComponent, pathMatch: 'full' },
