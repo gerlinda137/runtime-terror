@@ -2,6 +2,7 @@ export interface UserPayload {
   email: string;
   name?: string;
   password: string;
+  age?: number;
 }
 
 export interface User {

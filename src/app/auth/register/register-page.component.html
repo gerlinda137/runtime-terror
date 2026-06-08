@@ -106,10 +106,19 @@
     <div class="register__step">
       <p appTypography="medium-text-regular">Review your details and create your account.</p>
 
+      @if (errorMessage()) {
+      <p class="register__error" appTypography="small-text-regular">{{ errorMessage() }}</p>
+      }
+
       <div class="register__actions">
         <button matButton matStepperPrevious>Back</button>
-        <button matButton (click)="stepper.reset()">Reset</button>
+        <button matButton="filled" (click)="onSubmit()" [disabled]="isLoading()">Create account</button>
       </div>
     </div>
   </mat-step>
 </mat-stepper>
+
+<div class="register__login-link">
+  <span appTypography="small-text-regular">Already have an account?</span>
+  <button matButton type="button" [routerLink]="loginLink">Log in</button>
+</div>
