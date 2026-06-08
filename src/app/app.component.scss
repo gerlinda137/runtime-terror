@@ -65,4 +65,16 @@
       overflow: hidden;
     }
   }
+
+  &.no-sidebar {
+    grid-template-columns: 1fr;
+
+    & > .header {
+      grid-column: 1;
+    }
+
+    & > .page {
+      grid-column: 1;
+    }
+  }
 }
