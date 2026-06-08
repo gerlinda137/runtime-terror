@@ -11,4 +11,16 @@
   &__stepper {
     width: 100%;
   }
+
+  &__step {
+    display: flex;
+    flex-direction: column;
+    gap: var(--padding-card);
+    max-width: 22rem;
+  }
+
+  &__error {
+    margin: 0;
+    color: var(--danger);
+  }
 }

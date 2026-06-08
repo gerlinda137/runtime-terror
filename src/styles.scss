@@ -51,6 +51,8 @@ body {
 }
 
 button[mat-raised-button] {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
   width: fit-content;
   height: 32px;
   border-radius: var(--radius-sm);
@@ -69,6 +71,10 @@ button[mat-icon-button] {
   background: none !important;
   cursor: pointer;
   outline: none;
+}
+
+.register__stepper .mat-horizontal-content-container {
+  padding-top: 0.5rem;
 }
 
 .custom-user-menu {

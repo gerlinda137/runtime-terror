@@ -1,7 +1,7 @@
 <h1 appTypography="heading-3" class="register__title">register</h1>
 <mat-stepper class="register__stepper" linear #stepper>
   <mat-step [stepControl]="nameForm">
-    <form [formGroup]="nameForm">
+    <form [formGroup]="nameForm" class="register__step">
       <ng-template matStepLabel>Fill your name </ng-template>
 
       <mat-form-field appearance="outline">
@@ -22,7 +22,7 @@
   </mat-step>
 
   <mat-step [stepControl]="ageForm">
-    <form [formGroup]="ageForm">
+    <form [formGroup]="ageForm" class="register__step">
       <ng-template matStepLabel>Fill your age </ng-template>
 
       <mat-form-field appearance="outline">
@@ -44,7 +44,7 @@
   </mat-step>
 
   <mat-step [stepControl]="emailForm">
-    <form [formGroup]="emailForm">
+    <form [formGroup]="emailForm" class="register__step">
       <ng-template matStepLabel>Fill your e-mail </ng-template>
 
       <mat-form-field appearance="outline">
@@ -66,7 +66,7 @@
   </mat-step>
 
   <mat-step [stepControl]="passwordForm">
-    <form [formGroup]="passwordForm">
+    <form [formGroup]="passwordForm" class="register__step">
       <ng-template matStepLabel>Fill your password </ng-template>
 
       <mat-form-field appearance="outline">
@@ -80,6 +80,19 @@
         }
       </mat-form-field>
 
+      <mat-form-field appearance="outline">
+        <mat-label>Confirm password</mat-label>
+        <input matInput formControlName="confirmPassword" type="password" placeholder="repeat your password">
+
+        @if (passwordForm.controls.confirmPassword.hasError('required')) {
+        <mat-error>Please confirm your password</mat-error>
+        }
+      </mat-form-field>
+
+      @if (passwordForm.hasError('passwordMismatch') && passwordForm.controls.confirmPassword.touched) {
+      <p class="register__error" appTypography="small-text-regular">Passwords do not match</p>
+      }
+
       <div class="register__actions">
         <button matButton matStepperPrevious>Back</button>
         <button matButton="filled" matStepperNext>Next</button>
@@ -90,11 +103,13 @@
   <mat-step>
     <ng-template matStepLabel>Done</ng-template>
 
-    <p appTypography="medium-text-regular">Review your details and create your account.</p>
+    <div class="register__step">
+      <p appTypography="medium-text-regular">Review your details and create your account.</p>
 
-    <div class="register__actions">
-      <button matButton matStepperPrevious>Back</button>
-      <button matButton (click)="stepper.reset()">Reset</button>
+      <div class="register__actions">
+        <button matButton matStepperPrevious>Back</button>
+        <button matButton (click)="stepper.reset()">Reset</button>
+      </div>
     </div>
   </mat-step>
 </mat-stepper>

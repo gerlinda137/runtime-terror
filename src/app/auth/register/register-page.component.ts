@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
 import { Typography } from '../../shared/directive';
+import { PasswordMatchService } from '../service/password-match.service';
 
 @Component({
   selector: 'app-register-page',
@@ -21,6 +22,8 @@ import { Typography } from '../../shared/directive';
 })
 export class RegisterPageComponent {
   private fb = inject(FormBuilder);
+  private passwordMatch = inject(PasswordMatchService);
+
   nameForm = this.fb.nonNullable.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
   });
@@ -30,7 +33,11 @@ export class RegisterPageComponent {
   emailForm = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
   });
-  passwordForm = this.fb.nonNullable.group({
-    password: ['', [Validators.required, Validators.minLength(8)]],
-  });
+  passwordForm = this.fb.nonNullable.group(
+    {
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['', [Validators.required]],
+    },
+    { validators: this.passwordMatch.match },
+  );
 }
