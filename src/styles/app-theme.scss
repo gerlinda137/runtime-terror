@@ -1,18 +1,22 @@
 :root {
-  --md-sys-color-primary: #3b82f6;
-  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary: var(--primary-100);
+  --md-sys-color-on-primary: var(--base-0);
+  --md-sys-color-primary-container: var(--primary-20);
+  --md-sys-color-on-primary-container: var(--primary-100);
 
-  --md-sys-color-secondary: #22d3ee;
-  --md-sys-color-on-secondary: #00333a;
+  --md-sys-color-secondary: var(--primary-80);
+  --md-sys-color-on-secondary: var(--base-0);
 
-  --md-sys-color-background: #f5f7fa;
-  --md-sys-color-surface: #ffffff;
-  --md-sys-color-surface-variant: #e5e7eb;
-  --md-sys-color-on-surface: #111827;
+  --md-sys-color-background: var(--background);
+  --md-sys-color-surface: var(--surface);
+  --md-sys-color-surface-variant: var(--surface-variant);
+  --md-sys-color-on-surface: var(--text-primary);
 
   /* Material components read --mat-sys-*, not --md-sys-*. */
   --mat-sys-primary: var(--md-sys-color-primary);
   --mat-sys-on-primary: var(--md-sys-color-on-primary);
+  --mat-sys-primary-container: var(--md-sys-color-primary-container);
+  --mat-sys-on-primary-container: var(--md-sys-color-on-primary-container);
   --mat-sys-secondary: var(--md-sys-color-secondary);
   --mat-sys-on-secondary: var(--md-sys-color-on-secondary);
   --mat-sys-background: var(--md-sys-color-background);
@@ -23,16 +27,11 @@
   --mat-sys-outline: var(--card-border);
   --mat-sys-error: var(--danger);
 
-  --card-bg: #ffffff;
-  --card-border: #e5e7eb;
-
-  --text-primary: #111827;
-  --text-secondary: #6b7280;
   --text-secondary-2: #828282;
 
-  --success: #10b981;
+  --success: var(--success-100);
   --success-alt: #53d258;
-  --danger: #ef4444;
+  --danger: var(--error-100);
 
   /* figma variable */
   /* primary */
@@ -66,15 +65,16 @@
   --error-20: #f9dede;
 
   /* ui */
-  --background: var(--base-0);
-  --surface: var(--base-20);
+  --background: #f5f7fa; /* подложка / canvas */
+  --surface: var(--base-0); /* белые карточки/панели */
+  --surface-variant: var(--base-20);
   --text-primary: var(--base-100);
   --text-secondary: var(--base-60);
   --icon-color: var(--base-60);
   --icon-color-hover: var(--base-80);
   --icon-color-active: var(--base-100);
-  --card-bg: var(--base-20);
-  --card-border: var(--base-40);
+  --card-bg: var(--surface);
+  --card-border: var(--base-20);
 
   /* Sizes */
   /* 16px */
@@ -108,26 +108,10 @@
 
 /* ---------- DARK THEME ---------- */
 [data-theme='dark'] {
-  --md-sys-color-primary: #60a5fa;
-  --md-sys-color-on-primary: #0a0f1a;
+  /* подложка тёмной темы (surface/card-bg/border перевернутся сами через --base-*) */
+  --background: #1e2121;
 
-  --md-sys-color-secondary: #2dd4bf;
-  --md-sys-color-on-secondary: #002b26;
-
-  --md-sys-color-background: #0f172a;
-  --md-sys-color-surface: #1e293b;
-  --md-sys-color-surface-variant: #334155;
-  --md-sys-color-on-surface: #e2e8f0;
-
-  --card-bg: #1e293b;
-  --card-border: #334155;
-
-  --text-primary: #f1f5f9;
-  --text-secondary: #94a3b8;
-
-  --success: #34d399;
   --success-alt: #53d258;
-  --danger: #f87171;
 
   /* primary (lightened for dark bg) */
   --primary-100: #f5f8fe;
