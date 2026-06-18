@@ -9,8 +9,8 @@
   display: flex;
   height: 100%;
   width: 100%;
-  background-color: var(--background);
-  border-bottom: 1px solid var(--base-40);
+  background-color: var(--surface);
+  border-bottom: 1px solid var(--card-border);
   padding: var(--padding-card);
 
   .header-section {
