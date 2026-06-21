@@ -7,6 +7,7 @@ import { authGuard } from './core/guards/auth.guard';
 export const routes: Routes = [
   { path: '', component: DashboardComponent, pathMatch: 'full' },
   { path: 'dashboard', redirectTo: '', pathMatch: 'full' },
+  { path: 'about-us', loadComponent: () => import('../app/about-us/about-us.component').then(m => m.AboutUsComponent) },
   {
     path: ROUTES.AUTH,
     children: [
