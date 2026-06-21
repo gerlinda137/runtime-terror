@@ -5,5 +5,10 @@
             <p appTypography="large-text-regular">Three women, one codebase, zero mercy for bugs.</p>
         </header>
 
+        <section class="team-members-wrapper">
+            @for(member of teamMembers; track member.id) {
+            <app-member-card [member]="member" />
+            }
+        </section>
     </div>
 </div>
