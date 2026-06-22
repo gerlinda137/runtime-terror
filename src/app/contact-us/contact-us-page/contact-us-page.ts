@@ -4,6 +4,7 @@ import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { FormBuilder, FormGroupDirective, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ContactService } from '../service/contact.service';
 
 @Component({
   selector: 'app-contact-us-page',
@@ -22,8 +23,11 @@ import { FormBuilder, FormGroupDirective, ReactiveFormsModule, Validators } from
 })
 export class ContactUsPage {
   private fb = inject(FormBuilder);
+  private contactService = inject(ContactService);
 
   protected readonly submitted = signal(false);
+  protected readonly isLoading = this.contactService.isLoading;
+  protected readonly errorMessage = signal<string | null>(null);
 
   form = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
@@ -36,9 +40,15 @@ export class ContactUsPage {
       return;
     }
 
-    // TODO: отправить на бэкенд, когда появится эндпоинт обратной связи
-    console.log(this.form.getRawValue());
-    this.submitted.set(true);
-    formDir.resetForm(); // сбрасывает значения И флаг submitted — поля не подсвечиваются
+    this.errorMessage.set(null);
+
+    this.contactService.send(this.form.getRawValue()).subscribe({
+      next: () => {
+        this.submitted.set(true);
+        formDir.resetForm(); // сбрасывает значения И флаг submitted — поля не подсвечиваются
+      },
+      error: (err) =>
+        this.errorMessage.set(err?.error?.message ?? 'Failed to send. Please try again.'),
+    });
   }
 }

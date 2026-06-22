@@ -27,5 +27,9 @@
   </p>
   }
 
-  <button matButton="filled" type="submit" [disabled]="form.invalid">Send message</button>
+  @if (errorMessage()) {
+  <p class="contact-us__error" appTypography="small-text-regular">{{ errorMessage() }}</p>
+  }
+
+  <button matButton="filled" type="submit" [disabled]="form.invalid || isLoading()">Send message</button>
 </form>
