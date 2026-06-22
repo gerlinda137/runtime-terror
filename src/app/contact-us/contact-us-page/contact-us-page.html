@@ -1,0 +1,35 @@
+<form class="contact-us" [formGroup]="form" #formDir="ngForm" (ngSubmit)="onSubmit(formDir)">
+  <h1 appTypography="heading-3" class="contact-us__title">Contact us</h1>
+
+  <mat-form-field appearance="outline">
+    <mat-label>E-mail</mat-label>
+    <input matInput placeholder="you@example.com" formControlName="email" type="email">
+    @if (form.controls.email.hasError('required')) {
+    <mat-error>E-mail is required</mat-error>
+    } @else if (form.controls.email.hasError('email')) {
+    <mat-error>Insert correct e-mail</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Message</mat-label>
+    <textarea matInput placeholder="Your message" formControlName="message" rows="5"></textarea>
+    @if (form.controls.message.hasError('required')) {
+    <mat-error>Message is required</mat-error>
+    } @else if (form.controls.message.hasError('minlength')) {
+    <mat-error>Message must be at least 10 characters</mat-error>
+    }
+  </mat-form-field>
+
+  @if (submitted()) {
+  <p class="contact-us__success" appTypography="small-text-regular">
+    Thanks! Your message has been sent.
+  </p>
+  }
+
+  @if (errorMessage()) {
+  <p class="contact-us__error" appTypography="small-text-regular">{{ errorMessage() }}</p>
+  }
+
+  <button matButton="filled" type="submit" [disabled]="form.invalid || isLoading()">Send message</button>
+</form>
