@@ -42,6 +42,11 @@ export const routes: Routes = [
     ],
   },
   {
+    path: ROUTES.CONTACT,
+    loadComponent: () =>
+      import('./contact-us/contact-us-page/contact-us-page').then((m) => m.ContactUsPage),
+  },
+  {
     path: 'not-found',
     loadComponent: () => import('./not-found/not-found.component').then((c) => c.NotFoundComponent),
   },
