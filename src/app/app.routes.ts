@@ -7,6 +7,7 @@ import { authGuard } from './core/guards/auth.guard';
 export const routes: Routes = [
   { path: '', component: DashboardComponent, pathMatch: 'full' },
   { path: 'dashboard', redirectTo: '', pathMatch: 'full' },
+  { path: 'about-us', loadComponent: () => import('../app/about-us/about-us.component').then(m => m.AboutUsComponent) },
   {
     path: ROUTES.AUTH,
     children: [
@@ -40,6 +41,11 @@ export const routes: Routes = [
           import('../app/account/pages/api-keys-page/api-keys-page').then((m) => m.ApiKeysPage),
       },
     ],
+  },
+  {
+    path: ROUTES.CONTACT,
+    loadComponent: () =>
+      import('./contact-us/contact-us-page/contact-us-page').then((m) => m.ContactUsPage),
   },
   {
     path: 'not-found',
