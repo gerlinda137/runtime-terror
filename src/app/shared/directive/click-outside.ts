@@ -4,7 +4,7 @@ import { Directive, ElementRef, HostListener, output, inject } from '@angular/co
   selector: '[appClickOutside]',
   standalone: true,
 })
-export class ClickOutsideDirective {
+export class ClickOutside {
   clickOutside = output<void>();
 
   private el = inject(ElementRef<HTMLElement>);
