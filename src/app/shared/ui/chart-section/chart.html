@@ -1,0 +1,17 @@
+<mat-card>
+  <mat-card-title>Market Chart</mat-card-title>
+
+  <mat-card-content>
+
+    <mat-form-field>
+      <mat-select [value]="symbol()"
+        (selectionChange)="symbol.set($event.value)">
+        <mat-option value="BTCUSDT">BTC/USDT</mat-option>
+        <mat-option value="ETHUSDT">ETH/USDT</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <canvas id="chartCanvas" width="600" height="300"></canvas>
+
+  </mat-card-content>
+</mat-card>

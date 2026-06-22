@@ -1,6 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environments';
+import { Observable } from 'rxjs';
+import { KLinesResponse } from '../../models';
 
 @Injectable({
   providedIn: 'root',
@@ -29,8 +31,8 @@ export class PublicApiService {
   }
 
   // GET /api/v3/klines?symbol=BTCUSDT&interval=1m&limit=500
-  getKlines(symbol: string, interval = '1m', limit = 500) {
-    return this.http.get(`${this.base}/v3/klines`, {
+  getKLines(symbol: string, interval = '1m', limit = 500): Observable<KLinesResponse> {
+    return this.http.get<KLinesResponse>(`${this.base}/v3/klines`, {
       params: { symbol, interval, limit }
     });
   }
