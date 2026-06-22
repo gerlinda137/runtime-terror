@@ -20,10 +20,10 @@ import { ChangeHourPipe, SymbolPipe } from '../shared/pipes';
     ChangeColor,
     CryptoIcon,
   ],
-  templateUrl: './trending-market.component.html',
-  styleUrl: './trending-market.component.scss',
+  templateUrl: './trending-market.html',
+  styleUrl: './trending-market.scss',
 })
-export class TrendingMarketComponent {
+export class TrendingMarket {
   tokens = CRYPTO_TOKENS;
   displayedColumns = ['name', 'symbol', 'lastPrice', 'change24hour'];
 }

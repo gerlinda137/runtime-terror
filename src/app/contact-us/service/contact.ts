@@ -11,7 +11,7 @@ export interface ContactPayload {
 }
 
 @Injectable({ providedIn: 'root' })
-export class ContactService {
+export class Contact {
   private http = inject(HttpClient);
 
   private readonly _baseUrl = environment.apiUrl;

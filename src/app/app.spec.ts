@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-import { AppComponent } from './app.component';
+import { App } from './app';
 import { provideRouter } from '@angular/router';
 
-describe('AppComponent', () => {
+describe('App', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
@@ -12,7 +12,7 @@ describe('AppComponent', () => {
   });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
+    const fixture = TestBed.createComponent(App);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });

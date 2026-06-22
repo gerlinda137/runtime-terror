@@ -11,13 +11,13 @@ import { toSignal } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, Logo, Header, Sidebar],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  templateUrl: './app.html',
+  styleUrl: './app.scss',
   host: {
     '[class.no-sidebar]': 'isNotFound()', 
   },
 })
-export class AppComponent {
+export class App {
   private document = inject(DOCUMENT);
   private router = inject(Router);
 

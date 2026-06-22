@@ -4,7 +4,7 @@ import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { FormBuilder, FormGroupDirective, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ContactService } from '../service/contact.service';
+import { Contact } from '../service/contact';
 
 @Component({
   selector: 'app-contact-us-page',
@@ -23,7 +23,7 @@ import { ContactService } from '../service/contact.service';
 })
 export class ContactUsPage {
   private fb = inject(FormBuilder);
-  private contactService = inject(ContactService);
+  private contactService = inject(Contact);
 
   protected readonly submitted = signal(false);
   protected readonly isLoading = this.contactService.isLoading;

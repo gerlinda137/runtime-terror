@@ -7,7 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 
-import { AuthService } from '../service/auth.service';
+import { Auth } from '../service/auth';
 import { Typography } from '../../shared/directive';
 import { ROUTES } from '../../shared/constants';
 
@@ -23,12 +23,12 @@ import { ROUTES } from '../../shared/constants';
     MatButtonModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './login-page.component.html',
-  styleUrl: './login-page.component.scss',
+  templateUrl: './login-page.html',
+  styleUrl: './login-page.scss',
 })
-export class LoginPageComponent {
+export class LoginPage {
   private fb = inject(FormBuilder);
-  private authService = inject(AuthService);
+  private authService = inject(Auth);
   private router = inject(Router);
 
   protected readonly registerLink = `/${ROUTES.AUTH}/${ROUTES.REGISTER}`;

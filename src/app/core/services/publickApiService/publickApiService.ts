@@ -7,7 +7,7 @@ import { KLinesResponse } from '../../models';
 @Injectable({
   providedIn: 'root',
 })
-export class PublicApiService {
+export class PublicApi {
   private http = inject(HttpClient);
   private base = environment.apiPublic; // https://testnet.binance.vision/api
 

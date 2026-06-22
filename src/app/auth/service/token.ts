@@ -4,7 +4,7 @@ import { ACCESS_TOKEN } from '../../shared/constants';
 @Injectable({
   providedIn: 'root',
 })
-export class TokenService {
+export class Token {
   private readonly _token = signal<string | null>(localStorage.getItem(ACCESS_TOKEN));
   readonly token = this._token.asReadonly();
 

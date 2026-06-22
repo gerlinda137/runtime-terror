@@ -3,7 +3,7 @@ import { Directive, HostBinding, HostListener } from '@angular/core';
 @Directive({
   selector: '[appHoverLift]',
 })
-export class HoverLiftDirective {
+export class HoverLift {
   @HostListener('mouseenter') onMouseEnter() {
     this.isLifted = true;
   }

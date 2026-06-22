@@ -6,13 +6,13 @@ import { environment } from '../../../environments/environments';
 
 import { AuthResponse, User, UserPayload } from '../../core/models';
 import { FULL_ROUTES, USER } from '../../shared/constants';
-import { TokenService } from './token.service';
+import { Token } from './token';
 
 // ToDo: add custom error catcher
 @Injectable({ providedIn: 'root' })
-export class AuthService {
+export class Auth {
   private http = inject(HttpClient);
-  private tokenService = inject(TokenService);
+  private tokenService = inject(Token);
 
   private readonly _user = signal<User | null>(null);
   private readonly _isLoading = signal(false);

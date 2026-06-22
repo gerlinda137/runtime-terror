@@ -7,8 +7,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
 import { Typography } from '../../shared/directive';
 import { ROUTES } from '../../shared/constants';
-import { AuthService } from '../service/auth.service';
-import { PasswordMatchService } from '../service/password-match.service';
+import { Auth } from '../service/auth';
+import { PasswordMatch } from '../service/password-match';
 
 @Component({
   selector: 'app-register-page',
@@ -22,13 +22,13 @@ import { PasswordMatchService } from '../service/password-match.service';
     Typography,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './register-page.component.html',
-  styleUrl: './register-page.component.scss',
+  templateUrl: './register-page.html',
+  styleUrl: './register-page.scss',
 })
-export class RegisterPageComponent {
+export class RegisterPage {
   private fb = inject(FormBuilder);
-  private passwordMatch = inject(PasswordMatchService);
-  private authService = inject(AuthService);
+  private passwordMatch = inject(PasswordMatch);
+  private authService = inject(Auth);
   private router = inject(Router);
 
   protected readonly loginLink = `/${ROUTES.AUTH}/${ROUTES.LOGIN}`;
