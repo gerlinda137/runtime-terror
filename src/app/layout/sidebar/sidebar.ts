@@ -6,7 +6,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { CommonModule } from '@angular/common';
 
 import { Menu } from './menu/menu';
-import { ClickOutsideDirective } from '../../shared/directive';
+import { ClickOutside } from '../../shared/directive';
 
 @Component({
   selector: 'app-sidebar',
@@ -16,7 +16,7 @@ import { ClickOutsideDirective } from '../../shared/directive';
     MatListModule,
     MatIconModule,
     Menu,
-    ClickOutsideDirective
+    ClickOutside
   ],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
