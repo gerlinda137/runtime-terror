@@ -4,6 +4,7 @@ Date: 08/06/2026 - 22/06/2026
 **What was done:**
 - Create a service for integration with the public API routes. 
 (market data, candles, tickers — from the task spec)
+- Create chart component
 
 **Problems:**
 
@@ -28,6 +29,6 @@ Integrate:
 - Use signals for reactive updates
 
 **Time spent:**
-8h
+16h
 
 
