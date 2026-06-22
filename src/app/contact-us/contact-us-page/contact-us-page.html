@@ -1,4 +1,4 @@
-<form class="contact-us" [formGroup]="form" (ngSubmit)="onSubmit()">
+<form class="contact-us" [formGroup]="form" #formDir="ngForm" (ngSubmit)="onSubmit(formDir)">
   <h1 appTypography="heading-3" class="contact-us__title">Contact us</h1>
 
   <mat-form-field appearance="outline">

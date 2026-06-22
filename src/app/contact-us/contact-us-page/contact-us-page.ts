@@ -3,7 +3,7 @@ import { Typography } from '../../shared/directive';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroupDirective, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-contact-us-page',
@@ -30,7 +30,7 @@ export class ContactUsPage {
     message: ['', [Validators.required, Validators.minLength(10)]],
   });
 
-  onSubmit() {
+  onSubmit(formDir: FormGroupDirective) {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -39,6 +39,6 @@ export class ContactUsPage {
     // TODO: отправить на бэкенд, когда появится эндпоинт обратной связи
     console.log(this.form.getRawValue());
     this.submitted.set(true);
-    this.form.reset();
+    formDir.resetForm(); // сбрасывает значения И флаг submitted — поля не подсвечиваются
   }
 }
