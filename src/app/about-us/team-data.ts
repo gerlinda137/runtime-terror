@@ -5,7 +5,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
         id: 1,
         name: 'John Doe',
         role: 'Founder & CEO',
-        imgSrc: 'https://s3-alpha.figma.com/hub/file/2944732189/b47472b8-4e17-477e-a0a8-d5fcbed6a374-cover.png',
+        imgSrc: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3LnWJY0eqZcJZEZMJnyDaiocwZlLGNYPVww&s',
         bio: 'Loves building products and leading the team through chaos and coffee.',
         githubLink: 'https://github.com/johndoe'
     },
