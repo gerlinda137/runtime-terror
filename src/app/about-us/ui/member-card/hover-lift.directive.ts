@@ -4,9 +4,6 @@ import { Directive, ElementRef, HostBinding, HostListener, Renderer2 } from '@an
   selector: '[HoverLift]',
 })
 export class HoverLiftDirective {
-  constructor(private el: ElementRef, private renderer: Renderer2) {
-  }
-
   @HostListener('mouseenter') onMouseEnter() {
     this.isLifted = true;
   }

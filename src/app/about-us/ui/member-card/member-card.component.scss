@@ -14,8 +14,10 @@
     cursor: pointer;
     transform: translateY(0);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
 
-    &.lifted {
+    &.lifted, &.expanded {
         transform: translateY(-8px);
         box-shadow: 0 16px 32px rgba(0, 0, 0, 0.18);
     }
@@ -29,7 +31,7 @@
         transition: transform 0.3s ease;
     }
 
-    &.lifted .card-img {
+    &.lifted .card-img, &.expanded .card-img {
         transform: scale(1.03);
     }
 
@@ -59,12 +61,16 @@
     .card-reveal {
         display: grid;
         grid-template-rows: 0fr;
-        transition: grid-template-rows 0.35s ease;
+        transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         background-color: var(--card-bg);
 
         .card-reveal-inner {
             overflow: hidden;
+            min-height: 0;
             padding: 0 var(--padding-m);
+            opacity: 0;
+            transform: translateY(-8px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
     }
 
@@ -72,12 +78,15 @@
         grid-template-rows: 1fr;
 
         .card-reveal-inner {
-            padding: var(--padding-m);
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s;
         }
     }
 
     mat-card-header {
         padding: 0;
+        margin-top: var(--padding-m);
         margin-bottom: var(--padding-xs);
     }
 
@@ -89,6 +98,7 @@
     mat-card-actions {
         padding: 0;
         margin-top: var(--padding-xs);
+        margin-bottom: var(--padding-m);
     }
 }
 

@@ -4,10 +4,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { HoverLiftDirective } from './hover-lift.directive';
+import { ClickExpandDirective } from './click-expand.directive';
 
 @Component({
   selector: 'app-member-card',
-  imports: [HoverLiftDirective, MatCardModule, MatIconModule, MatButtonModule],
+  imports: [HoverLiftDirective, MatCardModule, MatIconModule, MatButtonModule, ClickExpandDirective],
   templateUrl: './member-card.component.html',
   styleUrl: './member-card.component.scss',
 })
