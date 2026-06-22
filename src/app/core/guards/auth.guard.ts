@@ -3,23 +3,9 @@ import { inject } from '@angular/core';
 import { FULL_ROUTES } from '../../shared/constants';
 import { TokenService } from '../../auth/service/token.service';
 
-export const authGuard: CanActivateFn = (state): boolean | UrlTree => {
+export const authGuard: CanActivateFn = (state,route): boolean | UrlTree => {
   const router = inject(Router);
   const tokenService = inject(TokenService);
-
-  const publicRoutes = [
-    FULL_ROUTES.AUTH_LOGIN,
-    FULL_ROUTES.AUTH_REGISTER,
-    // for test
-    'account',
-    'settings',
-    './',
-    'api/doc'
-  ];
-
-  if (publicRoutes.includes(state.url.toString())) {
-    return true;
-  }
 
   if (tokenService.token()) {
     return true;
