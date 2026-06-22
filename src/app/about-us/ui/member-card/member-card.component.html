@@ -1,0 +1,32 @@
+<div class="wrapper" appHoverLift appClickExpand>
+  <mat-card class="card">
+    <img mat-card-image [src]="member().imgSrc" [alt]="member().name" class="card-img" />
+
+    <div class="card-reveal">
+      <div class="card-reveal-inner">
+        <mat-card-header>
+          <mat-card-title>{{ member().name }}</mat-card-title>
+          <mat-card-subtitle>{{ member().role }}</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+          <p>{{ member().bio }}</p>
+        </mat-card-content>
+
+        <mat-card-actions align="end">
+          <a mat-icon-button [href]="member().githubLink" target="_blank" rel="noopener noreferrer"
+            aria-label="GitHub profile">
+            <mat-icon>code</mat-icon>
+          </a>
+        </mat-card-actions>
+      </div>
+    </div>
+  </mat-card>
+
+  <div class="expand-badge">
+    <div class="icon-rotator">
+      <mat-icon class="icon-single">keyboard_arrow_down</mat-icon>
+      <mat-icon class="icon-double">keyboard_double_arrow_down</mat-icon>
+    </div>
+  </div>
+</div>

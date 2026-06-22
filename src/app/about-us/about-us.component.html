@@ -1,0 +1,22 @@
+<div class="about-us-wrapper">
+    <div class="about-us-content">
+        <header class="about-us-header">
+            <h1 appTypography="heading-3">Meet the People Behind Runtime Terror</h1>
+            <p appTypography="large-text-regular">Three women, one codebase, zero mercy for bugs.</p>
+        </header>
+
+        <section class="team-members-wrapper">
+            @for(member of teamMembers; track member.id) {
+            <app-member-card [member]="member" />
+            }
+        </section>
+    </div>
+
+    <footer class="rs-logo-footer">
+        <a href="https://rs.school" target="_blank" rel="noopener noreferrer" class="rs-link">
+            <span class="rs-text">Created at</span>
+            <img src="../../assets/icons/rss-logo.svg" alt="RS School logo" class="rs-logo-img">
+            <span class="rs-highlight">rs.school</span>
+        </a>
+    </footer>
+</div>
