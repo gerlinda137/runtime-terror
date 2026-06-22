@@ -53,6 +53,7 @@
     height: 100%;
     overflow: hidden;
     padding: var(--padding-xs);
+    
 
     @media (max-width: $max-mobile) {
       grid-column: 1;
