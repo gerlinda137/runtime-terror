@@ -9,7 +9,8 @@ import { KLinesResponse } from '../../models';
 })
 export class PublicApi {
   private http = inject(HttpClient);
-  private base = environment.apiPublic; // https://testnet.binance.vision/api
+  // use apiUrl from environment (e.g. https://testnet.binance.vision/api)
+  private base = environment.apiUrl;
 
   // GET /api/v3/exchangeInfo
   getExchangeInfo() {
@@ -19,28 +20,28 @@ export class PublicApi {
   // GET /api/v3/ticker/price?symbol=BTCUSDT
   getTickerPrice(symbol: string) {
     return this.http.get(`${this.base}/v3/ticker/price`, {
-      params: { symbol }
+      params: { symbol },
     });
   }
 
   // GET /api/v3/depth?symbol=BTCUSDT&limit=100
   getOrderBook(symbol: string, limit = 100) {
     return this.http.get(`${this.base}/v3/depth`, {
-      params: { symbol, limit }
+      params: { symbol, limit },
     });
   }
 
   // GET /api/v3/klines?symbol=BTCUSDT&interval=1m&limit=500
   getKLines(symbol: string, interval = '1m', limit = 500): Observable<KLinesResponse> {
     return this.http.get<KLinesResponse>(`${this.base}/v3/klines`, {
-      params: { symbol, interval, limit }
+      params: { symbol, interval, limit },
     });
   }
 
   // GET /api/v3/trades?symbol=BTCUSDT&limit=50
   getRecentTrades(symbol: string, limit = 50) {
     return this.http.get(`${this.base}/v3/trades`, {
-      params: { symbol, limit }
+      params: { symbol, limit },
     });
   }
 }
