@@ -1,7 +1,7 @@
-import { Directive, ElementRef, HostBinding, HostListener, Renderer2 } from '@angular/core';
+import { Directive, HostBinding, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '[HoverLift]',
+  selector: '[appHoverLift]',
 })
 export class HoverLiftDirective {
   @HostListener('mouseenter') onMouseEnter() {
@@ -11,5 +11,5 @@ export class HoverLiftDirective {
     this.isLifted = false;
   }
 
-  @HostBinding('class.lifted') isLifted: boolean = false;
+  @HostBinding('class.lifted') isLifted = false;
 }
