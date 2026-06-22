@@ -1,15 +1,15 @@
 import { Component, signal } from '@angular/core';
 import { User } from '../../../core/models';
-import { UserAvatarComponent } from '../../ui';
-import { NameEditorComponent } from '../../ui/name-editor/name-editor';
-import { PasswordEditorComponent } from '../../ui/password-editor/password-editor';
+import { UserAvatar } from '../../ui';
+import { NameEditor } from '../../ui/name-editor/name-editor';
+import { PasswordEditor } from '../../ui/password-editor/password-editor';
 
 @Component({
   selector: 'app-settings-page',
   imports: [
-    UserAvatarComponent,
-    NameEditorComponent,
-    PasswordEditorComponent,
+    UserAvatar,
+    NameEditor,
+    PasswordEditor,
   ],
   standalone: true,
   templateUrl: './settings-page.html',

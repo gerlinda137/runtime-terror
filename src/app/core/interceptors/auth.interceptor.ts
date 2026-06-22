@@ -1,15 +1,15 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { TokenService } from '../../auth/service/token.service';
-import { AuthService } from '../../auth/service/auth.service';
+import { Token } from '../../auth/service/token';
+import { Auth } from '../../auth/service/auth';
 import { catchError, throwError } from 'rxjs';
 import { FULL_ROUTES } from '../../shared/constants';
 import { Router } from '@angular/router';
 
 // Attaches JWT token to all outgoing HTTP requests and handles 401 unauthorized errors
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const tokenService = inject(TokenService);
-  const authService = inject(AuthService);
+  const tokenService = inject(Token);
+  const authService = inject(Auth);
   const router = inject(Router);
 
   const token = tokenService.token();

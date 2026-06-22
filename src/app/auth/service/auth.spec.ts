@@ -1,14 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AuthService } from './auth.service';
+import { Auth } from './auth';
 import { UserPayload } from '../../core/models';
 import { provideHttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { ACCESS_TOKEN } from '../../shared/constants';
-import { TokenService } from './token.service';
+import { Token } from './token';
 
 describe('Auth1Service', () => {
-  let service: AuthService;
+  let service: Auth;
   interface TestErrType {
     status: number;
   }
@@ -21,9 +21,9 @@ describe('Auth1Service', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [AuthService, TokenService, provideHttpClient()],
+      providers: [Auth, Token, provideHttpClient()],
     });
-    service = TestBed.inject(AuthService);
+    service = TestBed.inject(Auth);
   });
 
   afterEach(() => {

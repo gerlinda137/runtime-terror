@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TrendingMarketComponent } from './trending-market.component';
+import { TrendingMarket } from './trending-market';
 
-describe('TrendingMarketComponent', () => {
-  let component: TrendingMarketComponent;
-  let fixture: ComponentFixture<TrendingMarketComponent>;
+describe('TrendingMarket', () => {
+  let component: TrendingMarket;
+  let fixture: ComponentFixture<TrendingMarket>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TrendingMarketComponent],
+      imports: [TrendingMarket],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TrendingMarketComponent);
+    fixture = TestBed.createComponent(TrendingMarket);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

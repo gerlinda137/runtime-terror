@@ -1,7 +1,7 @@
 import { Component, inject, signal, effect } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
-import { PublicApiService } from '../../../core/services/publickApiService/publickApiService';
+import { PublicApi } from '../../../core/services/publickApiService/publickApiService';
 
 @Component({
   selector: 'app-chart',
@@ -10,8 +10,8 @@ import { PublicApiService } from '../../../core/services/publickApiService/publi
   templateUrl: './chart.html',
   styleUrls: ['./chart.scss']
 })
-export class ChartComponent {
-  private api = inject(PublicApiService);
+export class Chart {
+  private api = inject(PublicApi);
 
   symbol = signal('BTCUSDT');
   interval = signal('1h');

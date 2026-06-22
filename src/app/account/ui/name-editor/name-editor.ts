@@ -3,14 +3,14 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
-import { ClickOutsideDirective, Typography } from '../../../shared/directive';
+import { ClickOutside, Typography } from '../../../shared/directive';
 
 @Component({
   selector: 'app-name-editor',
   imports: [
     ReactiveFormsModule,
     Typography,
-    ClickOutsideDirective,
+    ClickOutside,
     MatIconModule,
     MatButtonModule,
     MatTooltip,
@@ -18,7 +18,7 @@ import { ClickOutsideDirective, Typography } from '../../../shared/directive';
   templateUrl: './name-editor.html',
   styleUrl: './name-editor.scss',
 })
-export class NameEditorComponent {
+export class NameEditor {
   editing = signal(false);
   name = model<string | null>('');
   control = new FormControl('');

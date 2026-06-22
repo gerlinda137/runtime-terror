@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup } from '@angular/forms';
 
-import { PasswordMatchService } from './password-match.service';
+import { PasswordMatch } from './password-match';
 
-describe('PasswordMatchService', () => {
-  let service: PasswordMatchService;
+describe('PasswordMatch', () => {
+  let service: PasswordMatch;
   const buildGroup = (password: string, confirmPassword: string) =>
     new FormGroup({
       password: new FormControl(password),
@@ -13,9 +13,9 @@ describe('PasswordMatchService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [PasswordMatchService],
+      providers: [PasswordMatch],
     });
-    service = TestBed.inject(PasswordMatchService);
+    service = TestBed.inject(PasswordMatch);
   });
 
   it('should be created', () => {

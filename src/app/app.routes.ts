@@ -1,26 +1,26 @@
 import { Routes } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { Dashboard } from './dashboard/dashboard';
 
 import { ROUTES } from './shared/constants';
 import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
-  { path: '', component: DashboardComponent, pathMatch: 'full' },
+  { path: '', component: Dashboard, pathMatch: 'full' },
   { path: 'dashboard', redirectTo: '', pathMatch: 'full' },
-  { path: 'about-us', loadComponent: () => import('../app/about-us/about-us.component').then(m => m.AboutUsComponent) },
+  { path: 'about-us', loadComponent: () => import('../app/about-us/about-us').then(m => m.AboutUs) },
   {
     path: ROUTES.AUTH,
     children: [
       {
         path: ROUTES.LOGIN,
         loadComponent: () =>
-          import('../app/auth/login/login-page.component').then((m) => m.LoginPageComponent),
+          import('../app/auth/login/login-page').then((m) => m.LoginPage),
       },
       {
         path: ROUTES.REGISTER,
         loadComponent: () =>
-          import('../app/auth/register/register-page.component').then(
-            (m) => m.RegisterPageComponent,
+          import('../app/auth/register/register-page').then(
+            (m) => m.RegisterPage,
           ),
       },
     ],
@@ -49,7 +49,7 @@ export const routes: Routes = [
   },
   {
     path: 'not-found',
-    loadComponent: () => import('./not-found/not-found.component').then((c) => c.NotFoundComponent),
+    loadComponent: () => import('./not-found/not-found').then((c) => c.NotFound),
   },
   {
     path: '**',

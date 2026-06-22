@@ -1,17 +1,17 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TokenService } from './token.service';
+import { Token } from './token';
 import { ACCESS_TOKEN } from '../../shared/constants';
 
-describe('TokenService', () => {
-  let service: TokenService;
+describe('Token', () => {
+  let service: Token;
 
   beforeEach(() => {
     localStorage.clear();
     TestBed.configureTestingModule({
-      providers: [TokenService],
+      providers: [Token],
     });
-    service = TestBed.inject(TokenService);
+    service = TestBed.inject(Token);
   });
 
   afterEach(() => {
