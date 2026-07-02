@@ -1,4 +1,4 @@
-import { Component, input, OnInit } from '@angular/core';
+import { Component, input, inject, DestroyRef } from '@angular/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
@@ -6,6 +6,8 @@ import { MatIconModule } from '@angular/material/icon';
 import type { ThemeType, User } from '../../core/models';
 import { Typography } from '../../shared/directive';
 import { Logo } from '../../shared/ui';
+import { UserStore } from '../../core/store/user.store';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-header',
@@ -13,28 +15,49 @@ import { Logo } from '../../shared/ui';
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })
-export class Header implements OnInit {
+export class Header {
+  private userStore = inject(UserStore);
+  private destroyRef = inject(DestroyRef);
+
+  user: User | null = null;
+  loading = false;
+  error: string | null = null;
 
   isLoggedIn = input<boolean>(false);
-  user = input<User | null>(null);
   theme = input<ThemeType>();
   toggleTheme = input<() => void>();
+
   welcomeText = '';
   userLogo = '';
 
-  ngOnInit() {
-    const { name } = this.user() ?? { name: '' };
-    const logo = 'assets/icons/default_user.svg';
+  constructor() {
+    this.userStore.user$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(u => {
+        this.user = u;
+        this.updateUserInfo();
+      });
+
+    this.userStore.loading$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(l => this.loading = l);
+
+    this.userStore.error$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(e => this.error = e);
+
+    this.userStore.loadUser();
+  }
+
+  private updateUserInfo() {
+    const name = this.user?.name ?? '';
     this.welcomeText = `Welcome ${name}!`;
-    this.userLogo = logo;
+    this.userLogo = 'assets/icons/default_user.svg';
   }
 
   handleTheme() {
     const handler = this.toggleTheme();
-
-    if (handler) {
-      handler();
-    }
+    if (handler) handler();
   }
 
   handleMode() {
