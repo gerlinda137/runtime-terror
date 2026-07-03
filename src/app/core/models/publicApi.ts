@@ -17,7 +17,7 @@ export type Kline = [
 export type KLinesResponse = Kline[];
 
 // WebSocket: Individual symbol ticker stream (<symbol>@ticker)
-export type Ticker = {
+export interface Ticker {
   e: string;   // event type
   E: number;   // event time
   s: string;   // symbol
@@ -39,7 +39,7 @@ export type Ticker = {
 };
 
 // WebSocket: Kline object nested inside KlineEvent
-export type BinanceKline = {
+export interface BinanceKline {
   t: number;   // kline start time
   T: number;   // kline close time
   s: string;   // symbol
@@ -59,7 +59,7 @@ export type BinanceKline = {
 };
 
 // WebSocket: Kline stream event (<symbol>@kline_<interval>)
-export type KlineEvent = {
+export interface KlineEvent {
   e: string;      // event type ("kline")
   E: number;      // event time
   s: string;      // symbol
@@ -67,7 +67,7 @@ export type KlineEvent = {
 };
 
 // WebSocket: Diff. depth stream event (<symbol>@depth)
-export type DepthEvent = {
+export interface DepthEvent {
   e: string;       // event type ("depthUpdate")
   E: number;       // event time
   s: string;       // symbol

@@ -1,30 +1,46 @@
 import { TestBed } from '@angular/core/testing';
 import { BinanceWsService } from './binanceWsService';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { Ticker } from '../../models';
+
+interface FakeWebSocketInstance {
+  url: string;
+  readyState: number;
+  close: ReturnType<typeof vi.fn>;
+  onmessage: ((ev: { data: string }) => void) | null;
+  onerror: (() => void) | null;
+  onclose: (() => void) | null;
+}
 
 describe('BinanceWsService', () => {
   const TEST_SYMBOL = 'BTCUSDT';
   let service: BinanceWsService;
   let wsConstructorCallCount: number;
-  let lastFakeSocket: any;
+  let lastFakeSocket: FakeWebSocketInstance;
 
   beforeEach(() => {
     wsConstructorCallCount = 0;
 
-    class FakeWebSocket {
-      static OPEN = 1;
-      readyState = FakeWebSocket.OPEN;
-      close = vi.fn();
-      onmessage: ((ev: any) => void) | null = null;
-      onerror: (() => void) | null = null;
-      onclose: (() => void) | null = null;
-
-      constructor(_url: string) {
-        wsConstructorCallCount++;
-        lastFakeSocket = this;
-      }
+    function createFakeWebSocket(url: string): FakeWebSocketInstance {
+      wsConstructorCallCount++;
+      const socket: FakeWebSocketInstance = {
+        url,
+        readyState: createFakeWebSocket.OPEN,
+        close:  vi.fn(),
+        onmessage: null,
+        onerror: null,
+        onclose: null,
+      };
+      lastFakeSocket = socket;
+      return socket;
     }
 
-    vi.stubGlobal('WebSocket', FakeWebSocket);
+    createFakeWebSocket.OPEN = 1;
+    createFakeWebSocket.CONNECTING = 0;
+    createFakeWebSocket.CLOSING = 2;
+    createFakeWebSocket.CLOSED = 3;
+
+    vi.stubGlobal('WebSocket', createFakeWebSocket);
 
     TestBed.configureTestingModule({});
     service = TestBed.inject(BinanceWsService);
@@ -54,10 +70,10 @@ describe('BinanceWsService', () => {
   it('should deliver same msg to multiple subscribrs of same stream', () => {
     const received: string[] = [];
 
-    service.subscribeToTicker(TEST_SYMBOL).subscribe((msg) => received.push('A:' + (msg as any).s));
-    service.subscribeToTicker(TEST_SYMBOL).subscribe((msg) => received.push('B:' + (msg as any).s));
+    service.subscribeToTicker(TEST_SYMBOL).subscribe((msg:Ticker) => received.push('A:' + (msg as any).s));
+    service.subscribeToTicker(TEST_SYMBOL).subscribe((msg:Ticker) => received.push('B:' + (msg as any).s));
 
-    lastFakeSocket.onmessage({ data: JSON.stringify({ s: TEST_SYMBOL }) });
+    lastFakeSocket.onmessage?.({ data: JSON.stringify({ s: TEST_SYMBOL }) });
 
     expect(received).toEqual([`A:${TEST_SYMBOL}`, `B:${TEST_SYMBOL}`]);
   });
