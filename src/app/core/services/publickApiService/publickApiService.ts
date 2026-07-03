@@ -10,7 +10,7 @@ import { KLinesResponse } from '../../models';
 export class PublicApi {
   private http = inject(HttpClient);
   // use apiUrl from environment (e.g. https://testnet.binance.vision/api)
-  private base = environment.apiUrl;
+  private base = environment.publicApiUrl;
 
   // GET /api/v3/exchangeInfo
   getExchangeInfo() {
