@@ -8,6 +8,7 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { AddKeyDialog } from "../../ui/add-key-dialog/add-key-dialog";
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DatePipe } from "@angular/common";
+import { DeleteKeyDialog } from "../../ui/delete-key-dialog/delete-key-dialog";
 
 @Component({
   selector: 'app-api-keys',
@@ -51,7 +52,7 @@ export class ApiKeysPage {
     this.dialog.open(AddKeyDialog, { panelClass: 'custom-dialog-panel' });
   }
 
-  // openDeleteDialog(key: ApiKey) {
-  // this.dialog.open(DeleteKeyDialog, { data: key });
-  //}
+  openDeleteDialog(key: ApiKey) {
+    this.dialog.open(DeleteKeyDialog, { data: key, panelClass: 'custom-dialog-panel' });
+  }
 }

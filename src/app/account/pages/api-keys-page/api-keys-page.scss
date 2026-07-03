@@ -4,6 +4,29 @@
   @include page-layout();
   display: flex;
   flex-direction: column;
+
+  .keys-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--padding-card);
+
+    .key-card {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      gap: var(--padding-extra-sm);
+      border-radius: var(--radius-sm);
+      background: var(--card-bg);
+      border: 1px dotted var(--card-border);
+
+      .key-info {
+        display: flex;
+        flex-direction: column;
+        gap: var(--padding-sm);
+        padding: var(--padding-card);
+      }
+    }
+  }
 }
 
 ::ng-deep .custom-dialog-panel .mat-mdc-dialog-surface {
