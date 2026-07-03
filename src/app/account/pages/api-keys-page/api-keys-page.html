@@ -1,1 +1,28 @@
-<p>api-keys-page works!</p>
+<h2 appTypography="heading-3" class="keys-heading">API Keys</h2>
+
+<div class="keys-actions">
+  <button mat-raised-button color="primary" (click)="openAddDialog()">
+    <mat-icon>add</mat-icon>
+    Add Key
+  </button>
+</div>
+
+@if (error()) {
+<p class="error" appTypography="small-text-regular">{{ error() }}</p>
+}
+
+<div class="keys-list">
+  @for (key of keys(); track key.id) {
+  <div class="key-card">
+    <div class="key-info">
+      <h4 appTypography="large-text-semibold">{{ key.name }}</h4>
+      <p appTypography="small-text-regular">Created: {{ key.createdAt | date
+        }}</p>
+    </div>
+
+    <button mat-icon-button color="warn" (click)="openDeleteDialog(key)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+  }
+</div>

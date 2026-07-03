@@ -1,0 +1,43 @@
+<h2 appTypography="heading-4" class="dialog-title">Add API Key</h2>
+
+<form [formGroup]="form" class="dialog-form">
+  <mat-form-field appearance="outline">
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name" placeholder="Key name" />
+    @if (form.controls.name.hasError('required')) {
+      <mat-error>Name is required</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>API Key</mat-label>
+    <input matInput formControlName="apiKey" placeholder="API key" />
+    @if (form.controls.apiKey.hasError('required')) {
+      <mat-error>API key is required</mat-error>
+    }
+    @if (form.controls.apiKey.hasError('minlength')) {
+      <mat-error>API key must be at least 10 characters</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Secret</mat-label>
+    <input matInput formControlName="secret" placeholder="Secret key" />
+    @if (form.controls.secret.hasError('required')) {
+      <mat-error>Secret is required</mat-error>
+    }
+    @if (form.controls.secret.hasError('minlength')) {
+      <mat-error>Secret must be at least 10 characters</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Exchange</mat-label>
+    <input matInput formControlName="exchange" placeholder="Exchange name" />
+  </mat-form-field>
+
+  <div class="dialog-actions">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" (click)="save()">Save</button>
+  </div>
+</form>

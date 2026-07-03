@@ -1,0 +1,19 @@
+@use '../../../../styles/mixins/page.scss' as *;
+
+:host {
+  @include page-layout();
+  display: flex;
+  flex-direction: column;
+}
+
+::ng-deep .custom-dialog-panel .mat-mdc-dialog-surface {
+  padding: var(--padding-card);
+  background: var(--card-bg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-card);
+
+  form.dialog-form {
+    gap: var(--padding-card);
+  }
+}
