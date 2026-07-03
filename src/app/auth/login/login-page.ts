@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -7,9 +7,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 
-import { Auth } from '../service/auth';
 import { Typography } from '../../shared/directive';
 import { ROUTES } from '../../shared/constants';
+import { AuthStore } from '../../core/store/auth.store';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-login-page',
@@ -28,12 +29,23 @@ import { ROUTES } from '../../shared/constants';
 })
 export class LoginPage {
   private fb = inject(FormBuilder);
-  private authService = inject(Auth);
+  private authStore = inject(AuthStore);
   private router = inject(Router);
+  private destroyRef = inject(DestroyRef);
 
   protected readonly registerLink = `/${ROUTES.AUTH}/${ROUTES.REGISTER}`;
-  protected readonly isLoading = this.authService.isLoading;
+  protected readonly isLoading = signal(false);
   protected readonly errorMessage = signal<string | null>(null);
+
+  constructor() {
+    this.authStore.loading$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(v => this.isLoading.set(v));
+
+    this.authStore.error$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(err => this.errorMessage.set(err));
+  }
 
   form = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
@@ -48,12 +60,10 @@ export class LoginPage {
 
     this.errorMessage.set(null);
 
-    this.authService.login(this.form.getRawValue()).subscribe({
-      next: () => this.router.navigateByUrl('/'),
-      error: (err) =>
-        this.errorMessage.set(
-          err?.error?.message ?? 'Invalid email or password. Please try again.',
-        ),
+    this.authStore.login(this.form.getRawValue()).subscribe({
+      next: (res) => {
+        if (res) this.router.navigateByUrl('/');
+      }
     });
   }
 }
