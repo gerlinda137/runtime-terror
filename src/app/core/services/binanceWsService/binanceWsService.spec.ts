@@ -70,8 +70,8 @@ describe('BinanceWsService', () => {
   it('should deliver same msg to multiple subscribrs of same stream', () => {
     const received: string[] = [];
 
-    service.subscribeToTicker(TEST_SYMBOL).subscribe((msg:Ticker) => received.push('A:' + (msg as any).s));
-    service.subscribeToTicker(TEST_SYMBOL).subscribe((msg:Ticker) => received.push('B:' + (msg as any).s));
+    service.subscribeToTicker(TEST_SYMBOL).subscribe((msg:Ticker) => received.push('A:' + msg.s));
+    service.subscribeToTicker(TEST_SYMBOL).subscribe((msg:Ticker) => received.push('B:' + msg.s));
 
     lastFakeSocket.onmessage?.({ data: JSON.stringify({ s: TEST_SYMBOL }) });
 
