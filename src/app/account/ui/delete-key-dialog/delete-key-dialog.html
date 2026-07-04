@@ -1,0 +1,11 @@
+<h2 appTypography="heading-4" class="dialog-title">Delete API Key</h2>
+
+<p appTypography="medium-text-regular">
+  Are you sure you want to delete
+  <strong>{{ key.name }}</strong>?
+</p>
+
+<div class="dialog-actions">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="warn" (click)="confirm()">Delete</button>
+</div>
