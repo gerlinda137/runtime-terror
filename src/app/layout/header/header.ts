@@ -1,4 +1,4 @@
-import { Component, input, inject, DestroyRef } from '@angular/core';
+import { Component, input, inject, DestroyRef, computed, OnInit, signal } from '@angular/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,7 +15,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })
-export class Header {
+export class Header implements OnInit {
   private userStore = inject(UserStore);
   private destroyRef = inject(DestroyRef);
 
@@ -27,32 +27,31 @@ export class Header {
   theme = input<ThemeType>();
   toggleTheme = input<() => void>();
 
-  welcomeText = '';
-  userLogo = '';
+  private userSig = signal<User | null>(null);
+  welcomeText = computed(() => {
+    const u = this.userSig();
+    const name = u?.name ?? '';
+    return `Welcome ${name}!`;
+  });
+
+  userLogo = computed(() => {
+    return 'assets/icons/default_user.svg';
+  });
 
   constructor() {
     this.userStore.user$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(u => {
-        this.user = u;
-        this.updateUserInfo();
+        this.userSig.set(u);
       });
 
     this.userStore.loading$
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(l => this.loading = l);
-
-    this.userStore.error$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(e => this.error = e);
-
-    this.userStore.loadUser();
+      .subscribe();
   }
 
-  private updateUserInfo() {
-    const name = this.user?.name ?? '';
-    this.welcomeText = `Welcome ${name}!`;
-    this.userLogo = 'assets/icons/default_user.svg';
+  ngOnInit() {
+    this.userStore.loadUser();
   }
 
   handleTheme() {
