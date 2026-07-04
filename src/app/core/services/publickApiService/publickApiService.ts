@@ -11,6 +11,7 @@ export class PublicApi {
   private http = inject(HttpClient);
   // use apiUrl from environment (e.g. https://testnet.binance.vision/api)
   private base = environment.publicApiUrl;
+  private api = environment.apiUrl;
 
   // GET /api/v3/exchangeInfo
   getExchangeInfo() {
@@ -32,9 +33,9 @@ export class PublicApi {
   }
 
   // GET /api/v3/klines?symbol=BTCUSDT&interval=1m&limit=500
-  getKLines(symbol: string, interval = '1m', limit = 500): Observable<KLinesResponse> {
-    return this.http.get<KLinesResponse>(`${this.base}/v3/klines`, {
-      params: { symbol, interval, limit },
+  getKLines(symbol: string): Observable<KLinesResponse> {
+    return this.http.get<KLinesResponse>(`${this.api}/crypto/klines`, {
+      params: { symbol },
     });
   }
 
