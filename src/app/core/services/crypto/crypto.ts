@@ -32,6 +32,10 @@ export class Crypto {
     return this.http.get(`${this.base}/crypto/ticker`, { params: { symbol } });
   }
 
+  getAllPrices(): Observable<{ symbol: string; price: string }[]> {
+    return this.http.get<{ symbol: string; price: string }[]>(`${this.base}/crypto/ticker`);
+  }
+
   //create order
   // eslint-disable-next-line
   createOrder(keyId: string, payload: OrderPayload): Observable<any> {
