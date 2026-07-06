@@ -1,6 +1,11 @@
 <section class="portfolio">
   <h1 appTypography="heading-3">Portfolio</h1>
 
+  @if (loading()) {
+  <app-loader />
+  } @else if (error()) {
+  <p class="portfolio__error" appTypography="medium-text-regular">{{ error() }}</p>
+  } @else {
   <p class="portfolio__total">
     Total value: <strong>{{ totalValue() | currency: 'USD' }}</strong>
   </p>
@@ -55,4 +60,5 @@
       </p>
     </mat-tab>
   </mat-tab-group>
+  }
 </section>

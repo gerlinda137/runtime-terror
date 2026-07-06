@@ -10,6 +10,7 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatTabsModule } from '@angular/material/tabs';
 import { BinanceWsService } from '../core/services/binanceWsService/binanceWsService';
 import { Distribution, DistItem } from './distribution/distribution';
+import { Loader } from '../shared/ui/loader/loader';
 
 interface Balance {
   asset: string;
@@ -38,6 +39,7 @@ const TOP_ASSETS = 6;
     MatPaginatorModule,
     MatTabsModule,
     Distribution,
+    Loader,
   ],
   templateUrl: './portfolio.html',
   styleUrl: './portfolio.scss',
@@ -51,6 +53,8 @@ export class Portfolio implements OnInit {
 
   rows = signal<AssetRow[]>([]);
   totalValue = signal(0);
+  loading = signal(true);
+  error = signal<string | null>(null);
 
   pageIndex = signal(0);
   pageSize = signal(10);
@@ -109,25 +113,33 @@ export class Portfolio implements OnInit {
 
     combineLatest([account$, prices$])
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(([account, priceMap]) => {
-        const rows = (account.balances as Balance[])
-          .filter((b) => Number(b.free) > 0 || Number(b.locked) > 0)
-          .map((b) => {
-            const available = Number(b.free);
-            const inOrder = Number(b.locked);
-            const price = STABLES.has(b.asset) ? 1 : (priceMap.get(b.asset + 'USDT') ?? 0);
-            return {
-              asset: b.asset,
-              available,
-              inOrder,
-              price,
-              value: (available + inOrder) * price,
-            };
-          })
-          .sort((a, b) => b.value - a.value);
+      .subscribe({
+        next: ([account, priceMap]) => {
+          const rows = (account.balances as Balance[])
+            .filter((b) => Number(b.free) > 0 || Number(b.locked) > 0)
+            .map((b) => {
+              const available = Number(b.free);
+              const inOrder = Number(b.locked);
+              const price = STABLES.has(b.asset) ? 1 : (priceMap.get(b.asset + 'USDT') ?? 0);
+              return {
+                asset: b.asset,
+                available,
+                inOrder,
+                price,
+                value: (available + inOrder) * price,
+              };
+            })
+            .sort((a, b) => b.value - a.value);
 
-        this.rows.set(rows);
-        this.totalValue.set(rows.reduce((sum, r) => sum + r.value, 0));
+          this.rows.set(rows);
+          this.totalValue.set(rows.reduce((sum, r) => sum + r.value, 0));
+          this.loading.set(false);
+        },
+        error: (err) => {
+          console.error(err);
+          this.loading.set(false);
+          this.error.set('Failed to load portfolio data. Please try again.');
+        },
       });
   }
 }
