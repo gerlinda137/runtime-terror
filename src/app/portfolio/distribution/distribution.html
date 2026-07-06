@@ -1,0 +1,13 @@
+<section class="distribution">
+  @for (item of items(); track item.asset) {
+  <div class="distribution__row">
+    <div class="distribution__label">
+      <span>{{ item.asset }}</span>
+      <span>{{ item.percent | number: '1.0-1' }}%</span>
+    </div>
+    <mat-progress-bar mode="determinate" [value]="item.percent" />
+  </div>
+  } @empty {
+  <p appTypography="small-text-regular">No data yet</p>
+  }
+</section>

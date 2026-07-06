@@ -14,7 +14,6 @@ export class Chart {
   private api = inject(PublicApi);
 
   symbol = signal('BTCUSDT');
-  interval = signal('1h');
 
   prices: number[] = [];
 
@@ -25,7 +24,7 @@ export class Chart {
   }
 
   loadData() {
-    this.api.getKLines(this.symbol(), this.interval())
+    this.api.getKLines(this.symbol())
       .subscribe(data => {
         this.prices = data.map(c => Number(c[4]));
         this.drawChart();
