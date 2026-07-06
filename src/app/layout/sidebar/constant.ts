@@ -12,6 +12,7 @@ export const SIDEBAR_ITEMS = [
     children: [
       { label: ROUTES.SETTINGS, link: FULL_ROUTES.ACCOUNT_SETTINGS },
       { label: ROUTES.API_KEYS, link: FULL_ROUTES.ACCOUNT_KEYS },
+      { label: ROUTES.PORTFOLIO, link: FULL_ROUTES.ACCOUNT_PORTFOLIO },
     ],
   },
   { label: 'Contact us', icon: 'contact_mail', link: ROUTES.CONTACT },
