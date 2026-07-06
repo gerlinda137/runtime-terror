@@ -8,6 +8,8 @@ import { Typography } from '../../shared/directive';
 import { Logo } from '../../shared/ui';
 import { UserStore } from '../../core/store/user.store';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { AuthStore } from '../../core/store/auth.store';
+import { merge } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -16,6 +18,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrl: './header.scss',
 })
 export class Header implements OnInit {
+  private authStore = inject(AuthStore);
   private userStore = inject(UserStore);
   private destroyRef = inject(DestroyRef);
 
@@ -39,7 +42,10 @@ export class Header implements OnInit {
   });
 
   constructor() {
-    this.userStore.user$
+    merge(
+      this.authStore.user$,
+      this.userStore.user$
+    )
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(u => {
         this.userSig.set(u);
