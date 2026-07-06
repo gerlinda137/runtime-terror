@@ -1,11 +1,18 @@
-import { Component, input, OnInit } from '@angular/core';
+import { Component, input, inject, DestroyRef, computed, OnInit, signal } from '@angular/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 
+import { Router } from '@angular/router';
+
 import type { ThemeType, User } from '../../core/models';
 import { Typography } from '../../shared/directive';
 import { Logo } from '../../shared/ui';
+import { UserStore } from '../../core/store/user.store';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { AuthStore } from '../../core/store/auth.store';
+import { FULL_ROUTES } from '../../shared/constants';
+import { merge } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -14,30 +21,63 @@ import { Logo } from '../../shared/ui';
   styleUrl: './header.scss',
 })
 export class Header implements OnInit {
+  private authStore = inject(AuthStore);
+  private userStore = inject(UserStore);
+  private router = inject(Router);
+  private destroyRef = inject(DestroyRef);
+
+  user: User | null = null;
+  loading = false;
+  error: string | null = null;
 
   isLoggedIn = input<boolean>(false);
-  user = input<User | null>(null);
   theme = input<ThemeType>();
   toggleTheme = input<() => void>();
-  welcomeText = '';
-  userLogo = '';
+
+  private userSig = signal<User | null>(null);
+  welcomeText = computed(() => {
+    const u = this.userSig();
+    const name = u?.name ?? '';
+    return `Welcome ${name}!`;
+  });
+
+  userLogo = computed(() => {
+    return 'assets/icons/default_user.svg';
+  });
+
+  constructor() {
+    merge(this.authStore.user$, this.userStore.user$)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((u) => {
+        this.userSig.set(u);
+      });
+
+    this.userStore.loading$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
+  }
 
   ngOnInit() {
-    const { name } = this.user() ?? { name: '' };
-    const logo = 'assets/icons/default_user.svg';
-    this.welcomeText = `Welcome ${name}!`;
-    this.userLogo = logo;
+    this.userStore.loadUser();
   }
 
   handleTheme() {
     const handler = this.toggleTheme();
-
-    if (handler) {
-      handler();
-    }
+    if (handler) handler();
   }
 
   handleMode() {
     return this.theme() === 'light' ? 'dark_mode' : 'light_mode';
+  }
+
+  logout() {
+    this.authStore.logout();
+    this.router.navigateByUrl(`/${FULL_ROUTES.AUTH_LOGIN}`);
+  }
+
+  goToLogin() {
+    this.router.navigateByUrl(`/${FULL_ROUTES.AUTH_LOGIN}`);
+  }
+
+  goToRegister() {
+    this.router.navigateByUrl(`/${FULL_ROUTES.AUTH_REGISTER}`);
   }
 }
