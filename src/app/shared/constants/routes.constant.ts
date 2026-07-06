@@ -7,6 +7,7 @@ export const ROUTES = {
   ACCOUNT: 'account',
   API_KEYS: 'keys',
   CONTACT: 'contact',
+  PORTFOLIO: 'portfolio',
 } as const;
 const { AUTH, LOGIN, REGISTER, ACCOUNT, SETTINGS, API_KEYS } = ROUTES;
 
