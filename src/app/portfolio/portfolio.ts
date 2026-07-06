@@ -7,6 +7,7 @@ import { Typography } from '../shared/directive/typography/typography';
 import { CurrencyPipe, DecimalPipe } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatTabsModule } from '@angular/material/tabs';
 import { BinanceWsService } from '../core/services/binanceWsService/binanceWsService';
 import { Distribution, DistItem } from './distribution/distribution';
 
@@ -35,6 +36,7 @@ const TOP_ASSETS = 6;
     DecimalPipe,
     MatTableModule,
     MatPaginatorModule,
+    MatTabsModule,
     Distribution,
   ],
   templateUrl: './portfolio.html',

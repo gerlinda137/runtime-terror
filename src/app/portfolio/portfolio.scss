@@ -28,6 +28,10 @@
   .mat-mdc-cell:last-child {
     text-align: right !important;
   }
+
+  .mat-mdc-tab-body-content {
+    padding-top: var(--padding-s);
+  }
 }
 
 :host {
@@ -42,5 +46,8 @@
     @include medium-text-semibold;
     margin: 0 0 var(--padding-s);
   }
-}
 
+  .portfolio__placeholder {
+    color: var(--text-secondary);
+  }
+}
