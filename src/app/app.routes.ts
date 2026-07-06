@@ -3,6 +3,7 @@ import { Dashboard } from './dashboard/dashboard';
 
 import { ROUTES } from './shared/constants';
 import { authGuard } from './core/guards/auth.guard';
+import { portfolioGuard } from './core/guards/portfolio.guard';
 
 export const routes: Routes = [
   { path: '', component: Dashboard, pathMatch: 'full' },
@@ -49,7 +50,7 @@ export const routes: Routes = [
   },
   {
     path: ROUTES.PORTFOLIO,
-    canActivate: [authGuard],
+    canActivate: [portfolioGuard],
     loadComponent: () => import('./portfolio/portfolio').then((m) => m.Portfolio),
   },
   {
