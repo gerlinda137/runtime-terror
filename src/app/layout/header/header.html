@@ -1,14 +1,10 @@
-
 <div class="header-section">
   <app-logo />
   <div class="title-field">
-    <h2
-      appTypography="heading-5" class="main-title">
+    <h2 appTypography="heading-5" class="main-title">
       {{welcomeText()}}
     </h2>
-    <h4
-      appTypography="medium-text-regular"
-      class="sub-title">
+    <h4 appTypography="medium-text-regular" class="sub-title">
       Hope you are healthy and happy today...</h4>
   </div>
   <div class="utilities-field">
@@ -19,19 +15,12 @@
 
     <div class="user-actions">
       <div matBadge="1" matBadgeSize="small" class="demo-section">
-        <mat-icon
-          class="notif-icon">notifications</mat-icon>
+        <mat-icon class="notif-icon">notifications</mat-icon>
       </div>
 
-      <div
-        class="menu-trigger-wrapper"
-        [matMenuTriggerFor]="userMenu"
-        #menuTrigger="matMenuTrigger">
+      <div class="menu-trigger-wrapper" [matMenuTriggerFor]="userMenu" #menuTrigger="matMenuTrigger">
         <div class="user-icon-area">
-          <img
-            src="assets/icons/default_user.svg"
-            alt="User Profile Picture"
-            [class.def-user-icon]="!isLoggedIn()" />
+          <img src="assets/icons/default_user.svg" alt="User Profile Picture" [class.def-user-icon]="!isLoggedIn()" />
         </div>
 
         <span class="arrow" [class.rotated]="menuTrigger.menuOpen">
@@ -40,8 +29,7 @@
       </div>
 
       <mat-menu #userMenu="matMenu" xPosition="before" class="custom-user-menu">
-        <button mat-menu-item
-          (click)="handleTheme()">
+        <button mat-menu-item (click)="handleTheme()">
           <mat-icon>
             {{ handleMode() }}
           </mat-icon>
@@ -53,16 +41,16 @@
           <mat-icon>account_circle</mat-icon>
           <span>Profile</span>
         </button>
-        <button mat-menu-item class="logout-btn">
+        <button mat-menu-item class="logout-btn" (click)="logout()">
           <mat-icon>logout</mat-icon>
           <span>Logout</span>
         </button>
         } @else {
-        <button mat-menu-item>
+        <button mat-menu-item (click)="goToLogin()">
           <mat-icon>login</mat-icon>
           <span>Log In</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="goToRegister()">
           <mat-icon>person_add</mat-icon>
           <span>Sign Up</span>
         </button>
