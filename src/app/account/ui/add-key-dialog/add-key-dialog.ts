@@ -6,6 +6,7 @@ import { MatInputModule } from "@angular/material/input";
 import { Typography } from "../../../shared/directive";
 import { KeyStore } from "../../../core/store/key";
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import * as C from '../../../shared/constants';
 
 @Component({
   selector: 'app-add-key-dialog',
@@ -29,7 +30,7 @@ export class AddKeyDialog {
     name: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     apiKey: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(10)] }),
     secret: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(10)] }),
-    exchange: new FormControl('BINANCE_SPOT_TESTNET', { nonNullable: true }),
+    exchange: new FormControl(C.EXCHANGE_KEY, { nonNullable: true }),
   });
 
   save() {
