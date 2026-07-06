@@ -7,6 +7,7 @@ import { MOCK_USER, THEMES } from './shared/constants';
 import type { User, ThemeType } from './core/models';
 import { filter, map } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { Auth } from './auth/service/auth';
 
 @Component({
   selector: 'app-root',
@@ -14,15 +15,16 @@ import { toSignal } from '@angular/core/rxjs-interop';
   templateUrl: './app.html',
   styleUrl: './app.scss',
   host: {
-    '[class.no-sidebar]': 'isNotFound()', 
+    '[class.no-sidebar]': 'isNotFound()',
   },
 })
 export class App {
   private document = inject(DOCUMENT);
   private router = inject(Router);
+  private authService = inject(Auth);
 
   protected readonly title = signal('crypto-trade');
-  isLoggedIn = true;
+  readonly isLoggedIn = this.authService.isAuthenticated;
   user: User = MOCK_USER;
   theme = signal<ThemeType>(THEMES.LIGHT);
 

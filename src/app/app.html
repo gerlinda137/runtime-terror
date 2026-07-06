@@ -1,12 +1,7 @@
-<app-header
-  class="header"
-  [isLoggedIn]="isLoggedIn"
-  [theme]="theme()"
-  [toggleTheme]="toggleTheme"
-/>
+<app-header class="header" [isLoggedIn]="isLoggedIn()" [theme]="theme()" [toggleTheme]="toggleTheme" />
 @if (!isNotFound()) {
-  <app-logo class="web-logo" />
-  <app-sidebar class="web-sidebar" />
+<app-logo class="web-logo" />
+<app-sidebar class="web-sidebar" />
 }
 <div class="page">
   <router-outlet />

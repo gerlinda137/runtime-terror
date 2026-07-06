@@ -72,4 +72,12 @@ export class Header implements OnInit {
     this.authStore.logout();
     this.router.navigateByUrl(`/${FULL_ROUTES.AUTH_LOGIN}`);
   }
+
+  goToLogin() {
+    this.router.navigateByUrl(`/${FULL_ROUTES.AUTH_LOGIN}`);
+  }
+
+  goToRegister() {
+    this.router.navigateByUrl(`/${FULL_ROUTES.AUTH_REGISTER}`);
+  }
 }
