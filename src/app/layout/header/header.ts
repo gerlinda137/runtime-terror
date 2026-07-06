@@ -3,12 +3,15 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 
+import { Router } from '@angular/router';
+
 import type { ThemeType, User } from '../../core/models';
 import { Typography } from '../../shared/directive';
 import { Logo } from '../../shared/ui';
 import { UserStore } from '../../core/store/user.store';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthStore } from '../../core/store/auth.store';
+import { FULL_ROUTES } from '../../shared/constants';
 import { merge } from 'rxjs';
 
 @Component({
@@ -20,6 +23,7 @@ import { merge } from 'rxjs';
 export class Header implements OnInit {
   private authStore = inject(AuthStore);
   private userStore = inject(UserStore);
+  private router = inject(Router);
   private destroyRef = inject(DestroyRef);
 
   user: User | null = null;
@@ -42,18 +46,13 @@ export class Header implements OnInit {
   });
 
   constructor() {
-    merge(
-      this.authStore.user$,
-      this.userStore.user$
-    )
+    merge(this.authStore.user$, this.userStore.user$)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(u => {
+      .subscribe((u) => {
         this.userSig.set(u);
       });
 
-    this.userStore.loading$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe();
+    this.userStore.loading$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
   }
 
   ngOnInit() {
@@ -67,5 +66,10 @@ export class Header implements OnInit {
 
   handleMode() {
     return this.theme() === 'light' ? 'dark_mode' : 'light_mode';
+  }
+
+  logout() {
+    this.authStore.logout();
+    this.router.navigateByUrl(`/${FULL_ROUTES.AUTH_LOGIN}`);
   }
 }
