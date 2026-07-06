@@ -6,6 +6,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Typography } from '../shared/directive/typography/typography';
 import { CurrencyPipe, DecimalPipe } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { BinanceWsService } from '../core/services/binanceWsService/binanceWsService';
 import { Distribution, DistItem } from './distribution/distribution';
 
@@ -28,7 +29,14 @@ const TOP_ASSETS = 6;
 
 @Component({
   selector: 'app-portfolio',
-  imports: [Typography, CurrencyPipe, DecimalPipe, MatTableModule, Distribution],
+  imports: [
+    Typography,
+    CurrencyPipe,
+    DecimalPipe,
+    MatTableModule,
+    MatPaginatorModule,
+    Distribution,
+  ],
   templateUrl: './portfolio.html',
   styleUrl: './portfolio.scss',
 })
@@ -41,6 +49,20 @@ export class Portfolio implements OnInit {
 
   rows = signal<AssetRow[]>([]);
   totalValue = signal(0);
+
+  pageIndex = signal(0);
+  pageSize = signal(10);
+  pageSizeOptions = [10, 25, 50];
+
+  pagedRows = computed(() => {
+    const start = this.pageIndex() * this.pageSize();
+    return this.rows().slice(start, start + this.pageSize());
+  });
+
+  onPage(event: PageEvent) {
+    this.pageIndex.set(event.pageIndex);
+    this.pageSize.set(event.pageSize);
+  }
 
   distribution = computed<DistItem[]>(() => {
     const total = this.totalValue();

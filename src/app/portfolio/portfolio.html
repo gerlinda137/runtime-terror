@@ -7,7 +7,7 @@
 
   <app-distribution [items]="distribution()" />
 
-  <table mat-table [dataSource]="rows()">
+  <table mat-table [dataSource]="pagedRows()">
 
     <ng-container matColumnDef="asset">
       <th mat-header-cell *matHeaderCellDef>Asset</th>
@@ -37,4 +37,7 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+
+  <mat-paginator [length]="rows().length" [pageIndex]="pageIndex()" [pageSize]="pageSize()"
+    [pageSizeOptions]="pageSizeOptions" (page)="onPage($event)" />
 </section>
