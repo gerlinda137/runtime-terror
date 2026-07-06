@@ -41,6 +41,11 @@ export const routes: Routes = [
         loadComponent: () =>
           import('../app/account/pages/api-keys-page/api-keys-page').then((m) => m.ApiKeysPage),
       },
+      {
+        path: ROUTES.PORTFOLIO,
+        canActivate: [portfolioGuard],
+        loadComponent: () => import('./portfolio/portfolio').then((m) => m.Portfolio),
+      },
     ],
   },
   {
@@ -48,11 +53,7 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./contact-us/contact-us-page/contact-us-page').then((m) => m.ContactUsPage),
   },
-  {
-    path: ROUTES.PORTFOLIO,
-    canActivate: [portfolioGuard],
-    loadComponent: () => import('./portfolio/portfolio').then((m) => m.Portfolio),
-  },
+
   {
     path: 'not-found',
     loadComponent: () => import('./not-found/not-found').then((c) => c.NotFound),
