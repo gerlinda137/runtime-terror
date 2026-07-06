@@ -1,0 +1,45 @@
+@use '../../styles/mixins/typography.scss' as *;
+
+::ng-deep {
+  .mat-mdc-table {
+    background-color: var(--md-sys-color-surface) !important;
+  }
+
+  .mat-mdc-header-cell {
+    padding: 0 0 var(--padding-extra-sm);
+    color: var(--text-secondary);
+    @include small-text-regular;
+    vertical-align: bottom;
+    border-bottom: 1px solid var(--md-sys-color-surface-variant) !important;
+  }
+
+  .mat-mdc-cell {
+    padding: var(--padding-s) 0;
+    @include medium-text-regular;
+    vertical-align: middle;
+    border-bottom: none !important;
+  }
+
+  .mat-column-asset {
+    @include medium-text-semibold;
+  }
+
+  .mat-mdc-header-cell:last-child,
+  .mat-mdc-cell:last-child {
+    text-align: right !important;
+  }
+}
+
+:host {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: var(--padding-s) var(--padding-sm) 0 var(--padding-sm);
+  background-color: var(--md-sys-color-surface);
+  border-radius: var(--radius-sm);
+
+  .portfolio__total {
+    @include medium-text-semibold;
+    margin: 0 0 var(--padding-s);
+  }
+}
