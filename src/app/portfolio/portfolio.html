@@ -5,6 +5,8 @@
     Total value: <strong>{{ totalValue() | currency: 'USD' }}</strong>
   </p>
 
+  <app-distribution [items]="distribution()" />
+
   <table mat-table [dataSource]="rows()">
 
     <ng-container matColumnDef="asset">
