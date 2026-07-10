@@ -1,4 +1,4 @@
-import { Component, input, inject, DestroyRef, computed, OnInit, signal } from '@angular/core';
+import { Component, input, inject, DestroyRef, computed, OnInit, signal, effect } from '@angular/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,6 +13,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthStore } from '../../core/store/auth.store';
 import { FULL_ROUTES } from '../../shared/constants';
 import { merge } from 'rxjs';
+import { environment } from '../../../environments/environments';
 
 @Component({
   selector: 'app-header',
@@ -40,9 +41,10 @@ export class Header implements OnInit {
     const name = u?.name ?? '';
     return `Welcome ${name}!`;
   });
-
+  avatarUrl = signal<string | null>(null);
   userLogo = computed(() => {
-    return 'assets/icons/default_user.svg';
+    const url = this.avatarUrl();
+    return url ?? 'assets/icons/default_user.svg';
   });
 
   constructor() {
@@ -51,6 +53,20 @@ export class Header implements OnInit {
       .subscribe((u) => {
         this.userSig.set(u);
       });
+
+    effect(() => {
+      const user = this.userSig();
+      if (!user) {
+        this.avatarUrl.set(null);
+        return;
+      }
+
+      const url = user.avatarUrl
+        ? `${environment.apiUrl}/${user.avatarUrl}?v=${Date.now()}`
+        : null;
+
+      this.avatarUrl.set(url);
+    });
 
     this.userStore.loading$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
   }
