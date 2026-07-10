@@ -27,6 +27,10 @@ export class UserStore {
   readonly loading$ = this.state$.pipe(map(s => s.loading));
   readonly error$ = this.state$.pipe(map(s => s.error));
 
+  setUser(user: User | null) {
+    this.patch({ user });
+  }
+
   loadUser() {
     this.patch({ loading: true, error: null });
 
