@@ -9,11 +9,11 @@ export const routes: Routes = [
   { path: '', component: Dashboard, pathMatch: 'full' },
   { path: 'dashboard', redirectTo: '', pathMatch: 'full' },
   {
-    path: 'about-us',
+    path: ROUTES.ABOUT_US,
     loadComponent: () => import('../app/about-us/about-us').then((m) => m.AboutUs),
   },
   {
-    path: 'markets',
+    path: ROUTES.MARKETS,
     loadComponent: () => import('../app/markets/markets').then((m) => m.Markets),
   },
   {

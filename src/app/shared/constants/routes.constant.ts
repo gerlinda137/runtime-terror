@@ -8,6 +8,8 @@ export const ROUTES = {
   API_KEYS: 'keys',
   CONTACT: 'contact',
   PORTFOLIO: 'portfolio',
+  MARKETS: 'markets',
+  ABOUT_US: 'about-us',
 } as const;
 const { AUTH, LOGIN, REGISTER, ACCOUNT, SETTINGS, API_KEYS, PORTFOLIO } = ROUTES;
 
