@@ -13,6 +13,10 @@ export const routes: Routes = [
     loadComponent: () => import('../app/about-us/about-us').then((m) => m.AboutUs),
   },
   {
+    path: 'markets',
+    loadComponent: () => import('../app/markets/markets').then((m) => m.Markets),
+  },
+  {
     path: ROUTES.AUTH,
     children: [
       {
