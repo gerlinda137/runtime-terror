@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environments';
 import { Observable } from 'rxjs';
-import { KLinesResponse } from '../../models';
+import { ExchangeInfo, KLinesResponse } from '../../models';
 
 @Injectable({
   providedIn: 'root',
@@ -14,8 +14,8 @@ export class PublicApi {
   private api = environment.apiUrl;
 
   // GET /api/v3/exchangeInfo
-  getExchangeInfo() {
-    return this.http.get(`${this.base}/v3/exchangeInfo`);
+  getExchangeInfo(): Observable<ExchangeInfo> {
+    return this.http.get<ExchangeInfo>(`${this.base}/v3/exchangeInfo`);
   }
 
   // GET /api/v3/ticker/price?symbol=BTCUSDT

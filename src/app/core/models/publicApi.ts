@@ -16,6 +16,20 @@ export type Kline = [
 
 export type KLinesResponse = Kline[];
 
+// REST: GET /v3/exchangeInfo — one symbol entry
+export interface SymbolInfo {
+  symbol: string;        // e.g. "BTCUSDT"
+  status: string;        // "TRADING" | "BREAK" | etc.
+  baseAsset: string;     // e.g. "BTC"
+  quoteAsset: string;    // e.g. "USDT"
+}
+
+// REST: GET /v3/exchangeInfo — full response
+export interface ExchangeInfo {
+  symbols: SymbolInfo[];
+}
+
+
 // WebSocket: Individual symbol ticker stream (<symbol>@ticker)
 export interface Ticker {
   e: string;   // event type
