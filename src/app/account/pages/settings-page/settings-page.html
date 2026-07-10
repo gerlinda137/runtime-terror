@@ -1,11 +1,14 @@
 <h2
   class="settings-heading"
   appTypography="heading-3">
-  Account Settings</h2>
+  Account Settings
+</h2>
 
 @let userData = user();
-@if(userData) {
+@if (userData) {
 <app-user-avatar [userData]="userData" />
-<app-name-editor [name]="userData.name" />
+<app-name-editor [name]="userData.name ?? ''" />
 <app-password-editor />
+} @else {
+<p>User not found</p>
 }

@@ -1,14 +1,31 @@
-<button class="wrap">
-  @if (userData()?.avatarUrl) {
-  <img
-    [src]="userData()?.avatarUrl"
-    [alt]="userData()?.name"
-    class="avatar-img" />
+@let avatarUrl = avatar();
+@let userName = name();
+
+<div class="wrap">
+  @if (avatarUrl) {
+  <div class="avatar-wrapper">
+    <button (click)="onAvatarClick()">
+      <img
+        [src]="avatarUrl"
+        alt="user avatar"
+        class="avatar-img" />
+    </button>
+
+    <button class="delete-btn" (click)="onDeleteAvatar($event)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
   } @else {
-  <span
-    class="avatar-fallback"
-    typography="heading-3">
-    {{ userData()?.name?.[0] | uppercase }}
-  </span>
+  <button class="avatar-fallback" typography="heading-3"
+    (click)="onAvatarClick()">
+    {{ userName?.at(0) | uppercase }}
+  </button>
   }
-</button>
+</div>
+
+<input
+  #fileInput
+  class="file-input"
+  type="file"
+  accept="image/*"
+  (change)="onFileSelected($event)" />

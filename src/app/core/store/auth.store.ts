@@ -7,6 +7,7 @@ import { environment } from '../../../environments/environments';
 import { AuthResponse, User, UserPayload } from '../../core/models';
 import { FULL_ROUTES, USER } from '../../shared/constants';
 import { Token } from '../../auth/service/token';
+import { UserStore } from './user.store';
 
 interface AuthState {
   user: User | null;
@@ -18,6 +19,7 @@ interface AuthState {
 export class AuthStore {
   private http = inject(HttpClient);
   private tokenService = inject(Token);
+  private userStore = inject(UserStore);
 
   private baseUrl = environment.apiUrl;
 
@@ -74,13 +76,17 @@ export class AuthStore {
   private setSession(res: AuthResponse) {
     this.tokenService.setToken(res.accessToken);
     this.patch({ user: res.user });
+    this.userStore.setUser(res.user);
     localStorage.setItem(USER, JSON.stringify(res.user));
   }
 
   private restoreFromStorage() {
     const raw = localStorage.getItem(USER);
     if (this.tokenService.token() && raw) {
-      this.patch({ user: JSON.parse(raw) });
+      const user = JSON.parse(raw);
+
+      this.patch({ user });          // AuthStore
+      this.userStore.setUser(user);  // UserStore
     }
   }
 

@@ -27,6 +27,10 @@ export class UserStore {
   readonly loading$ = this.state$.pipe(map(s => s.loading));
   readonly error$ = this.state$.pipe(map(s => s.error));
 
+  setUser(user: User | null) {
+    this.patch({ user });
+  }
+
   loadUser() {
     this.patch({ loading: true, error: null });
 
@@ -58,5 +62,67 @@ export class UserStore {
 
   private patch(partial: Partial<UserState>) {
     this.state$.next({ ...this.state$.value, ...partial });
+  }
+
+  updatePassword(data: { oldPassword: string; newPassword: string }) {
+    this.patch({ loading: true });
+
+    this.http.put<User>(`${this.userPoint}/password`, data).pipe(
+      tap(user => {
+        this.patch({ user, loading: false });
+      }),
+      catchError(err => {
+        this.patch({ loading: false, error: err?.error?.message ?? 'Password update failed' });
+        return of(null);
+      })
+    ).subscribe();
+  }
+
+  uploadAvatar(file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    this.patch({ loading: true });
+
+    this.http.post<User>(`${this.userPoint}/avatar`, formData).pipe(
+      tap(user => {
+        this.patch({ user, loading: false });
+      }),
+      catchError(err => {
+        this.patch({ loading: false, error: err?.error?.message ?? 'Avatar upload failed' });
+        return of(null);
+      })
+    ).subscribe();
+  }
+
+  updateAvatar(file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    this.patch({ loading: true });
+
+    this.http.put<User>(`${this.userPoint}/avatar`, formData).pipe(
+      tap(user => {
+        this.patch({ user, loading: false });
+      }),
+      catchError(err => {
+        this.patch({ loading: false, error: err?.error?.message ?? 'Avatar update failed' });
+        return of(null);
+      })
+    ).subscribe();
+  }
+
+  deleteAvatar() {
+    this.patch({ loading: true });
+
+    this.http.delete<User>(`${this.userPoint}/avatar`).pipe(
+      tap(user => {
+        this.patch({ user, loading: false });
+      }),
+      catchError(err => {
+        this.patch({ loading: false, error: err?.error?.message ?? 'Avatar delete failed' });
+        return of(null);
+      })
+    ).subscribe();
   }
 }

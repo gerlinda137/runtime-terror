@@ -1,4 +1,7 @@
 :root {
+  --white: #ffffff;
+  --black: #000000;
+
   --md-sys-color-primary: var(--primary-100);
   --md-sys-color-on-primary: var(--base-0);
   --md-sys-color-primary-container: var(--primary-20);
@@ -65,8 +68,10 @@
   --error-20: #f9dede;
 
   /* ui */
-  --background: #f5f7fa; /* подложка / canvas */
-  --surface: var(--base-0); /* белые карточки/панели */
+  --background: #f5f7fa;
+  /* подложка / canvas */
+  --surface: var(--base-0);
+  /* белые карточки/панели */
   --surface-variant: var(--base-20);
   --text-primary: var(--base-100);
   --text-secondary: var(--base-60);
