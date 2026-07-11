@@ -1,16 +1,34 @@
 import { Component, effect, input, output, signal } from '@angular/core';
 import { MarketRow, SortColumn, SortDir } from './market-row.model';
-import { Sort } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule, Sort } from '@angular/material/sort';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { NgClass } from '@angular/common';
+
+import { ChangeColor, CryptoIcon } from '../../dashboard/shared/directive';
+import { ChangeHourPipe } from '../../dashboard/shared/pipes';
+import { FormatVolumePipe } from './format-volume-pipe';
 
 @Component({
   selector: 'app-markets-table',
-  imports: [],
+  imports: [
+    MatTableModule,
+    MatSortModule,
+    MatIconModule,
+    MatButtonModule,
+    NgClass,
+    ChangeColor,
+    CryptoIcon,
+    ChangeHourPipe,
+    FormatVolumePipe,
+  ],
   templateUrl: './markets-table.html',
   styleUrl: './markets-table.scss',
 })
 export class MarketsTable {
-  rows = input<MarketRow[]>();
-  sortChange = output<{ column: SortColumn, dir: SortDir }>();
+  rows = input<MarketRow[]>([]);
+  sortChange = output<{ column: SortColumn; dir: SortDir }>();
   rowClick = output<string>();
   favToggle = output<string>();
 
@@ -23,30 +41,40 @@ export class MarketsTable {
   constructor() {
     effect(() => {
       this.detectPriceFlash(this.rows() ?? []);
-    })
+    });
+  }
+
+  trackBySymbol(index: number, row: MarketRow): string {
+    return row.symbol;
   }
 
   private detectPriceFlash(rows: MarketRow[]): void {
-    rows.forEach(row => {
-      const prev = this.prevPrices.get(row.symbol);
+    const toAdd: string[] = [];
 
+    rows.forEach((row) => {
+      const prev = this.prevPrices.get(row.symbol);
       if (prev !== undefined && prev !== row.price) {
-        this.flashingSymbolsSignal.update(set => {
+        toAdd.push(row.symbol);
+      }
+      this.prevPrices.set(row.symbol, row.price);
+    });
+
+    if (toAdd.length === 0) return;
+
+    this.flashingSymbolsSignal.update((set) => {
+      const next = new Set(set);
+      toAdd.forEach((symbol) => next.add(symbol));
+      return next;
+    });
+
+    toAdd.forEach((symbol) => {
+      setTimeout(() => {
+        this.flashingSymbolsSignal.update((set) => {
           const next = new Set(set);
-          next.add(row.symbol);
+          next.delete(symbol);
           return next;
         });
-
-        setTimeout(() => {
-          this.flashingSymbolsSignal.update(set => {
-            const next = new Set(set);
-            next.delete(row.symbol);
-            return next;
-          });
-        }, 600);
-      }
-
-      this.prevPrices.set(row.symbol, row.price);
+      }, 600);
     });
   }
 

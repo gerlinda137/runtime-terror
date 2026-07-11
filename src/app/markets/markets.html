@@ -1,1 +1,32 @@
-<p>markets works!</p>
+<div class="markets-page">
+  <div class="markets-page__header">
+    <h1 class="markets-page__title">Markets</h1>
+
+    <!-- Quote currency filter tabs -->
+    <mat-button-toggle-group
+      [value]="activeTab"
+      (change)="onTabChange($event.value)"
+      class="markets-page__tabs"
+    >
+      @for (tab of tabs; track tab) {
+        <mat-button-toggle [value]="tab">{{ tab }}</mat-button-toggle>
+      }
+    </mat-button-toggle-group>
+  </div>
+
+  <!-- Table -->
+  <div class="markets-page__table-wrapper">
+    <app-markets-table
+      [rows]="displayedRows"
+      (sortChange)="onSortChange($event)"
+      (favToggle)="onFavToggle($event)"
+      (rowClick)="onRowClick($event)"
+    />
+
+    @if (displayedRows.length < fullRows.length) {
+      <button mat-button (click)="onLoadMore()" class="load-more-btn">
+        Load more ({{ fullRows.length - displayedRows.length }} remaining)
+      </button>
+    }
+  </div>
+</div>

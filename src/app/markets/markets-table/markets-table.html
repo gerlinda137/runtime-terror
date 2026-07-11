@@ -51,7 +51,7 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedCols; sticky: true"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedCols" (click)="onRowClick(row.symbol)" class="clickable-row">
+    <tr mat-row *matRowDef="let row; columns: displayedCols; trackBy: trackBySymbol" (click)="onRowClick(row.symbol)" class="clickable-row">
     </tr>
 
 </table>

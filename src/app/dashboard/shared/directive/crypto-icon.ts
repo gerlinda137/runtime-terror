@@ -9,6 +9,6 @@ export class CryptoIcon implements OnInit {
 
   ngOnInit() {
     const ticker = this.symbol().toLowerCase();
-    this.el.nativeElement.src = `assets/crypto-icons/${ticker}.svg`;
+    this.el.nativeElement.src = `/assets/crypto-icons/${ticker}.svg`;
   }
 }

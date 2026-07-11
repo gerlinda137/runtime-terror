@@ -1,4 +1,4 @@
-@use '../../../../styles/mixins/typography.scss' as *;
+@use '../../../styles/mixins/typography.scss' as *;
 
 :host {
     display: block;
@@ -17,15 +17,23 @@
     .mat-mdc-header-cell {
         color: var(--text-secondary);
         @include small-text-regular;
-        padding: 0 var(--padding-xs) var(--padding-xs);
+        padding: 0 0 var(--padding-extra-sm);
+        vertical-align: bottom;
         border-bottom: 1px solid var(--md-sys-color-surface-variant) !important;
         white-space: nowrap;
     }
 
     .mat-mdc-cell {
-        padding: var(--padding-xs);
+        padding: var(--padding-s) 0;
         @include medium-text-regular;
+        vertical-align: middle;
         border-bottom: 1px solid var(--md-sys-color-surface-variant) !important;
+    }
+    
+    // align volume and favorites properly
+    .mat-column-volume24h, .mat-column-favourite {
+        text-align: right;
+        justify-content: flex-end;
     }
 }
 
