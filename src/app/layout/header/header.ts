@@ -14,10 +14,12 @@ import { AuthStore } from '../../core/store/auth.store';
 import { FULL_ROUTES } from '../../shared/constants';
 import { merge } from 'rxjs';
 import { environment } from '../../../environments/environments';
+import { SearchStore } from '../../core/store/search.store';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-header',
-  imports: [Typography, MatBadgeModule, MatMenuModule, MatIconModule, Logo],
+  imports: [Typography, FormsModule,MatBadgeModule, MatMenuModule, MatIconModule, Logo],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })
@@ -26,6 +28,7 @@ export class Header implements OnInit {
   private userStore = inject(UserStore);
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);
+  searchStore = inject(SearchStore);
 
   user: User | null = null;
   loading = false;
@@ -95,5 +98,9 @@ export class Header implements OnInit {
 
   goToRegister() {
     this.router.navigateByUrl(`/${FULL_ROUTES.AUTH_REGISTER}`);
+  }
+
+  onSearch(query:string){
+    this.searchStore.setQuery(query);
   }
 }

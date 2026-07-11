@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  effect,
   inject,
   OnDestroy,
   OnInit,
@@ -15,6 +16,7 @@ import { MarketRow, SortColumn, SortDir } from './markets-table/market-row.model
 import { SymbolInfo, Ticker } from '../core/models';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MarketsTable } from './markets-table/markets-table';
+import { SearchStore } from '../core/store/search.store';
 
 type QuoteFilter = 'ALL' | 'USDT' | 'BTC' | 'ETH';
 
@@ -30,10 +32,12 @@ export class Markets implements OnInit, OnDestroy {
   private readonly api = inject(PublicApi);
   private readonly watchlistStore = inject(WatchlistStore);
   private readonly router = inject(Router);
-  private readonly destroy$ = new Subject<void>();
   private readonly cdr = inject(ChangeDetectorRef);
-  private readonly PAGE_SIZE = 50;
+  private readonly searchStore = inject(SearchStore);
 
+  private readonly destroy$ = new Subject<void>();
+
+  private readonly PAGE_SIZE = 50;
   pageSize = this.PAGE_SIZE;
   fullRows: MarketRow[] = [];
 
@@ -42,7 +46,6 @@ export class Markets implements OnInit, OnDestroy {
   private readonly PRIORITY_SYMBOLS = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'XRPUSDT'];
 
   //FILTER/SORT STATE
-  searchQuery = '';
   activeTab: QuoteFilter = 'ALL';
   sortColumn: SortColumn | null = null;
   sortDir: SortDir = null;
@@ -53,6 +56,12 @@ export class Markets implements OnInit, OnDestroy {
   //caches
   private readonly symbolMap = new Map<string, SymbolInfo>();
   private readonly tickerMap = new Map<string, Ticker>();
+
+  private readonly searchEffect = effect(() => {
+    this.searchStore.query();
+    this.pageSize = this.PAGE_SIZE;
+    this.rebuild();
+  });
 
   ngOnInit(): void {
     this.loadSymbols();
@@ -65,12 +74,6 @@ export class Markets implements OnInit, OnDestroy {
   }
 
   //event handlers
-  onSearch(query: string) {
-    this.searchQuery = query;
-    this.pageSize = this.PAGE_SIZE;
-    this.rebuild();
-  }
-
   onTabChange(tab: QuoteFilter): void {
     this.activeTab = tab;
     this.pageSize = this.PAGE_SIZE;
@@ -136,14 +139,6 @@ export class Markets implements OnInit, OnDestroy {
     const wl = watchlist ?? this.watchlistStore.snapshot;
 
     let rows = this.buildRows(wl);
-    console.log(
-      'rebuild called, symbolMap size:',
-      this.symbolMap.size,
-      'tickerMap size:',
-      this.tickerMap.size,
-      'rows:',
-      rows.length,
-    );
 
     rows = this.applyTabFilter(rows);
     rows = this.applySearchFilter(rows);
@@ -187,7 +182,7 @@ export class Markets implements OnInit, OnDestroy {
   }
 
   private applySearchFilter(rows: MarketRow[]): MarketRow[] {
-    const query = this.searchQuery.trim().toUpperCase();
+    const query = this.searchStore.query().trim().toUpperCase();
     if (!query) return rows;
     return rows.filter((r) => r.symbol.includes(query));
   }
