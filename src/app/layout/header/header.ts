@@ -3,19 +3,20 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 
 import type { ThemeType, User } from '../../core/models';
 import { Typography } from '../../shared/directive';
 import { Logo } from '../../shared/ui';
 import { UserStore } from '../../core/store/user.store';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { AuthStore } from '../../core/store/auth.store';
 import { FULL_ROUTES } from '../../shared/constants';
-import { merge } from 'rxjs';
+import { filter, map, merge } from 'rxjs';
 import { environment } from '../../../environments/environments';
 import { SearchStore } from '../../core/store/search.store';
 import { FormsModule } from '@angular/forms';
+import {ROUTES} from '../../shared/constants/routes.constant'
 
 @Component({
   selector: 'app-header',
@@ -37,6 +38,14 @@ export class Header implements OnInit {
   isLoggedIn = input<boolean>(false);
   theme = input<ThemeType>();
   toggleTheme = input<() => void>();
+
+  isMarketsPage = toSignal(
+    this.router.events.pipe(
+      filter(e => e instanceof NavigationEnd),
+      map(()=>this.router.url.startsWith(`/${ROUTES.MARKETS}`))
+    ),
+    {initialValue: this.router.url.startsWith(`/${ROUTES.MARKETS}`)}
+  );
 
   private userSig = signal<User | null>(null);
   welcomeText = computed(() => {

@@ -34,7 +34,6 @@
     }
 
     .title-field {
-
       display: flex;
       flex-direction: column;
 
@@ -48,7 +47,6 @@
 
       .sub-title {
         color: var(--text-secondary);
-
       }
     }
 
@@ -84,6 +82,14 @@
           &:focus {
             border-color: var(--md-sys-color-primary);
           }
+
+          &:disabled {
+            cursor: not-allowed;
+
+            &::placeholder {
+              color: var(--text-secondary);
+            }
+          }
         }
 
         mat-icon {
@@ -92,6 +98,10 @@
           transform: translateY(-50%);
           left: 0.625rem;
           color: var(--text-primary);
+        }
+
+        &:has(input:disabled) mat-icon {
+          color: var(--text-secondary);
         }
       }
 
