@@ -6,6 +6,7 @@ import {
   inject,
   OnDestroy,
   OnInit,
+  signal,
 } from '@angular/core';
 import { BinanceWsService } from '../core/services/binanceWsService/binanceWsService';
 import { PublicApi } from '../core/services/publickApiService/publickApiService';
@@ -18,12 +19,13 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MarketsTable } from './markets-table/markets-table';
 import { SearchStore } from '../core/store/search.store';
 import { filterByTab,filterBySearch,sortRows } from './markets-row.utils';
+import { Loader } from '../shared/ui/loader/loader';
 
 type QuoteFilter = 'ALL' | 'USDT' | 'BTC' | 'ETH';
 
 @Component({
   selector: 'app-markets',
-  imports: [MatButtonToggleModule, MarketsTable],
+  imports: [MatButtonToggleModule, MarketsTable, Loader],
   templateUrl: './markets.html',
   styleUrl: './markets.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -37,6 +39,8 @@ export class Markets implements OnInit, OnDestroy {
   private readonly searchStore = inject(SearchStore);
 
   private readonly destroy$ = new Subject<void>();
+
+  isLoading = signal(true);
 
   private readonly PAGE_SIZE = 50;
   pageSize = this.PAGE_SIZE;
@@ -110,6 +114,7 @@ export class Markets implements OnInit, OnDestroy {
           .filter((s) => s.status === 'TRADING')
           .forEach((s) => this.symbolMap.set(s.symbol, s));
         this.rebuild();
+        this.isLoading.set(false);
       });
   }
 

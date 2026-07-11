@@ -27,7 +27,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(clonedReq).pipe(
     catchError((err: HttpErrorResponse) => {
-      if (err.status === 401 && !isAuthRequest) {
+      if (err.status === 401 && !isAuthRequest && isOwnBackend) {
         const currentUrl = router.url;
 
         const loginRoute = [FULL_ROUTES.AUTH_LOGIN];
