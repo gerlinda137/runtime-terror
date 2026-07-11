@@ -9,14 +9,15 @@ import {
 } from '@angular/core';
 import { BinanceWsService } from '../core/services/binanceWsService/binanceWsService';
 import { PublicApi } from '../core/services/publickApiService/publickApiService';
-import { WatchlistStore } from '../core/store/watchlist.store';
+import { WatchlistStore } from '../core/store/watchlist-store/watchlist.store';
 import { Router } from '@angular/router';
-import { combineLatest, Subject, takeUntil, auditTime } from 'rxjs';
+import { Subject, takeUntil, auditTime, tap, merge, take } from 'rxjs';
 import { MarketRow, SortColumn, SortDir } from './markets-table/market-row.model';
 import { SymbolInfo, Ticker } from '../core/models';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MarketsTable } from './markets-table/markets-table';
 import { SearchStore } from '../core/store/search.store';
+import { filterByTab,filterBySearch,sortRows } from './markets-row.utils';
 
 type QuoteFilter = 'ALL' | 'USDT' | 'BTC' | 'ETH';
 
@@ -113,25 +114,23 @@ export class Markets implements OnInit, OnDestroy {
   }
 
   private subscribeToLiveData(): void {
-    const allTickers$ = this.ws.subscribeToAllTickers();
-
-    const individualTickers$ = this.PRIORITY_SYMBOLS.map((symbol) =>
-      this.ws.subscribeToTicker(symbol),
+    const allTickers$ = this.ws.subscribeToAllTickers().pipe(
+      tap(tickers => tickers.forEach(t => this.tickerMap.set(t.s,t)))
     );
 
-    combineLatest([allTickers$, this.watchlistStore.watchlist$])
-      .pipe(auditTime(1000), takeUntil(this.destroy$))
-      .subscribe(([tickers, watchlist]) => {
-        tickers.forEach((t) => this.tickerMap.set(t.s, t));
-        this.rebuild(watchlist);
-      });
+    const individualTickers$ = merge(
+      ...this.PRIORITY_SYMBOLS.map(symbol => this.ws.subscribeToTicker(symbol))
+    ).pipe(
+      tap(t => this.tickerMap.set(t.s,t))
+    );
 
-    individualTickers$.forEach((ticker$) => {
-      ticker$.pipe(takeUntil(this.destroy$)).subscribe((ticker) => {
-        this.tickerMap.set(ticker.s, ticker);
-        this.rebuild();
-      });
-    });
+    merge(allTickers$,individualTickers$)
+    .pipe(auditTime(1000),takeUntil(this.destroy$))
+    .subscribe(()=>this.rebuild());
+
+    this.watchlistStore.watchlist$
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(wc => this.rebuild(wc));
   }
 
   //row building
@@ -140,9 +139,9 @@ export class Markets implements OnInit, OnDestroy {
 
     let rows = this.buildRows(wl);
 
-    rows = this.applyTabFilter(rows);
-    rows = this.applySearchFilter(rows);
-    rows = this.applySort(rows);
+    rows = filterByTab(rows,this.activeTab);
+    rows = filterBySearch(rows,this.searchStore.query());
+    rows = sortRows(rows,this.sortColumn,this.sortDir);
 
     this.displayedRows = rows.slice(0, this.pageSize);
     this.fullRows = rows;
@@ -174,25 +173,5 @@ export class Markets implements OnInit, OnDestroy {
 
   private formatPrice(price: number, quote: string): string {
     return quote === 'BTC' ? price.toFixed(8) : price.toFixed(2);
-  }
-
-  private applyTabFilter(rows: MarketRow[]): MarketRow[] {
-    if (this.activeTab === 'ALL') return rows;
-    return rows.filter((r) => r.quoteAsset === this.activeTab);
-  }
-
-  private applySearchFilter(rows: MarketRow[]): MarketRow[] {
-    const query = this.searchStore.query().trim().toUpperCase();
-    if (!query) return rows;
-    return rows.filter((r) => r.symbol.includes(query));
-  }
-
-  private applySort(rows: MarketRow[]): MarketRow[] {
-    if (!this.sortColumn || !this.sortDir) return rows;
-
-    const column = this.sortColumn;
-    const dir = this.sortDir === 'asc' ? 1 : -1;
-
-    return [...rows].sort((a, b) => ((a[column] as number) - (b[column] as number)) * dir);
   }
 }
