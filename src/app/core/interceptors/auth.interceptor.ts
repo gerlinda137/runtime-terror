@@ -5,6 +5,7 @@ import { Auth } from '../../auth/service/auth';
 import { catchError, throwError } from 'rxjs';
 import { FULL_ROUTES } from '../../shared/constants';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environments';
 
 // Attaches JWT token to all outgoing HTTP requests and handles 401 unauthorized errors
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
@@ -18,8 +19,11 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const isAuthRequest =
     req.url.includes(FULL_ROUTES.AUTH_LOGIN) || req.url.includes(FULL_ROUTES.AUTH_REGISTER);
 
+  // Only attach the token to requests going to OUR OWN backend.
+  const isOwnBackend = req.url.startsWith(environment.apiUrl);
+
   const clonedReq =
-    token && !isAuthRequest ? req.clone({ setHeaders: { Authorization: `Bearer ${token}` } }) : req;
+    token && !isAuthRequest && isOwnBackend ? req.clone({ setHeaders: { Authorization: `Bearer ${token}` } }) : req;
 
   return next(clonedReq).pipe(
     catchError((err: HttpErrorResponse) => {
@@ -35,7 +39,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
           .navigate(loginRoute, loginExtras)
           //for safaty added catch() if navigation fails
           .catch(() => {
-            router.navigate(loginRoute,loginExtras);
+            router.navigate(loginRoute, loginExtras);
           });
       }
 
