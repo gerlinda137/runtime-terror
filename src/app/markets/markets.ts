@@ -12,7 +12,7 @@ import { BinanceWsService } from '../core/services/binanceWsService/binanceWsSer
 import { PublicApi } from '../core/services/publickApiService/publickApiService';
 import { WatchlistStore } from '../core/store/watchlist-store/watchlist.store';
 import { Router } from '@angular/router';
-import { Subject, takeUntil, auditTime, tap, merge, take } from 'rxjs';
+import { Subject, takeUntil, auditTime, tap, merge } from 'rxjs';
 import { MarketRow, SortColumn, SortDir } from './markets-table/market-row.model';
 import { SymbolInfo, Ticker } from '../core/models';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
