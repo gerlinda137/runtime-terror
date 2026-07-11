@@ -1,0 +1,114 @@
+@use '../../../styles/mixins/typography.scss' as *;
+
+:host {
+    display: block;
+    width: 100%;
+    overflow: auto;
+    flex: 1;
+}
+
+// Override Material table background to match theme
+::ng-deep {
+    .mat-mdc-table {
+        background: var(--md-sys-color-surface) !important;
+        width: 100%;
+    }
+
+    .mat-mdc-header-cell {
+        color: var(--text-secondary);
+        @include small-text-regular;
+        padding: 0 0 var(--padding-extra-sm);
+        vertical-align: bottom;
+        border-bottom: 1px solid var(--md-sys-color-surface-variant) !important;
+        white-space: nowrap;
+    }
+
+    .mat-mdc-cell {
+        padding: var(--padding-s) 0;
+        @include medium-text-regular;
+        vertical-align: middle;
+        border-bottom: 1px solid var(--md-sys-color-surface-variant) !important;
+    }
+    
+    // align volume and favorites properly
+    .mat-column-volume24h, .mat-column-favourite {
+        text-align: right;
+        justify-content: flex-end;
+    }
+}
+
+// Clickable row hover
+.clickable-row {
+    cursor: pointer;
+    transition: background 0.15s ease;
+
+    &:hover {
+        background: var(--background);
+    }
+}
+
+// Pair cell layout
+.pair-cell {
+    display: flex;
+    align-items: center;
+    gap: var(--padding-xxs);
+
+    &__icon {
+        border-radius: 50%;
+        flex-shrink: 0;
+    }
+
+    &__base {
+        @include medium-text-semibold;
+    }
+
+    &__quote {
+        color: var(--text-secondary);
+    }
+}
+
+// Align star button to the right
+.fav-cell {
+    text-align: right;
+}
+
+// Active star is primary blue
+.fav-active {
+    color: var(--primary-100) !important;
+}
+
+// Empty state
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--padding-xs);
+    padding: var(--padding-l);
+    color: var(--text-secondary);
+
+    mat-icon {
+        font-size: 48px;
+        width: 48px;
+        height: 48px;
+    }
+}
+
+// Price flash animation when WebSocket sends a new price
+@keyframes price-flash {
+    0% {
+        background-color: transparent;
+    }
+
+    30% {
+        background-color: rgba(39, 82, 231, 0.1);
+    }
+
+    100% {
+        background-color: transparent;
+    }
+}
+
+.price-flash {
+    animation: price-flash 0.6s ease-out;
+}

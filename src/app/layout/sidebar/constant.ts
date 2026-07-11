@@ -7,6 +7,16 @@ export const SIDEBAR_ITEMS = [
     link: '/',
   },
   {
+    label: 'Markets',
+    icon: 'store',
+    link: '/markets',
+  },
+  {
+    label: 'About us',
+    icon: 'groups',
+    link: '/about-us',
+  },
+  {
     label: ROUTES.ACCOUNT,
     icon: 'account_circle',
     children: [
