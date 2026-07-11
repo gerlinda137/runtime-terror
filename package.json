@@ -35,7 +35,6 @@
     "@angular/build": "^21.2.11",
     "@angular/cli": "^21.2.11",
     "@angular/compiler-cli": "^21.2.0",
-    "@angular/material": "^21.2.11",
     "@eslint/js": "^10.0.1",
     "angular-eslint": "21.4.0",
     "eslint": "^10.3.0",
