@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -32,6 +32,7 @@ export class LoginPage {
   private authStore = inject(AuthStore);
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);
+  private route = inject(ActivatedRoute);
 
   protected readonly registerLink = `/${ROUTES.AUTH}/${ROUTES.REGISTER}`;
   protected readonly isLoading = signal(false);
@@ -62,7 +63,10 @@ export class LoginPage {
 
     this.authStore.login(this.form.getRawValue()).subscribe({
       next: (res) => {
-        if (res) this.router.navigateByUrl('/');
+        if (res){
+          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+          this.router.navigateByUrl(returnUrl);
+        }
       }
     });
   }

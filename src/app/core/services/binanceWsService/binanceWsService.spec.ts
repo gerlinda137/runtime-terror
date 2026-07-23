@@ -3,6 +3,7 @@ import { BinanceWsService } from './binanceWsService';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { Ticker } from '../../models';
 
+//inteface describing fake web socket, that contains properities and method that the service uses
 interface FakeWebSocketInstance {
   url: string;
   readyState: number;
@@ -13,6 +14,7 @@ interface FakeWebSocketInstance {
 }
 
 describe('BinanceWsService', () => {
+  //variables shared by all tests
   const TEST_SYMBOL = 'BTCUSDT';
   let service: BinanceWsService;
   let wsConstructorCallCount: number;
@@ -21,12 +23,13 @@ describe('BinanceWsService', () => {
   beforeEach(() => {
     wsConstructorCallCount = 0;
 
+    //creates fake webscoket object
     function createFakeWebSocket(url: string): FakeWebSocketInstance {
       wsConstructorCallCount++;
       const socket: FakeWebSocketInstance = {
         url,
         readyState: createFakeWebSocket.OPEN,
-        close:  vi.fn(),
+        close:  vi.fn(),//mock function, that in my case tracks when and if it was called
         onmessage: null,
         onerror: null,
         onclose: null,
@@ -35,14 +38,15 @@ describe('BinanceWsService', () => {
       return socket;
     }
 
+    //adding same sattic constants that real browser ws class has
     createFakeWebSocket.OPEN = 1;
     createFakeWebSocket.CONNECTING = 0;
     createFakeWebSocket.CLOSING = 2;
     createFakeWebSocket.CLOSED = 3;
 
-    vi.stubGlobal('WebSocket', createFakeWebSocket);
+    vi.stubGlobal('WebSocket', createFakeWebSocket);//replacing browser ws class with fake one
 
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({});//creating testing module
     service = TestBed.inject(BinanceWsService);
   });
 
