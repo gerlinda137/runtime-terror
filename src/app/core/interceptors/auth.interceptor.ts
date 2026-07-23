@@ -6,12 +6,14 @@ import { catchError, throwError } from 'rxjs';
 import { FULL_ROUTES } from '../../shared/constants';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environments';
+import { Location } from '@angular/common';
 
 // Attaches JWT token to all outgoing HTTP requests and handles 401 unauthorized errors
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const tokenService = inject(Token);
   const authService = inject(Auth);
   const router = inject(Router);
+  const location = inject(Location);
 
   const token = tokenService.token();
 
@@ -28,7 +30,8 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   return next(clonedReq).pipe(
     catchError((err: HttpErrorResponse) => {
       if (err.status === 401 && !isAuthRequest && isOwnBackend) {
-        const currentUrl = router.url;
+        const browserUrl = location.path(true) || '/';
+        const currentUrl = router.url === '/' ? browserUrl : router.url;
 
         const loginRoute = [FULL_ROUTES.AUTH_LOGIN];
         const loginExtras = { queryParams: { returnUrl: currentUrl } };
