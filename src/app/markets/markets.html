@@ -22,17 +22,17 @@
     <!-- Table -->
     <div class="markets-page__table-wrapper">
       <app-markets-table
-        [rows]="displayedRows"
+        [rows]="displayedRows()"
         (sortChange)="onSortChange($event)"
         (favToggle)="onFavToggle($event)"
         (rowClick)="onRowClick($event)"
       />
 
-      @if (displayedRows.length < fullRows.length) {
-      <button mat-button (click)="onLoadMore()" class="load-more-btn">
-        Load more ({{ fullRows.length - displayedRows.length }} remaining)
-      </button>
-    }
-  </div>
+      @if (displayedRows().length < fullRows().length) {
+        <button mat-button (click)="onLoadMore()" class="load-more-btn">
+          Load more ({{ fullRows().length - displayedRows().length }} remaining)
+        </button>
+      }
+    </div>
   }
 </div>

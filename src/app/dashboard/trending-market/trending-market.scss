@@ -3,6 +3,7 @@
 ::ng-deep {
   .mat-mdc-table {
     background-color: var(--md-sys-color-surface) !important;
+    width: 100%;
   }
 
   .mat-mdc-header-cell {
@@ -24,9 +25,10 @@
     @include medium-text-semibold;
   }
 
-  .mat-mdc-header-cell:last-child,
-  .mat-mdc-cell:last-child {
-    text-align: right !important;
+  .mat-column-volume,
+  .mat-column-favourite {
+    text-align: right;
+    justify-content: flex-end;
   }
 }
 
@@ -37,6 +39,12 @@
   padding: var(--padding-s) var(--padding-sm) 0 var(--padding-sm);
   background-color: var(--md-sys-color-surface);
   border-radius: var(--radius-sm);
+
+  .trending-market__scroll {
+    max-height: 320px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
 
   .trending-market__header {
     display: flex;
@@ -59,4 +67,81 @@
     align-items: center;
     gap: var(--padding-item);
   }
+}
+
+// Empty state
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--padding-xs);
+  padding: var(--padding-l);
+  color: var(--text-secondary);
+
+  mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+  }
+}
+
+// Clickable row hover
+.clickable-row {
+  cursor: pointer;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: var(--background);
+  }
+}
+
+// Align star button to the right
+.fav-cell {
+  text-align: right;
+
+  button[mat-icon-button] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    padding: 0;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+  }
+
+  button[mat-icon-button]:hover {
+    background-color: var(--md-sys-color-surface-variant) !important;
+  }
+
+  mat-icon {
+    color: var(--text-secondary);
+  }
+}
+
+// Active star is primary blue
+.fav-active {
+  color: var(--primary-100) !important;
+}
+
+// Price flash animation when WebSocket sends a new price
+@keyframes price-flash {
+  0% {
+    background-color: transparent;
+  }
+
+  30% {
+    background-color: rgba(39, 82, 231, 0.1);
+  }
+
+  100% {
+    background-color: transparent;
+  }
+}
+
+.price-flash {
+  animation: price-flash 0.6s ease-out;
 }

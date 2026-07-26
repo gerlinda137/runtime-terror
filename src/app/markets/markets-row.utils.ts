@@ -18,3 +18,4 @@ export function sortRows(rows: MarketRow[], column: SortColumn | null, dir: Sort
   const direction = dir === 'asc' ? 1 : -1;
   return [...rows].sort((a, b) => ((a[column] as number) - (b[column] as number)) * direction);
 }
+

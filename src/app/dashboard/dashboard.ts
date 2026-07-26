@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { TrendingMarket } from './trending-market/trending-market';
-import { Chart } from "../shared/ui/chart-section/chart";
+import { WatchlistPanel } from './watchlist-panel/watchlist-panel';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [TrendingMarket, Chart],
+  imports: [TrendingMarket, WatchlistPanel],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
 })

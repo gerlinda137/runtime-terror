@@ -1,27 +1,17 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  effect,
-  inject,
-  OnDestroy,
-  OnInit,
-  signal,
-} from '@angular/core';
-import { BinanceWsService } from '../core/services/binanceWsService/binanceWsService';
-import { PublicApi } from '../core/services/publickApiService/publickApiService';
-import { WatchlistStore } from '../core/store/watchlist-store/watchlist.store';
-import { Router } from '@angular/router';
-import { Subject, takeUntil, auditTime, tap, merge } from 'rxjs';
-import { MarketRow, SortColumn, SortDir } from './markets-table/market-row.model';
-import { SymbolInfo, Ticker } from '../core/models';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MarketsTable } from './markets-table/markets-table';
+import { Router } from '@angular/router';
+import { WatchlistStore } from '../core/store/watchlist-store/watchlist.store';
 import { SearchStore } from '../core/store/search.store';
-import { filterByTab,filterBySearch,sortRows } from './markets-row.utils';
+import { MarketDataService } from '../core/services/market-data/marketDataService';
+import { MarketRow, SortColumn, SortDir } from './markets-table/market-row.model';
+import { MarketsTable } from './markets-table/markets-table';
 import { Loader } from '../shared/ui/loader/loader';
+import { filterByTab, filterBySearch, sortRows } from './markets-row.utils';
 
 type QuoteFilter = 'ALL' | 'USDT' | 'BTC' | 'ETH';
+
+const PAGE_SIZE = 50;
 
 @Component({
   selector: 'app-markets',
@@ -30,153 +20,64 @@ type QuoteFilter = 'ALL' | 'USDT' | 'BTC' | 'ETH';
   styleUrl: './markets.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Markets implements OnInit, OnDestroy {
-  private readonly ws = inject(BinanceWsService);
-  private readonly api = inject(PublicApi);
+export class Markets {
   private readonly watchlistStore = inject(WatchlistStore);
   private readonly router = inject(Router);
-  private readonly cdr = inject(ChangeDetectorRef);
   private readonly searchStore = inject(SearchStore);
+  private readonly marketData = inject(MarketDataService);
 
-  private readonly destroy$ = new Subject<void>();
+  protected readonly isLoading = this.marketData.isLoading;
+  protected readonly tabs: readonly QuoteFilter[] = ['ALL', 'USDT', 'BTC', 'ETH'];
 
-  isLoading = signal(true);
+  protected readonly activeTab = signal<QuoteFilter>('ALL');
+  protected readonly sortColumn = signal<SortColumn | null>(null);
+  protected readonly sortDir = signal<SortDir>(null);
+  private readonly pageSize = signal(PAGE_SIZE);
 
-  private readonly PAGE_SIZE = 50;
-  pageSize = this.PAGE_SIZE;
-  fullRows: MarketRow[] = [];
+  private readonly allRows = computed<MarketRow[]>(() =>
+    this.marketData.rows().map((asset) => ({
+      symbol: asset.symbol,
+      baseAsset: asset.baseAsset,
+      quoteAsset: asset.quoteAsset,
+      price: asset.price,
+      priceDisplay: asset.priceDisplay,
+      change24h: asset.change24h,
+      volume24h: asset.volume,
+      isFavourite: asset.isFavourite,
+    })),
+  );
 
-  // A fixed list of major pairs to keep individually live-updating,
-  // since Testnet's !ticker@arr stream doesn't reliably send data.
-  private readonly PRIORITY_SYMBOLS = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'XRPUSDT'];
-
-  //FILTER/SORT STATE
-  activeTab: QuoteFilter = 'ALL';
-  sortColumn: SortColumn | null = null;
-  sortDir: SortDir = null;
-  readonly tabs: readonly QuoteFilter[] = ['ALL', 'USDT', 'BTC', 'ETH'];
-
-  displayedRows: MarketRow[] = [];
-
-  //caches
-  private readonly symbolMap = new Map<string, SymbolInfo>();
-  private readonly tickerMap = new Map<string, Ticker>();
-
-  private readonly searchEffect = effect(() => {
-    this.searchStore.query();
-    this.pageSize = this.PAGE_SIZE;
-    this.rebuild();
+  protected readonly fullRows = computed<MarketRow[]>(() => {
+    let rows = this.allRows();
+    rows = filterByTab(rows, this.activeTab());
+    rows = filterBySearch(rows, this.searchStore.query());
+    rows = sortRows(rows, this.sortColumn(), this.sortDir());
+    return rows;
   });
 
-  ngOnInit(): void {
-    this.loadSymbols();
-    this.subscribeToLiveData();
+  protected readonly displayedRows = computed<MarketRow[]>(() =>
+    this.fullRows().slice(0, this.pageSize()),
+  );
+
+  protected onTabChange(tab: QuoteFilter): void {
+    this.activeTab.set(tab);
+    this.pageSize.set(PAGE_SIZE);
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+  protected onSortChange(event: { column: SortColumn; dir: SortDir }): void {
+    this.sortColumn.set(event.dir ? event.column : null);
+    this.sortDir.set(event.dir);
   }
 
-  //event handlers
-  onTabChange(tab: QuoteFilter): void {
-    this.activeTab = tab;
-    this.pageSize = this.PAGE_SIZE;
-    this.rebuild();
-  }
-
-  onSortChange(event: { column: SortColumn; dir: SortDir }): void {
-    this.sortColumn = event.dir ? event.column : null;
-    this.sortDir = event.dir;
-    this.rebuild();
-  }
-
-  onFavToggle(symbol: string): void {
+  protected onFavToggle(symbol: string): void {
     this.watchlistStore.toggle(symbol);
   }
 
-  onRowClick(symbol: string): void {
+  protected onRowClick(symbol: string): void {
     this.router.navigate(['/trade', symbol]);
   }
 
-  onLoadMore(): void {
-    this.pageSize += this.PAGE_SIZE;
-    this.displayedRows = this.fullRows.slice(0, this.pageSize);
-  }
-
-  //data loading
-  private loadSymbols() {
-    this.api
-      .getExchangeInfo()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((info) => {
-        info.symbols
-          .filter((s) => s.status === 'TRADING')
-          .forEach((s) => this.symbolMap.set(s.symbol, s));
-        this.rebuild();
-        this.isLoading.set(false);
-      });
-  }
-
-  private subscribeToLiveData(): void {
-    const allTickers$ = this.ws.subscribeToAllTickers().pipe(
-      tap(tickers => tickers.forEach(t => this.tickerMap.set(t.s,t)))
-    );
-
-    const individualTickers$ = merge(
-      ...this.PRIORITY_SYMBOLS.map(symbol => this.ws.subscribeToTicker(symbol))
-    ).pipe(
-      tap(t => this.tickerMap.set(t.s,t))
-    );
-
-    merge(allTickers$,individualTickers$)
-    .pipe(auditTime(1000),takeUntil(this.destroy$))
-    .subscribe(()=>this.rebuild());
-
-    this.watchlistStore.watchlist$
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(wc => this.rebuild(wc));
-  }
-
-  //row building
-  private rebuild(watchlist?: Set<string>) {
-    const wl = watchlist ?? this.watchlistStore.snapshot;
-
-    let rows = this.buildRows(wl);
-
-    rows = filterByTab(rows,this.activeTab);
-    rows = filterBySearch(rows,this.searchStore.query());
-    rows = sortRows(rows,this.sortColumn,this.sortDir);
-
-    this.displayedRows = rows.slice(0, this.pageSize);
-    this.fullRows = rows;
-    this.cdr.markForCheck();
-  }
-
-  private buildRows(watchlist: Set<string>): MarketRow[] {
-    const rows: MarketRow[] = [];
-
-    this.symbolMap.forEach((info, symbol) => {
-      const ticker = this.tickerMap.get(symbol);
-
-      const price = ticker ? parseFloat(ticker.c) : 0;
-
-      rows.push({
-        symbol,
-        baseAsset: info.baseAsset,
-        quoteAsset: info.quoteAsset,
-        price,
-        priceDisplay: this.formatPrice(price, info.quoteAsset),
-        change24h: ticker ? parseFloat(ticker.P) : 0,
-        volume24h: ticker ? parseFloat(ticker.q) : 0,
-        isFavourite: watchlist.has(symbol),
-      });
-    });
-
-    return rows;
-  }
-
-  private formatPrice(price: number, quote: string): string {
-    return quote === 'BTC' ? price.toFixed(8) : price.toFixed(2);
+  protected onLoadMore(): void {
+    this.pageSize.update((size) => size + PAGE_SIZE);
   }
 }
