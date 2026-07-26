@@ -38,6 +38,12 @@
   background-color: var(--md-sys-color-surface);
   border-radius: var(--radius-sm);
 
+  .trending-market__scroll {
+    max-height: 320px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
   .trending-market__header {
     display: flex;
     align-items: center;

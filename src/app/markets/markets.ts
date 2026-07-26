@@ -18,7 +18,7 @@ import { SymbolInfo, Ticker } from '../core/models';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MarketsTable } from './markets-table/markets-table';
 import { SearchStore } from '../core/store/search.store';
-import { filterByTab,filterBySearch,sortRows } from './markets-row.utils';
+import { filterByTab,filterBySearch,sortRows,formatPrice } from './markets-row.utils';
 import { Loader } from '../shared/ui/loader/loader';
 
 type QuoteFilter = 'ALL' | 'USDT' | 'BTC' | 'ETH';
@@ -166,7 +166,7 @@ export class Markets implements OnInit, OnDestroy {
         baseAsset: info.baseAsset,
         quoteAsset: info.quoteAsset,
         price,
-        priceDisplay: this.formatPrice(price, info.quoteAsset),
+        priceDisplay: formatPrice(price, info.quoteAsset),
         change24h: ticker ? parseFloat(ticker.P) : 0,
         volume24h: ticker ? parseFloat(ticker.q) : 0,
         isFavourite: watchlist.has(symbol),
@@ -176,7 +176,4 @@ export class Markets implements OnInit, OnDestroy {
     return rows;
   }
 
-  private formatPrice(price: number, quote: string): string {
-    return quote === 'BTC' ? price.toFixed(8) : price.toFixed(2);
-  }
 }

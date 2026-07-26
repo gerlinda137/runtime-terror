@@ -1,6 +1,9 @@
 export interface CryptoToken {
-  name: string;
   symbol: string;
-  lastPrice: number;
-  change24hour: number;
+  name: string;
+  price: number;
+  priceDisplay: string;
+  change24h: number;
+  volume: number;
+  isFavourite: boolean;
 }
