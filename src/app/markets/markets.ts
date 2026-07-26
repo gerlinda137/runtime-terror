@@ -18,8 +18,9 @@ import { SymbolInfo, Ticker } from '../core/models';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MarketsTable } from './markets-table/markets-table';
 import { SearchStore } from '../core/store/search.store';
-import { filterByTab,filterBySearch,sortRows,formatPrice } from './markets-row.utils';
+import { filterByTab,filterBySearch,sortRows } from './markets-row.utils';
 import { Loader } from '../shared/ui/loader/loader';
+import { formatPrice } from '../shared/market-utils/fromat-price';
 
 type QuoteFilter = 'ALL' | 'USDT' | 'BTC' | 'ETH';
 
@@ -175,5 +176,4 @@ export class Markets implements OnInit, OnDestroy {
 
     return rows;
   }
-
 }

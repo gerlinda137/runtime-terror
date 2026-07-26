@@ -19,6 +19,3 @@ export function sortRows(rows: MarketRow[], column: SortColumn | null, dir: Sort
   return [...rows].sort((a, b) => ((a[column] as number) - (b[column] as number)) * direction);
 }
 
-export function formatPrice(price: number, quote: string): string {
-    return quote === 'BTC' ? price.toFixed(8) : price.toFixed(2);
-  }

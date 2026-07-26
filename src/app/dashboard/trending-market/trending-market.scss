@@ -66,3 +66,20 @@
     gap: var(--padding-item);
   }
 }
+
+// Empty state
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--padding-xs);
+  padding: var(--padding-l);
+  color: var(--text-secondary);
+
+  mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+  }
+}
