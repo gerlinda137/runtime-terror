@@ -1,0 +1,46 @@
+<div class="watchlist-panel">
+  <div class="watchlist-panel__header">
+    <h3 appTypography="heading-4">Watchlist</h3>
+    <span class="watchlist-panel__count">{{ rows().length }} pairs</span>
+  </div>
+
+  <table mat-table [dataSource]="rows()" class="watchlist-table">
+    <ng-container matColumnDef="symbol">
+      <th mat-header-cell *matHeaderCellDef>Pair</th>
+      <td mat-cell *matCellDef="let row" (click)="onRowClick(row.symbol)">
+        <span class="watchlist-symbol">{{ row.symbol | symbol }}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="priceDisplay">
+      <th mat-header-cell *matHeaderCellDef>Price</th>
+      <td mat-cell *matCellDef="let row">{{ row.priceDisplay }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="change24h">
+      <th mat-header-cell *matHeaderCellDef>24h</th>
+      <td mat-cell *matCellDef="let row">
+        <span [appChangeColor]="row.change24h">{{ row.change24h >= 0 ? '↑' : '↓' }} {{ row.change24h | changeHour }}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-icon-button color="basic" aria-label="Remove from watchlist" (click)="onRemove($event, row.symbol)">
+          <mat-icon>close</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns; trackBy: trackBySymbol" class="watchlist-row"></tr>
+  </table>
+
+  @if (rows().length === 0) {
+    <div class="watchlist-empty">
+      <mat-icon>star_border</mat-icon>
+      <span>No favorite pairs yet</span>
+    </div>
+  }
+</div>
