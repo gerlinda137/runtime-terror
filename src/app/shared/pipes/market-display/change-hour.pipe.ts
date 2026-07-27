@@ -4,7 +4,8 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'changeHour',
 })
 export class ChangeHourPipe implements PipeTransform {
-  transform(value: number): string {
+  transform(value: number, hasLiveData = true): string {
+    if(!hasLiveData) return '—';
     const formatted = value.toFixed(2);
     return value > 0 ? `+${formatted}%` : `${formatted}%`;
   }

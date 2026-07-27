@@ -45,6 +45,20 @@
       justify-content: flex-end;
     }
 
+    .watchlist-symbol {
+      display: flex;
+      align-items: center;
+      gap: 1px;
+    }
+
+    .pair-cell__base {
+      @include medium-text-semibold;
+    }
+
+    .pair-cell__quote {
+      color: var(--text-secondary);
+    }
+
     .watchlist-row {
       cursor: pointer;
       transition: background 0.15s ease;
@@ -72,4 +86,22 @@
     color: var(--text-secondary);
     padding: var(--padding-l);
   }
+}
+
+@keyframes price-flash {
+  0% {
+    background-color: transparent;
+  }
+
+  30% {
+    background-color: rgba(39, 82, 231, 0.1);
+  }
+
+  100% {
+    background-color: transparent;
+  }
+}
+
+.price-flash {
+  animation: price-flash 0.6s ease-out;
 }

@@ -7,6 +7,7 @@ export interface MarketRow {
     change24h: number;
     volume24h: number;
     isFavourite: boolean;
+    hasLiveData:boolean;
 }
 
 

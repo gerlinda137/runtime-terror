@@ -1,6 +1,6 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { auditTime, merge, tap } from 'rxjs';
+import { auditTime, merge, tap, forkJoin } from 'rxjs';
 import { BinanceWsService } from '../binanceWsService/binanceWsService';
 import { PublicApi } from '../publickApiService/publickApiService';
 import { WatchlistStore } from '../../store/watchlist-store/watchlist.store';
@@ -66,12 +66,30 @@ export class MarketDataService {
   }
 
   private loadSymbols(): void {
-    this.api.getExchangeInfo().subscribe((info) => {
+    forkJoin({
+      info: this.api.getExchangeInfo(),
+      prices: this.api.getAll24hrTickers()
+    }).subscribe(({ info, prices }) => {
+      const priceMap = new Map(prices.map((p) => [p.symbol, p]));
+
       info.symbols
         .filter((s) => s.status === 'TRADING')
-        .forEach((s) => this.rawSymbolMap.set(s.symbol, s));
+        .forEach((s) => {
+          this.rawSymbolMap.set(s.symbol, s);
+
+          const initialData = priceMap.get(s.symbol);
+          if (initialData && !this.rawTickerMap.has(s.symbol)) {
+            this.rawTickerMap.set(s.symbol, {
+              s: s.symbol,
+              c: initialData.lastPrice,
+              P: initialData.priceChangePercent,
+              q: initialData.volume,
+            } as Ticker);
+          }
+        });
 
       this.symbolMap.set(new Map(this.rawSymbolMap));
+      this.tickerMap.set(new Map(this.rawTickerMap));
       this.isLoading.set(false);
     });
   }

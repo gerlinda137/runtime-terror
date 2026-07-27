@@ -1,0 +1,178 @@
+@use '../../../styles/mixins/typography.scss' as *;
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+// ── Card shell ──────────────────────────────────────────────────────────────
+.ps-card {
+  width: 100%;
+  height: 100%;
+  background: var(--surface);
+  border-radius: var(--radius-sm);
+  padding: var(--padding-s) var(--padding-sm);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-xs);
+  box-sizing: border-box;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+
+  &__link {
+    @include small-text-semibold;
+    color: var(--md-sys-color-primary);
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// ── Total value block ────────────────────────────────────────────────────────
+.ps-total {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--padding-xs) 0 var(--padding-extra-sm);
+  border-bottom: 1px solid var(--md-sys-color-surface-variant);
+  flex-shrink: 0;
+
+  &__label {
+    color: var(--text-secondary);
+  }
+
+  &__amount {
+    color: var(--text-primary);
+  }
+}
+
+// ── Asset table ───────────────────────────────────────────────────────────────
+.ps-table {
+  width: 100%;
+  flex: 1;
+
+  ::ng-deep {
+    .mat-mdc-table {
+      background: var(--surface) !important;
+    }
+
+    .mat-mdc-header-cell {
+      color: var(--text-secondary);
+      @include small-text-regular;
+      padding: 0 0 var(--padding-extra-sm);
+      border-bottom: 1px solid var(--md-sys-color-surface-variant) !important;
+    }
+
+    .mat-mdc-cell {
+      padding: var(--padding-xxs) 0;
+      @include medium-text-regular;
+      border-bottom: 1px solid var(--md-sys-color-surface-variant) !important;
+    }
+
+    .mat-column-value,
+    .mat-column-quantity {
+      text-align: right;
+      justify-content: flex-end;
+    }
+  }
+
+  &__asset-name {
+    @include medium-text-semibold;
+  }
+
+  &__value {
+    color: var(--text-primary);
+  }
+}
+
+@keyframes price-flash {
+  0% {
+    background-color: transparent;
+  }
+
+  30% {
+    background-color: rgba(39, 82, 231, 0.1);
+  }
+
+  100% {
+    background-color: transparent;
+  }
+}
+
+.price-flash {
+  animation: price-flash 0.6s ease-out;
+}
+
+// ── Generic info states (error, no-key) ──────────────────────────────────────
+.ps-state {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--padding-xs);
+  color: var(--text-secondary);
+  text-align: center;
+  padding: var(--padding-m);
+
+  mat-icon {
+    font-size: 36px;
+    width: 36px;
+    height: 36px;
+  }
+}
+
+// ── Locked (unauthenticated) state ───────────────────────────────────────────
+.ps-locked {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--padding-xs);
+  text-align: center;
+  padding: var(--padding-m) var(--padding-s);
+
+  &__icon-wrap {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--md-sys-color-surface-variant);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--padding-xxs);
+  }
+
+  &__icon {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    color: var(--text-secondary);
+  }
+
+  &__title {
+    color: var(--text-primary);
+  }
+
+  &__subtitle {
+    color: var(--text-secondary);
+    max-width: 220px;
+    line-height: 1.5;
+    margin-bottom: var(--padding-extra-sm);
+  }
+
+  &__btn {
+    width: 100%;
+    max-width: 200px;
+  }
+}

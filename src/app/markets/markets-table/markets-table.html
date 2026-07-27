@@ -34,7 +34,7 @@
     <!-- 24H VOLUME column: sortable, formatted K/M/B -->
     <ng-container matColumnDef="volume24h">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>24h Volume</th>
-        <td mat-cell *matCellDef="let row">{{ row.volume24h | formatVolume }}</td>
+        <td mat-cell *matCellDef="let row">{{ row.volume24h | formatVolume:row.hasLiveData }}</td>
     </ng-container>
 
     <!-- FAVOURITE column: star icon button -->

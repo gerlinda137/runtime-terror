@@ -2,8 +2,8 @@ import { MarketRow, SortColumn, SortDir } from "./markets-table/market-row.model
 
 type QuoteFilter = 'ALL' | 'USDT' | 'BTC' | 'ETH';
 
-export function filterByTab(rows: MarketRow[], tab: QuoteFilter): MarketRow[] {
-  if (tab === 'ALL') return rows;
+export function filterByTab(rows: MarketRow[], tab: QuoteFilter | null): MarketRow[] {
+  if (!tab || tab === 'ALL') return rows;
   return rows.filter(r => r.quoteAsset === tab);
 }
 

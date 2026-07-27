@@ -8,6 +8,12 @@ import { computed, Directive, input } from '@angular/core';
 })
 export class ChangeColor {
   value = input.required<number>({ alias: 'appChangeColor' });
+  hasData = input<boolean>(true);
 
-  protected color = computed(() => (this.value() >= 0 ? 'var(--success)' : 'var(--danger)'));
+  protected color = computed(() => {
+    if (!this.hasData()) return 'var(--text-secondary)';
+    if (this.value() > 0) return 'var(--success)';
+    if (this.value() < 0) return 'var(--danger)';
+    return 'var(--text-secondary)';
+  });
 }

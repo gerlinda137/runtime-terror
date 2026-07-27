@@ -1,0 +1,79 @@
+<div class="ps-card">
+
+  <!-- Header -->
+  <div class="ps-card__header">
+    <h3 appTypography="heading-4">Portfolio Summary</h3>
+    @if (isLoggedIn()) {
+      <a class="ps-card__link" [routerLink]="portfolioLink" appTypography>View full</a>
+    }
+  </div>
+
+  <!-- AUTHENTICATED STATE -->
+  @if (isLoggedIn()) {
+
+    @if (loading()) {
+      <app-loader [diameter]="32" />
+    } @else if (error()) {
+      <div class="ps-state ps-state--error">
+        <mat-icon>error_outline</mat-icon>
+        <span appTypography="small-text-regular">{{ error() }}</span>
+      </div>
+    } @else if (hasNoKey()) {
+      <div class="ps-state ps-state--no-key">
+        <mat-icon>vpn_key</mat-icon>
+        <span appTypography="small-text-regular">No API key found.</span>
+        <a mat-stroked-button [routerLink]="['/account/keys']">Add API key</a>
+      </div>
+    } @else {
+
+    <!-- Total value -->
+      <div class="ps-total">
+        <span appTypography="small-text-regular" class="ps-total__label">Total value</span>
+        <span appTypography="heading-4" class="ps-total__amount">{{ totalValue() | currency: 'USD' : 'symbol' : '1.2-2' }}</span>
+      </div>
+
+      <!-- Top assets table -->
+      <table mat-table [dataSource]="rows()" class="ps-table">
+
+        <ng-container matColumnDef="asset">
+          <th mat-header-cell *matHeaderCellDef>Asset</th>
+          <td mat-cell *matCellDef="let row">
+            <span class="ps-table__asset-name">{{ row.asset }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef>Qty</th>
+          <td mat-cell *matCellDef="let row">{{ row.quantity | number: '1.0-6' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="value">
+          <th mat-header-cell *matHeaderCellDef>Value</th>
+          <td mat-cell *matCellDef="let row" class="ps-table__value" [ngClass]="{ 'price-flash': flashingSymbols().has(row.symbol) }">
+            {{ row.value | currency: 'USD' : 'symbol' : '1.2-2' }}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+
+    }
+
+  <!-- UNAUTHENTICATED STATE -->
+  } @else {
+    <div class="ps-locked">
+      <div class="ps-locked__icon-wrap">
+        <mat-icon class="ps-locked__icon">lock</mat-icon>
+      </div>
+      <p appTypography="medium-text-semibold" class="ps-locked__title">Portfolio is locked</p>
+      <p appTypography="small-text-regular" class="ps-locked__subtitle">
+        Sign in to see your total balance and asset breakdown
+      </p>
+      <a mat-flat-button [routerLink]="loginLink" class="ps-locked__btn" id="portfolio-summary-login-btn">
+        Log in to unlock
+      </a>
+    </div>
+  }
+
+</div>
