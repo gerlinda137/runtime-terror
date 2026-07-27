@@ -5,12 +5,14 @@
     @if (!isLoading()) {
       <!-- Quote currency filter tabs -->
       <mat-button-toggle-group
-        [value]="activeTab"
+        [value]="activeTab()"
         (change)="onTabChange($event.value)"
         class="markets-page__tabs"
       >
         @for (tab of tabs; track tab) {
-          <mat-button-toggle [value]="tab">{{ tab }}</mat-button-toggle>
+          <mat-button-toggle [value]="tab">
+            {{ tab }}
+          </mat-button-toggle>
         }
       </mat-button-toggle-group>
     }
