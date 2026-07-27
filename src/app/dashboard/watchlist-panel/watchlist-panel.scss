@@ -87,3 +87,21 @@
     padding: var(--padding-l);
   }
 }
+
+@keyframes price-flash {
+  0% {
+    background-color: transparent;
+  }
+
+  30% {
+    background-color: rgba(39, 82, 231, 0.1);
+  }
+
+  100% {
+    background-color: transparent;
+  }
+}
+
+.price-flash {
+  animation: price-flash 0.6s ease-out;
+}

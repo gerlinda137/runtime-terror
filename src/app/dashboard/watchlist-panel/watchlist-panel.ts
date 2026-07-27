@@ -1,4 +1,5 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, effect, inject } from '@angular/core';
+import { NgClass } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,6 +11,7 @@ import { ChangeHourPipe } from '../../shared/pipes/market-display/change-hour.pi
 import { WatchlistStore } from '../../core/store/watchlist-store/watchlist.store';
 import { MarketDataService } from '../../core/services/market-data/marketDataService';
 import { CryptoToken } from '../shared/crypto.model';
+import { createPriceFlash } from '../../shared/price-flash/price-flash.util';
 
 @Component({
   selector: 'app-watchlist-panel',
@@ -20,6 +22,7 @@ import { CryptoToken } from '../shared/crypto.model';
     Typography,
     ChangeHourPipe,
     ChangeColor,
+    NgClass,
   ],
   templateUrl: './watchlist-panel.html',
   styleUrls: ['./watchlist-panel.scss'],
@@ -34,6 +37,9 @@ export class WatchlistPanel {
   private readonly watchlist = toSignal(this.watchlistStore.watchlist$, {
     initialValue: this.watchlistStore.snapshot,
   });
+
+  private readonly priceFlash = createPriceFlash<CryptoToken>();
+  protected readonly flashingSymbols = this.priceFlash.flashingSymbols;
 
   protected readonly rows = computed<CryptoToken[]>(() => {
     const assetsBySymbol = this.marketData.rowsBySymbol();
@@ -53,6 +59,12 @@ export class WatchlistPanel {
       };
     });
   });
+
+  constructor() {
+    effect(() => {
+      this.priceFlash.detect(this.rows());
+    });
+  }
 
   protected onRemove(event: Event, symbol: string): void {
     event.stopPropagation();

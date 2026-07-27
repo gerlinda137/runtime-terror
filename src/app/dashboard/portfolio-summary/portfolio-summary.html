@@ -49,7 +49,7 @@
 
         <ng-container matColumnDef="value">
           <th mat-header-cell *matHeaderCellDef>Value</th>
-          <td mat-cell *matCellDef="let row" class="ps-table__value">
+          <td mat-cell *matCellDef="let row" class="ps-table__value" [ngClass]="{ 'price-flash': flashingSymbols().has(row.symbol) }">
             {{ row.value | currency: 'USD' : 'symbol' : '1.2-2' }}
           </td>
         </ng-container>

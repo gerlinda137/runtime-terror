@@ -2,11 +2,12 @@ import {
   Component,
   computed,
   DestroyRef,
+  effect,
   inject,
   OnInit,
   signal,
 } from '@angular/core';
-import { CurrencyPipe, DecimalPipe } from '@angular/common';
+import { CurrencyPipe, DecimalPipe, NgClass } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,6 +22,7 @@ import { MarketDataService } from '../../core/services/market-data/marketDataSer
 import { Typography } from '../../shared/directive/typography/typography';
 import { Loader } from '../../shared/ui/loader/loader';
 import { FULL_ROUTES } from '../../shared/constants';
+import { createPriceFlash } from '../../shared/price-flash/price-flash.util';
 
 interface Balance {
   asset: string;
@@ -30,7 +32,9 @@ interface Balance {
 
 export interface PortfolioAssetRow {
   asset: string;
+  symbol: string;
   quantity: number;
+  price: number;
   value: number;
 }
 
@@ -48,6 +52,7 @@ const TOP_N = 5;
     MatIconModule,
     MatButtonModule,
     RouterLink,
+    NgClass,
   ],
   templateUrl: './portfolio-summary.html',
   styleUrl: './portfolio-summary.scss',
@@ -70,6 +75,9 @@ export class PortfolioSummary implements OnInit {
   protected error = signal<string | null>(null);
   protected hasNoKey = signal(false);
 
+  private readonly priceFlash = createPriceFlash<PortfolioAssetRow>();
+  protected readonly flashingSymbols = this.priceFlash.flashingSymbols;
+
   protected rows = computed<PortfolioAssetRow[]>(() => {
     const balances = this.accountBalances();
     const livePrices = this.marketData.rowsBySymbol();
@@ -87,7 +95,7 @@ export class PortfolioSummary implements OnInit {
           price = assetData.price;
         }
       }
-      return { asset: b.asset, quantity, value: quantity * price };
+      return { asset: b.asset, symbol: b.asset, quantity, price, value: quantity * price };
     }).sort((a, b) => b.value - a.value);
 
     return allRows.slice(0, TOP_N);
@@ -113,6 +121,12 @@ export class PortfolioSummary implements OnInit {
     }
     return sum;
   });
+
+  constructor() {
+    effect(() => {
+      this.priceFlash.detect(this.rows());
+    });
+  }
 
   ngOnInit(): void {
     if (!this.isLoggedIn()) return;
