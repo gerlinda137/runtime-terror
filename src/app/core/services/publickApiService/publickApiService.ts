@@ -25,6 +25,11 @@ export class PublicApi {
     });
   }
 
+  // GET /api/v3/ticker/24hr
+  getAll24hrTickers(): Observable<{ symbol: string; lastPrice: string; priceChangePercent: string; volume: string }[]> {
+    return this.http.get<{ symbol: string; lastPrice: string; priceChangePercent: string; volume: string }[]>(`${this.base}/v3/ticker/24hr`);
+  }
+
   // GET /api/v3/depth?symbol=BTCUSDT&limit=100
   getOrderBook(symbol: string, limit = 100) {
     return this.http.get(`${this.base}/v3/depth`, {

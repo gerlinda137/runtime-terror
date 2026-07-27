@@ -1,16 +1,16 @@
 import { Component, DestroyRef, computed, inject, OnInit, signal } from '@angular/core';
 import { KeyStore } from '../core/store/key';
 import { Crypto } from '../core/services/crypto/crypto';
-import { combineLatest, filter, map, startWith, switchMap } from 'rxjs';
+import { combineLatest, EMPTY, filter, switchMap, take } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Typography } from '../shared/directive/typography/typography';
 import { CurrencyPipe, DecimalPipe } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatTabsModule } from '@angular/material/tabs';
-import { BinanceWsService } from '../core/services/binanceWsService/binanceWsService';
 import { Distribution, DistItem } from './distribution/distribution';
 import { Loader } from '../shared/ui/loader/loader';
+import { MarketDataService } from '../core/services/market-data/marketDataService';
 
 interface Balance {
   asset: string;
@@ -47,14 +47,43 @@ const TOP_ASSETS = 6;
 export class Portfolio implements OnInit {
   private keyStore = inject(KeyStore);
   private crypto = inject(Crypto);
-  private ws = inject(BinanceWsService);
+  private marketData = inject(MarketDataService);
   private destroyRef = inject(DestroyRef);
   displayedColumns = ['asset', 'available', 'inOrder', 'price', 'value'];
 
-  rows = signal<AssetRow[]>([]);
-  totalValue = signal(0);
+  accountBalances = signal<Balance[]>([]);
   loading = signal(true);
   error = signal<string | null>(null);
+
+  rows = computed<AssetRow[]>(() => {
+    const balances = this.accountBalances();
+    const livePrices = this.marketData.rowsBySymbol();
+
+    if (balances.length === 0) return [];
+
+    return balances.map((b) => {
+      const available = Number(b.free);
+      const inOrder = Number(b.locked);
+      let price = 0;
+      if (STABLES.has(b.asset)) {
+        price = 1;
+      } else {
+        const assetData = livePrices.get(b.asset + 'USDT');
+        if (assetData) price = assetData.price;
+      }
+      return {
+        asset: b.asset,
+        available,
+        inOrder,
+        price,
+        value: (available + inOrder) * price,
+      };
+    }).sort((a, b) => b.value - a.value);
+  });
+
+  totalValue = computed(() => {
+    return this.rows().reduce((sum, r) => sum + r.value, 0);
+  });
 
   pageIndex = signal(0);
   pageSize = signal(10);
@@ -93,52 +122,30 @@ export class Portfolio implements OnInit {
   ngOnInit() {
     this.keyStore.loadKeys();
 
-    const account$ = this.keyStore.keys$.pipe(
-      filter((keys) => keys.length > 0),
-      switchMap((keys) => this.crypto.getAccount(keys[0].id)),
-    );
-
-    const prices$ = this.crypto.getAllPrices().pipe(
-      switchMap((snapshot) => {
-        const priceMap = new Map(snapshot.map((p) => [p.symbol, Number(p.price)]));
-        return this.ws.subscribeToAllTickers().pipe(
-          map((tickers) => {
-            for (const t of tickers) priceMap.set(t.s, Number(t.c));
-            return priceMap;
-          }),
-          startWith(priceMap),
-        );
-      }),
-    );
-
-    combineLatest([account$, prices$])
-      .pipe(takeUntilDestroyed(this.destroyRef))
+    combineLatest([this.keyStore.keys$, this.keyStore.loading$])
+      .pipe(
+        filter(([, isLoading]) => !isLoading),
+        take(1),
+        switchMap(([keys]) => {
+          if (keys.length === 0) {
+            this.loading.set(false);
+            return EMPTY;
+          }
+          return this.crypto.getAccount(keys[0].id);
+        }),
+        takeUntilDestroyed(this.destroyRef),
+      )
       .subscribe({
-        next: ([account, priceMap]) => {
-          const rows = (account.balances as Balance[])
-            .filter((b) => Number(b.free) > 0 || Number(b.locked) > 0)
-            .map((b) => {
-              const available = Number(b.free);
-              const inOrder = Number(b.locked);
-              const price = STABLES.has(b.asset) ? 1 : (priceMap.get(b.asset + 'USDT') ?? 0);
-              return {
-                asset: b.asset,
-                available,
-                inOrder,
-                price,
-                value: (available + inOrder) * price,
-              };
-            })
-            .sort((a, b) => b.value - a.value);
-
-          this.rows.set(rows);
-          this.totalValue.set(rows.reduce((sum, r) => sum + r.value, 0));
+        next: (account) => {
+          const balances = (account.balances as Balance[] || []).filter((b) => Number(b.free) > 0 || Number(b.locked) > 0);
+          this.accountBalances.set(balances);
           this.loading.set(false);
         },
         error: (err) => {
           console.error(err);
           this.loading.set(false);
-          this.error.set('Failed to load portfolio data. Please try again.');
+          const errMsg = err.error?.message || err.message || 'Unknown error';
+          this.error.set(`Failed to load portfolio data. (${errMsg})`);
         },
       });
   }
