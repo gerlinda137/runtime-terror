@@ -7,7 +7,6 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { Typography } from '../../shared/directive';
 import { ChangeColor } from '../../shared/directive/market-display/change-color';
 import { ChangeHourPipe } from '../../shared/pipes/market-display/change-hour.pipe';
-import { SymbolPipe } from '../../shared/pipes/market-display/symbol.pipe';
 import { WatchlistStore } from '../../core/store/watchlist-store/watchlist.store';
 import { MarketDataService } from '../../core/services/market-data/marketDataService';
 import { CryptoToken } from '../shared/crypto.model';
@@ -19,7 +18,6 @@ import { CryptoToken } from '../shared/crypto.model';
     MatIconModule,
     MatButtonModule,
     Typography,
-    SymbolPipe,
     ChangeHourPipe,
     ChangeColor,
   ],
@@ -46,6 +44,7 @@ export class WatchlistPanel {
       return {
         symbol,
         name: asset?.baseAsset ?? symbol,
+        quoteAsset: asset?.quoteAsset ?? '',
         price: asset?.price ?? 0,
         priceDisplay: asset?.hasLiveData ? asset?.priceDisplay : '—',
         change24h: asset?.change24h ?? 0,

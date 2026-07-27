@@ -21,11 +21,11 @@
     border-bottom: none !important;
   }
 
-  .mat-column-name {
+  .mat-column-pair {
     @include medium-text-semibold;
   }
 
-  .mat-column-volume,
+  .mat-column-volume24h,
   .mat-column-favourite {
     text-align: right;
     justify-content: flex-end;
@@ -66,6 +66,14 @@
     display: flex;
     align-items: center;
     gap: var(--padding-item);
+
+    .pair-cell__base {
+      @include medium-text-semibold;
+    }
+
+    .pair-cell__quote {
+      color: var(--text-secondary);
+    }
   }
 }
 

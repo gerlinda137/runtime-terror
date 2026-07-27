@@ -7,7 +7,6 @@ import { Typography } from '../../shared/directive';
 import { ChangeColor } from '../../shared/directive/market-display/change-color';
 import { CryptoIcon } from '../../shared/directive/market-display/crypto-icon';
 import { ChangeHourPipe } from '../../shared/pipes/market-display/change-hour.pipe';
-import { SymbolPipe } from '../../shared/pipes/market-display/symbol.pipe';
 import { FormatVolumePipe } from '../../shared/pipes/market-display/format-volume-pipe';
 import { ROUTES } from '../../shared/constants/routes.constant';
 import { WatchlistStore } from '../../core/store/watchlist-store/watchlist.store';
@@ -22,7 +21,6 @@ const TOP_N = 5;
   imports: [
     MatTableModule,
     Typography,
-    SymbolPipe,
     ChangeHourPipe,
     ChangeColor,
     CryptoIcon,
@@ -36,11 +34,10 @@ const TOP_N = 5;
 })
 export class TrendingMarket {
   protected readonly displayedColumns = [
-    'name',
-    'symbol',
-    'priceDisplay',
+    'pair',
+    'price',
     'change24h',
-    'volume',
+    'volume24h',
     'favourite',
   ];
   protected readonly marketsLink = `/${ROUTES.MARKETS}`;
@@ -61,6 +58,7 @@ export class TrendingMarket {
       .map((asset) => ({
         symbol: asset.symbol,
         name: asset.baseAsset,
+        quoteAsset: asset.quoteAsset,
         price: asset.price,
         priceDisplay: asset.priceDisplay,
         change24h: asset.change24h,
