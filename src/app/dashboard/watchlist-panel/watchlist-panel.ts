@@ -47,7 +47,7 @@ export class WatchlistPanel {
         symbol,
         name: asset?.baseAsset ?? symbol,
         price: asset?.price ?? 0,
-        priceDisplay: asset?.hasLiveData ? asset?.priceDisplay : 'Loading',
+        priceDisplay: asset?.hasLiveData ? asset?.priceDisplay : '—',
         change24h: asset?.change24h ?? 0,
         volume: asset?.volume ?? 0,
         isFavourite: true,

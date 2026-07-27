@@ -4,7 +4,8 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'formatVolume',
 })
 export class FormatVolumePipe implements PipeTransform {
-  transform(value: number): string {
+  transform(value: number,hasLiveData = true): string {
+    if(!hasLiveData) return '—';
     if (value >= 1_000_000_000) {
       return (value / 1_000_000_000).toFixed(1) + 'B';
     }

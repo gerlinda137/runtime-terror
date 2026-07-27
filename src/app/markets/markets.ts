@@ -40,10 +40,11 @@ export class Markets {
       baseAsset: asset.baseAsset,
       quoteAsset: asset.quoteAsset,
       price: asset.price,
-      priceDisplay: asset.priceDisplay,
+      priceDisplay: asset.hasLiveData ? asset.priceDisplay : '—',
       change24h: asset.change24h,
       volume24h: asset.volume,
       isFavourite: asset.isFavourite,
+      hasLiveData:asset.hasLiveData
     })),
   );
 

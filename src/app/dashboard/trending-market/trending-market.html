@@ -42,7 +42,12 @@
       <th mat-header-cell *matHeaderCellDef>24H Change</th>
       <td mat-cell *matCellDef="let row">
         <span [appChangeColor]="row.change24h" class="semibold">
-          {{ row.change24h >= 0 ? '↑' : '↓' }} {{ row.change24h | changeHour }}
+          @if (row.change24h > 0) {
+            ↑
+          } @else if (row.change24h < 0) {
+            ↓
+          }
+          {{ row.change24h | changeHour }}
         </span>
       </td>
     </ng-container>
@@ -68,7 +73,12 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns; trackBy: trackBySymbol" (click)="onRowClick(row.symbol)" class="clickable-row"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns; trackBy: trackBySymbol"
+      (click)="onRowClick(row.symbol)"
+      class="clickable-row"
+    ></tr>
   </table>
 
   @if (rows().length === 0) {
