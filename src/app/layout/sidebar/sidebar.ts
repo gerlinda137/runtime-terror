@@ -23,6 +23,7 @@ import { ClickOutside } from '../../shared/directive';
   standalone: true,
 })
 export class Sidebar {
+
   isOpen = signal(false);
 
   @HostListener('window:resize')
