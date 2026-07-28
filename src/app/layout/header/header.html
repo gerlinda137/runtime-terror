@@ -1,3 +1,4 @@
+@let isLog = isLogin();
 <div class="header-section">
   <app-logo />
   <div class="title-field">
@@ -10,14 +11,12 @@
   </div>
   <div class="utilities-field">
     <div class="search-bar">
-      <input type="text" placeholder="Search Market..." 
-      [ngModel]="searchStore.query()"
-      (ngModelChange)="onSearch($event)"
-      [disabled]="!isMarketsPage()"
-      />
+      <input type="text" placeholder="Search Market..."
+        [ngModel]="searchStore.query()"
+        (ngModelChange)="onSearch($event)"
+        [disabled]="!isMarketsPage()" />
       <mat-icon>search</mat-icon>
     </div>
-
     <div class="user-actions">
       <div matBadge="1" matBadgeSize="small" class="demo-section">
         <mat-icon class="notif-icon">notifications</mat-icon>
@@ -26,14 +25,12 @@
       <div
         class="menu-trigger-wrapper"
         [matMenuTriggerFor]="userMenu"
-        #menuTrigger="matMenuTrigger"
-      >
+        #menuTrigger="matMenuTrigger">
         <div class="user-icon-area">
           <img
             [src]="userLogo()"
             alt="User Profile Picture"
-            [class.def-user-icon]="!isLoggedIn()"
-          />
+            [class.def-user-icon]="!isLog" />
         </div>
 
         <span class="arrow" [class.rotated]="menuTrigger.menuOpen">
@@ -49,24 +46,24 @@
           <span>{{ theme() === 'light' ? 'Dark mode' : 'Light mode' }}</span>
         </button>
 
-        @if (isLoggedIn()) {
-          <button mat-menu-item>
-            <mat-icon>account_circle</mat-icon>
-            <span>Profile</span>
-          </button>
-          <button mat-menu-item class="logout-btn" (click)="logout()">
-            <mat-icon>logout</mat-icon>
-            <span>Logout</span>
-          </button>
+        @if (isLog) {
+        <button mat-menu-item>
+          <mat-icon>account_circle</mat-icon>
+          <span>Profile</span>
+        </button>
+        <button mat-menu-item class="logout-btn" (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
         } @else {
-          <button mat-menu-item (click)="goToLogin()">
-            <mat-icon>login</mat-icon>
-            <span>Log In</span>
-          </button>
-          <button mat-menu-item (click)="goToRegister()">
-            <mat-icon>person_add</mat-icon>
-            <span>Sign Up</span>
-          </button>
+        <button mat-menu-item (click)="goToLogin()">
+          <mat-icon>login</mat-icon>
+          <span>Log In</span>
+        </button>
+        <button mat-menu-item (click)="goToRegister()">
+          <mat-icon>person_add</mat-icon>
+          <span>Sign Up</span>
+        </button>
         }
       </mat-menu>
     </div>

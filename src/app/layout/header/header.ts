@@ -16,11 +16,11 @@ import { filter, map, merge } from 'rxjs';
 import { environment } from '../../../environments/environments';
 import { SearchStore } from '../../core/store/search.store';
 import { FormsModule } from '@angular/forms';
-import {ROUTES} from '../../shared/constants/routes.constant'
+import { ROUTES } from '../../shared/constants/routes.constant'
 
 @Component({
   selector: 'app-header',
-  imports: [Typography, FormsModule,MatBadgeModule, MatMenuModule, MatIconModule, Logo],
+  imports: [Typography, FormsModule, MatBadgeModule, MatMenuModule, MatIconModule, Logo],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })
@@ -35,19 +35,19 @@ export class Header implements OnInit {
   loading = false;
   error: string | null = null;
 
-  isLoggedIn = input<boolean>(false);
   theme = input<ThemeType>();
   toggleTheme = input<() => void>();
 
   isMarketsPage = toSignal(
     this.router.events.pipe(
       filter(e => e instanceof NavigationEnd),
-      map(()=>this.router.url.startsWith(`/${ROUTES.MARKETS}`))
+      map(() => this.router.url.startsWith(`/${ROUTES.MARKETS}`))
     ),
-    {initialValue: this.router.url.startsWith(`/${ROUTES.MARKETS}`)}
+    { initialValue: this.router.url.startsWith(`/${ROUTES.MARKETS}`) }
   );
 
   private userSig = signal<User | null>(null);
+  isLogin = signal<boolean>(false);
   welcomeText = computed(() => {
     const u = this.userSig();
     const name = u?.name ?? '';
@@ -64,12 +64,14 @@ export class Header implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((u) => {
         this.userSig.set(u);
+        this.isLogin.set(true);
       });
 
     effect(() => {
       const user = this.userSig();
       if (!user) {
         this.avatarUrl.set(null);
+        this.isLogin.set(false);
         return;
       }
 
@@ -109,7 +111,7 @@ export class Header implements OnInit {
     this.router.navigateByUrl(`/${FULL_ROUTES.AUTH_REGISTER}`);
   }
 
-  onSearch(query:string){
+  onSearch(query: string) {
     this.searchStore.setQuery(query);
   }
 }
