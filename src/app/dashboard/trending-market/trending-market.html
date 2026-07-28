@@ -1,8 +1,7 @@
 <div class="trending-market__header">
   <h2 appTypography="heading-3">Trending Market</h2>
-  <a appTypography [routerLink]="marketsLink" class="trending-market__view-all"
-    >View more markets</a
-  >
+  <a appTypography [routerLink]="marketsLink"
+    class="trending-market__view-all">View more markets</a>
 </div>
 
 <div class="trending-market__scroll">
@@ -16,8 +15,7 @@
             [alt]="row.name"
             width="24"
             height="24"
-            class="crypto-icon"
-          />
+            class="crypto-icon" />
           <span class="pair-cell__base">{{ row.name }}</span>
           <span class="pair-cell__quote">/{{ row.quoteAsset }}</span>
         </div>
@@ -29,8 +27,7 @@
       <td
         mat-cell
         *matCellDef="let row"
-        [ngClass]="{ 'price-flash': flashingSymbols().has(row.symbol) }"
-      >
+        [ngClass]="{ 'price-flash': flashingSymbols().has(row.symbol) }">
         {{ row.priceDisplay }}
       </td>
     </ng-container>
@@ -40,9 +37,9 @@
       <td mat-cell *matCellDef="let row">
         <span [appChangeColor]="row.change24h" class="semibold">
           @if (row.change24h > 0) {
-            ↑
+          ↑
           } @else if (row.change24h < 0) {
-            ↓
+          ↓
           }
           {{ row.change24h | changeHour }}
         </span>
@@ -60,8 +57,7 @@
         <button
           mat-icon-button
           (click)="onFavClick($event, row.symbol)"
-          [attr.aria-label]="row.isFavourite ? 'Remove from watchlist' : 'Add to watchlist'"
-        >
+          [attr.aria-label]="row.isFavourite ? 'Remove from watchlist' : 'Add to watchlist'">
           <mat-icon [class.fav-active]="row.isFavourite">
             {{ row.isFavourite ? 'star' : 'star_border' }}
           </mat-icon>
@@ -72,16 +68,15 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
     <tr
       mat-row
-      *matRowDef="let row; columns: displayedColumns; trackBy: trackBySymbol"
+      *matRowDef="let row; columns: displayedColumns; trackBySymbol"
       (click)="onRowClick(row.symbol)"
-      class="clickable-row"
-    ></tr>
+      class="clickable-row"></tr>
   </table>
 
   @if (rows().length === 0) {
-    <div class="empty-state">
-      <mat-icon>search_off</mat-icon>
-      <span>No pairs found</span>
-    </div>
+  <div class="empty-state">
+    <mat-icon>search_off</mat-icon>
+    <span>No pairs found</span>
+  </div>
   }
 </div>
