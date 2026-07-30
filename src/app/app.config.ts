@@ -4,6 +4,7 @@ import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { messageInterceptor } from './core/interceptors/massage.interceptor';
+import { healthInterceptor } from './core/interceptors/healthInterceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,6 +14,7 @@ export const appConfig: ApplicationConfig = {
       withInterceptors(
         [
           authInterceptor,
+          healthInterceptor,
           messageInterceptor
         ]
       )

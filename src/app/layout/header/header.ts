@@ -65,6 +65,9 @@ export class Header {
     { initialValue: this.router.url.startsWith(`/${ROUTES.MARKETS}`) }
   );
 
+  loginPath = FULL_ROUTES.AUTH_LOGIN;
+  registerPAth = FULL_ROUTES.AUTH_REGISTER;
+
   // --- Actions ---
   handleTheme() {
     this.toggleTheme()?.();

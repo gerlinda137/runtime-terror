@@ -25,6 +25,7 @@ export class App {
   private document = inject(DOCUMENT);
   private router = inject(Router);
   private auth = inject(AuthStore);
+
   private serverHealth = inject(ServerHealthService);
 
   title = signal('crypto-trade');
@@ -46,7 +47,9 @@ export class App {
 
   constructor() {
     this.applyTheme(this.theme());
-    this.serverHealth.initApp();
+    this.serverHealth.initApp().subscribe({
+      next: () => this.serverHealth.handleServerUp(),
+    });
   }
 
   applyTheme(theme: ThemeType) {
