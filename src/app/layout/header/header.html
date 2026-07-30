@@ -56,11 +56,11 @@
           <span>Logout</span>
         </button>
         } @else {
-        <button mat-menu-item (click)="goToLogin()">
+        <button mat-menu-item (click)="navigateTo(loginPath)">
           <mat-icon>login</mat-icon>
           <span>Log In</span>
         </button>
-        <button mat-menu-item (click)="goToRegister()">
+        <button mat-menu-item (click)="navigateTo(registerPAth)">
           <mat-icon>person_add</mat-icon>
           <span>Sign Up</span>
         </button>

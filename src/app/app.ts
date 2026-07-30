@@ -3,11 +3,14 @@ import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 
 import { Header, Sidebar } from './layout';
 import { Logo } from './shared/ui';
-import { MOCK_USER, THEMES } from './shared/constants';
-import type { User, ThemeType } from './core/models';
+import { THEMES } from './shared/constants';
+import type { ThemeType } from './core/models';
+
 import { filter, map } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { Auth } from './auth/service/auth';
+
+import { AuthStore } from './core/store/auth.store';
+import { ServerHealthService } from './core/services/serverHealth/serverHealthService';
 
 @Component({
   selector: 'app-root',
@@ -21,36 +24,47 @@ import { Auth } from './auth/service/auth';
 export class App {
   private document = inject(DOCUMENT);
   private router = inject(Router);
-  private authService = inject(Auth);
+  private auth = inject(AuthStore);
 
-  protected readonly title = signal('crypto-trade');
-  readonly isLoggedIn = this.authService.isAuthenticated;
-  user: User = MOCK_USER;
-  theme = signal<ThemeType>(THEMES.LIGHT);
+  private serverHealth = inject(ServerHealthService);
 
+  title = signal('crypto-trade');
+
+  // AuthStore signals
+  isLoggedIn = this.auth.isAuthenticatedSig;
+
+  // Theme
+  theme = signal<ThemeType>(THEMES.DARK);
+
+  // Detect "not-found" page
   isNotFound = toSignal(
     this.router.events.pipe(
-      filter((e) => e instanceof NavigationEnd),
-      map((e: NavigationEnd) => e.urlAfterRedirects === '/not-found'),
+      filter(e => e instanceof NavigationEnd),
+      map((e: NavigationEnd) => e.urlAfterRedirects === '/not-found')
     ),
-    { initialValue: false },
+    { initialValue: false }
   );
 
   constructor() {
-    this.themeApply(this.theme());
+    this.applyTheme(this.theme());
+    this.serverHealth.initApp().subscribe({
+      next: () => this.serverHealth.handleServerUp(),
+    });
   }
 
-  themeApply(theme: ThemeType) {
+  applyTheme(theme: ThemeType) {
+    const root = this.document.documentElement;
+
     if (theme === THEMES.DARK) {
-      this.document.documentElement.setAttribute('data-theme', THEMES.DARK);
+      root.setAttribute('data-theme', THEMES.DARK);
     } else {
-      this.document.documentElement.removeAttribute('data-theme');
+      root.removeAttribute('data-theme');
     }
   }
 
   toggleTheme = () => {
-    const theme = this.theme() === THEMES.LIGHT ? THEMES.DARK : THEMES.LIGHT;
-    this.theme.set(theme);
-    this.themeApply(theme);
+    const next = this.theme() === THEMES.LIGHT ? THEMES.DARK : THEMES.LIGHT;
+    this.theme.set(next);
+    this.applyTheme(next);
   };
 }
