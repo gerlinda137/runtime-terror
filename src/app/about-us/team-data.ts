@@ -3,14 +3,6 @@ import { TeamMember } from './team-member.model';
 export const TEAM_MEMBERS: TeamMember[] = [
   {
     id: 1,
-    name: 'John Doe',
-    role: 'Founder & CEO',
-    imgSrc: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3LnWJY0eqZcJZEZMJnyDaiocwZlLGNYPVww&s',
-    bio: 'Loves building products and leading the team through chaos and coffee.',
-    githubLink: 'https://github.com/johndoe'
-  },
-  {
-    id: 2,
     name: 'Radmila Shamilova',
     role: `Frontend Developer / Aspiring Full-Stack Dev`,
     imgSrc: 'assets/webP/radmila.webp',
@@ -20,6 +12,14 @@ I actively leverage AI-powered chat applications and development tools to accele
 
 My goal is to grow as a versatile developer by combining my strong frontend expertise with growing backend and security knowledge. I enjoy tackling complex technical challenges and contributing to well-structured, maintainable projects.`,
     githubLink: 'https://github.com/radm1la'
+  },
+  {
+    id: 2,
+    name: 'Angelina',
+    role: 'Team Lead',
+    imgSrc: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3LnWJY0eqZcJZEZMJnyDaiocwZlLGNYPVww&s',
+    bio: 'Loves building products and leading the team through chaos and coffee.',
+    githubLink: 'https://github.com/gerlinda137'
   },
   {
     id: 3,
