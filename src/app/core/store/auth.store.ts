@@ -8,6 +8,7 @@ import { AuthResponse, User, UserPayload } from '../../core/models';
 import { FULL_ROUTES, USER } from '../../shared/constants';
 import { Token } from '../../auth/service/token';
 import { UserStore } from './user.store';
+import { computed, signal } from '@angular/core';
 
 interface AuthState {
   user: User | null;
@@ -31,7 +32,12 @@ export class AuthStore {
 
   readonly user$ = this.state$.pipe(map(s => s.user));
   readonly loading$ = this.state$.pipe(map(s => s.loading));
+
   readonly error$ = this.state$.pipe(map(s => s.error));
+  readonly userSig = computed(() => this.state$.value.user);
+  readonly isLoadingSig = computed(() => this.state$.value.loading);
+  readonly isAuthenticatedSig = computed(() => Boolean(this.tokenService.token()));
+  avatarUrl = signal<string | null>(null);
 
   constructor() {
     this.restoreFromStorage();
@@ -70,14 +76,22 @@ export class AuthStore {
   logout() {
     this.tokenService.removeToken();
     localStorage.removeItem(USER);
+    this.avatarUrl.set(null);
     this.patch({ user: null });
   }
 
   private setSession(res: AuthResponse) {
     this.tokenService.setToken(res.accessToken);
     this.patch({ user: res.user });
+
     this.userStore.setUser(res.user);
     localStorage.setItem(USER, JSON.stringify(res.user));
+
+    const url = res.user.avatarUrl
+      ? `${this.baseUrl}/${res.user.avatarUrl}?v=${Date.now()}`
+      : null;
+
+    this.avatarUrl.set(url);
   }
 
   private restoreFromStorage() {
@@ -85,8 +99,14 @@ export class AuthStore {
     if (this.tokenService.token() && raw) {
       const user = JSON.parse(raw);
 
-      this.patch({ user });          // AuthStore
-      this.userStore.setUser(user);  // UserStore
+      this.patch({ user });
+      this.userStore.setUser(user);
+
+      const url = user.avatarUrl
+        ? `${this.baseUrl}/${user.avatarUrl}?v=${Date.now()}`
+        : null;
+
+      this.avatarUrl.set(url);
     }
   }
 

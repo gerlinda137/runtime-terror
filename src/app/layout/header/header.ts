@@ -1,43 +1,62 @@
-import { Component, input, inject, DestroyRef, computed, OnInit, signal, effect } from '@angular/core';
+import {
+  Component,
+  input,
+  inject,
+  computed
+} from '@angular/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
-
 import { NavigationEnd, Router } from '@angular/router';
 
-import type { ThemeType, User } from '../../core/models';
+import type { ThemeType } from '../../core/models';
 import { Typography } from '../../shared/directive';
 import { Logo } from '../../shared/ui';
-import { UserStore } from '../../core/store/user.store';
-import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { AuthStore } from '../../core/store/auth.store';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { FULL_ROUTES } from '../../shared/constants';
-import { filter, map, merge } from 'rxjs';
-import { environment } from '../../../environments/environments';
+import { filter, map } from 'rxjs';
 import { SearchStore } from '../../core/store/search.store';
 import { FormsModule } from '@angular/forms';
-import { ROUTES } from '../../shared/constants/routes.constant'
+import { ROUTES } from '../../shared/constants/routes.constant';
+import { AuthStore } from '../../core/store/auth.store';
 
 @Component({
   selector: 'app-header',
-  imports: [Typography, FormsModule, MatBadgeModule, MatMenuModule, MatIconModule, Logo],
+  imports: [
+    Typography,
+    FormsModule,
+    MatBadgeModule,
+    MatMenuModule,
+    MatIconModule,
+    Logo,
+  ],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })
-export class Header implements OnInit {
-  private authStore = inject(AuthStore);
-  private userStore = inject(UserStore);
+export class Header {
+  private auth = inject(AuthStore);
   private router = inject(Router);
-  private destroyRef = inject(DestroyRef);
   searchStore = inject(SearchStore);
-
-  user: User | null = null;
-  loading = false;
-  error: string | null = null;
 
   theme = input<ThemeType>();
   toggleTheme = input<() => void>();
 
+  // --- Signals from AuthStore ---
+  userSig = this.auth.userSig;
+  isLogin = this.auth.isAuthenticatedSig;
+  avatarUrl = this.auth.avatarUrl;
+
+  // --- Derived UI signals ---
+  welcomeText = computed(() => {
+    const name = this.userSig()?.name ?? '';
+    return name ? `Welcome ${name}!` : 'Welcome!';
+  });
+
+  userLogo = computed(() =>
+    this.avatarUrl() ?? 'assets/icons/default_user.svg'
+  );
+
+  // --- Page detection ---
   isMarketsPage = toSignal(
     this.router.events.pipe(
       filter(e => e instanceof NavigationEnd),
@@ -46,69 +65,22 @@ export class Header implements OnInit {
     { initialValue: this.router.url.startsWith(`/${ROUTES.MARKETS}`) }
   );
 
-  private userSig = signal<User | null>(null);
-  isLogin = signal<boolean>(false);
-  welcomeText = computed(() => {
-    const u = this.userSig();
-    const name = u?.name ?? '';
-    return `Welcome ${name}!`;
-  });
-  avatarUrl = signal<string | null>(null);
-  userLogo = computed(() => {
-    const url = this.avatarUrl();
-    return url ?? 'assets/icons/default_user.svg';
-  });
-
-  constructor() {
-    merge(this.authStore.user$, this.userStore.user$)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((u) => {
-        this.userSig.set(u);
-        this.isLogin.set(true);
-      });
-
-    effect(() => {
-      const user = this.userSig();
-      if (!user) {
-        this.avatarUrl.set(null);
-        this.isLogin.set(false);
-        return;
-      }
-
-      const url = user.avatarUrl
-        ? `${environment.apiUrl}/${user.avatarUrl}?v=${Date.now()}`
-        : null;
-
-      this.avatarUrl.set(url);
-    });
-
-    this.userStore.loading$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
-  }
-
-  ngOnInit() {
-    this.userStore.loadUser();
-  }
-
+  // --- Actions ---
   handleTheme() {
-    const handler = this.toggleTheme();
-    if (handler) handler();
+    this.toggleTheme()?.();
   }
 
-  handleMode() {
-    return this.theme() === 'light' ? 'dark_mode' : 'light_mode';
-  }
+  handleMode = computed(() =>
+    this.theme() === 'light' ? 'dark_mode' : 'light_mode'
+  );
 
   logout() {
-    this.authStore.logout();
+    this.auth.logout();
     this.router.navigateByUrl(`/${FULL_ROUTES.AUTH_LOGIN}`);
   }
 
-  goToLogin() {
-    this.router.navigateByUrl(`/${FULL_ROUTES.AUTH_LOGIN}`);
-  }
-
-  goToRegister() {
-    this.router.navigateByUrl(`/${FULL_ROUTES.AUTH_REGISTER}`);
+  navigateTo(route: string) {
+    this.router.navigateByUrl(route);
   }
 
   onSearch(query: string) {

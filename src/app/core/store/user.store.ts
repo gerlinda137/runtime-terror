@@ -40,7 +40,7 @@ export class UserStore {
           this.patch({ user, loading: false });
         }),
         catchError(() => {
-          this.patch({ user: null, loading: false, error: 'Failed to load user' });
+          this.patch({ loading: false, error: 'Failed to load user' });
           return of(null);
         })
       ).subscribe();

@@ -16,16 +16,12 @@
 
 html {
   height: 100%;
-  @include mat.theme(
-    (
-      color: (
-        primary: mat.$cyan-palette,
+  @include mat.theme((color: (primary: mat.$cyan-palette,
         tertiary: mat.$orange-palette,
       ),
       typography: Roboto,
       density: 0,
-    )
-  );
+    ));
 }
 
 body {
@@ -117,4 +113,18 @@ button[mat-icon-button] {
 
 .tooltip-left {
   transform: translateX(-100%) !important;
+}
+
+.error-toast {
+  background: var(--primary-20);
+  color: var(--base-100);
+  border-color: var(--danger);
+  font-weight: 500;
+}
+
+.success-toast {
+  background: #2e7d32;
+  color: white;
+  border-color: var(--success);
+  font-weight: 500;
 }
