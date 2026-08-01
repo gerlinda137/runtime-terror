@@ -9,7 +9,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "prepare": "husky",
-    "compiler": "tsc --noEmit"
+    "compiler": "tsc --noEmit",
+    "postinstall": "node scripts/generate-crypto-icon-manifest.js"
   },
   "private": true,
   "lint-staged": {
