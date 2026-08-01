@@ -9,6 +9,7 @@ import { FULL_ROUTES, USER } from '../../shared/constants';
 import { Token } from '../../auth/service/token';
 import { UserStore } from './user.store';
 import { computed, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 interface AuthState {
   user: User | null;
@@ -34,7 +35,7 @@ export class AuthStore {
   readonly loading$ = this.state$.pipe(map(s => s.loading));
 
   readonly error$ = this.state$.pipe(map(s => s.error));
-  readonly userSig = computed(() => this.state$.value.user);
+  readonly userSig = toSignal(this.user$, { initialValue: null });
   readonly isLoadingSig = computed(() => this.state$.value.loading);
   readonly isAuthenticatedSig = computed(() => Boolean(this.tokenService.token()));
   avatarUrl = signal<string | null>(null);
@@ -78,6 +79,10 @@ export class AuthStore {
     localStorage.removeItem(USER);
     this.avatarUrl.set(null);
     this.patch({ user: null });
+  }
+
+  updateUser(user: User) {
+    this.patch({ user });
   }
 
   private setSession(res: AuthResponse) {

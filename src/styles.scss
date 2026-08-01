@@ -12,6 +12,9 @@
 *::before,
 *::after {
   box-sizing: border-box;
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
 }
 
 html {
@@ -127,4 +130,9 @@ button[mat-icon-button] {
   color: white;
   border-color: var(--success);
   font-weight: 500;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
