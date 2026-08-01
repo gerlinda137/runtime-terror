@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   computed,
   DestroyRef,
@@ -56,6 +57,7 @@ const TOP_N = 5;
   ],
   templateUrl: './portfolio-summary.html',
   styleUrl: './portfolio-summary.scss',
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class PortfolioSummary implements OnInit {
   private readonly token = inject(Token);

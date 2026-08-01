@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
@@ -26,6 +26,7 @@ import { createPriceFlash } from '../../shared/price-flash/price-flash.util';
   ],
   templateUrl: './watchlist-panel.html',
   styleUrls: ['./watchlist-panel.scss'],
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class WatchlistPanel {
   protected readonly displayedColumns = ['symbol', 'priceDisplay', 'change24h', 'actions'];

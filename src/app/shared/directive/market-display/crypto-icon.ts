@@ -1,17 +1,26 @@
-import { Directive, ElementRef, HostListener, inject, input, OnInit } from '@angular/core';
+import { Directive, effect, ElementRef, HostListener, inject, input } from '@angular/core';
+import { CRYPTO_ICON_SYMBOLS } from './crypto-icon-manifest';
 
 @Directive({
   selector: '[appCryptoIcon]',
 })
-export class CryptoIcon implements OnInit {
+export class CryptoIcon {
   symbol = input.required<string>({ alias: 'appCryptoIcon' });
   private el = inject(ElementRef);
-
   private readonly fallbackSrc = '/assets/crypto-icons/generic.svg';
 
-  ngOnInit() {
-    const ticker = this.symbol().toLowerCase();
-    this.el.nativeElement.src = `/assets/crypto-icons/${ticker}.svg`;
+  private readonly aliases :Record<string,string> = {
+    iota: 'miota'
+  }
+
+  constructor(){
+    effect(()=>{
+      const raw = this.symbol().toLowerCase();
+      const icon = this.aliases[raw] ?? raw;
+
+      this.el.nativeElement.src = CRYPTO_ICON_SYMBOLS.has(icon)
+      ? `/assets/crypto-icons/${icon}.svg` : this.fallbackSrc;
+    })
   }
 
   @HostListener('error')

@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { NgClass } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
@@ -31,6 +31,7 @@ const TOP_N = 5;
   ],
   templateUrl: './trending-market.html',
   styleUrl: './trending-market.scss',
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class TrendingMarket {
   protected readonly displayedColumns = [
