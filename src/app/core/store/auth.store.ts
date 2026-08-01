@@ -81,6 +81,10 @@ export class AuthStore {
     this.patch({ user: null });
   }
 
+  updateUser(user: User) {
+    this.patch({ user });
+  }
+
   private setSession(res: AuthResponse) {
     this.tokenService.setToken(res.accessToken);
     this.patch({ user: res.user });

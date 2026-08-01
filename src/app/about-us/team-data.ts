@@ -16,9 +16,9 @@ My goal is to grow as a versatile developer by combining my strong frontend expe
   {
     id: 2,
     name: 'Angelina',
-    role: 'Team Lead',
-    imgSrc: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3LnWJY0eqZcJZEZMJnyDaiocwZlLGNYPVww&s',
-    bio: 'Loves building products and leading the team through chaos and coffee.',
+    role: 'Team Lead. Frontend developer',
+    imgSrc: 'assets/webP/angelina.webp',
+    bio: `I've spent about a year turning designs into pixel-perfect markup commercially, and somewhere along the way I fell for Angular — signals, NgRx, standalone components, the whole thing. These days I'm also picking up React, mostly out of curiosity about how the other half lives. Before frontend I taught English, which turns out to be surprisingly good training for explaining why the layout broke. I write in Russian, English live in Yerevan, and share my desk with a cat named Gerald who has strong opinions about my keyboard`,
     githubLink: 'https://github.com/gerlinda137'
   },
   {
