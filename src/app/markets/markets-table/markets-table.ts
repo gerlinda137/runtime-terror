@@ -1,4 +1,4 @@
-import { Component, effect, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, input, output } from '@angular/core';
 import { MarketRow, SortColumn, SortDir } from './market-row.model';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule, Sort } from '@angular/material/sort';
@@ -26,6 +26,7 @@ import { createPriceFlash } from '../../shared/price-flash/price-flash.util';
   ],
   templateUrl: './markets-table.html',
   styleUrl: './markets-table.scss',
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class MarketsTable {
   rows = input<MarketRow[]>([]);
