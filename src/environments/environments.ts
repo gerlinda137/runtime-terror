@@ -1,5 +1,5 @@
 export const environment = {
   apiUrl: 'http://localhost:4000',
-  publicApiUrl: 'https://testnet.binance.vision/api',
+  publicApiUrl: 'https://api.binance.com/api',
   production: true,
 };
