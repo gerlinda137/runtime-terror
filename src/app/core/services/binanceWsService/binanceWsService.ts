@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable, share } from "rxjs";
 import { DepthEvent, KlineEvent, Ticker } from "../../models";
 
-const WS_BASE = 'wss://stream.testnet.binance.vision/ws';
+const WS_BASE = 'wss://stream.binance.com:9443/ws';
 
 @Injectable({providedIn:'root'})
 export class BinanceWsService{
