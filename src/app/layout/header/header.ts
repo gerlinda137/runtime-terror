@@ -19,6 +19,7 @@ import { SearchStore } from '../../core/store/search.store';
 import { FormsModule } from '@angular/forms';
 import { ROUTES } from '../../shared/constants/routes.constant';
 import { AuthStore } from '../../core/store/auth.store';
+import { UserStore } from '../../core/store/user.store';
 
 @Component({
   selector: 'app-header',
@@ -36,26 +37,33 @@ import { AuthStore } from '../../core/store/auth.store';
 export class Header {
   private auth = inject(AuthStore);
   private router = inject(Router);
+  private userStore = inject(UserStore);
   searchStore = inject(SearchStore);
 
   theme = input<ThemeType>();
   toggleTheme = input<() => void>();
 
-  // --- Signals from AuthStore ---
-  userSig = this.auth.userSig;
+  // auth signals
+  authUser = this.auth.userSig;
   isLogin = this.auth.isAuthenticatedSig;
-  avatarUrl = this.auth.avatarUrl;
 
-  // --- Derived UI signals ---
+  // user profile signals
+  profileUser = this.userStore.userSig;
+  profileAvatar = this.userStore.avatarSig;
+
+  // unified user
+  userCombined = computed(() => {
+    return this.profileUser() ?? this.authUser();
+  });
+
   welcomeText = computed(() => {
-    const name = this.userSig()?.name ?? '';
+    const name = this.userCombined()?.name ?? '';
     return name ? `Welcome ${name}!` : 'Welcome!';
   });
 
   userLogo = computed(() =>
-    this.avatarUrl() ?? 'assets/icons/default_user.svg'
+    this.profileAvatar() ?? 'assets/icons/default_user.svg'
   );
-
   // --- Page detection ---
   isMarketsPage = toSignal(
     this.router.events.pipe(
@@ -79,6 +87,7 @@ export class Header {
 
   logout() {
     this.auth.logout();
+    this.userStore.setUser(null);
     this.router.navigateByUrl(`/${FULL_ROUTES.AUTH_LOGIN}`);
   }
 

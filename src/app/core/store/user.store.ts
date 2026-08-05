@@ -1,9 +1,10 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, computed, inject } from '@angular/core';
 import { BehaviorSubject, of } from 'rxjs';
 import { tap, catchError, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models';
 import { environment } from '../../../environments/environments';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 interface UserState {
   user: User | null;
@@ -23,10 +24,24 @@ export class UserStore {
     error: null,
   });
 
+  // --- RxJS streams ---
   readonly user$ = this.state$.pipe(map(s => s.user));
   readonly loading$ = this.state$.pipe(map(s => s.loading));
   readonly error$ = this.state$.pipe(map(s => s.error));
 
+  // --- Signals exposed to UI ---
+  readonly userSig = toSignal(this.user$, { initialValue: null });
+  readonly loadingSig = computed(() => this.state$.value.loading);
+  readonly errorSig = computed(() => this.state$.value.error);
+
+  // 🔥 avatarSig теперь основан на userSig → обновляется мгновенно
+  readonly avatarSig = computed(() => {
+    const user = this.userSig();
+    if (!user?.avatarUrl) return null;
+    return `${this.baseUrl}/${user.avatarUrl}?v=${Date.now()}`;
+  });
+
+  // --- Mutations ---
   setUser(user: User | null) {
     this.patch({ user });
   }
@@ -58,10 +73,6 @@ export class UserStore {
         return of(null);
       })
     ).subscribe();
-  }
-
-  private patch(partial: Partial<UserState>) {
-    this.state$.next({ ...this.state$.value, ...partial });
   }
 
   updatePassword(data: { oldPassword: string; newPassword: string }) {
@@ -124,5 +135,10 @@ export class UserStore {
         return of(null);
       })
     ).subscribe();
+  }
+
+  // --- Internal state mutation ---
+  private patch(partial: Partial<UserState>) {
+    this.state$.next({ ...this.state$.value, ...partial });
   }
 }
