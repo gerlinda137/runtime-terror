@@ -67,6 +67,7 @@ export class Header {
 
   loginPath = FULL_ROUTES.AUTH_LOGIN;
   registerPAth = FULL_ROUTES.AUTH_REGISTER;
+  accountSettingsPath = FULL_ROUTES.ACCOUNT_SETTINGS;
 
   // --- Actions ---
   handleTheme() {
