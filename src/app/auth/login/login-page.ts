@@ -11,6 +11,7 @@ import { Typography } from '../../shared/directive';
 import { ROUTES } from '../../shared/constants';
 import { AuthStore } from '../../core/store/auth.store';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { UserStore } from '../../core/store/user.store';
 
 @Component({
   selector: 'app-login-page',
@@ -33,6 +34,7 @@ export class LoginPage {
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);
   private route = inject(ActivatedRoute);
+  private userStore = inject(UserStore);
 
   protected readonly registerLink = `/${ROUTES.AUTH}/${ROUTES.REGISTER}`;
   protected readonly isLoading = signal(false);
@@ -63,7 +65,9 @@ export class LoginPage {
 
     this.authStore.login(this.form.getRawValue()).subscribe({
       next: (res) => {
-        if (res){
+        if (res) {
+          this.userStore.loadUser();
+
           const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
           this.router.navigateByUrl(returnUrl);
         }

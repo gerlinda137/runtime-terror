@@ -7,8 +7,7 @@ import { environment } from '../../../environments/environments';
 import { AuthResponse, User, UserPayload } from '../../core/models';
 import { FULL_ROUTES, USER } from '../../shared/constants';
 import { Token } from '../../auth/service/token';
-import { UserStore } from './user.store';
-import { computed, signal } from '@angular/core';
+import { computed } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 interface AuthState {
@@ -21,8 +20,6 @@ interface AuthState {
 export class AuthStore {
   private http = inject(HttpClient);
   private tokenService = inject(Token);
-  private userStore = inject(UserStore);
-
   private baseUrl = environment.apiUrl;
 
   private state$ = new BehaviorSubject<AuthState>({
@@ -32,13 +29,15 @@ export class AuthStore {
   });
 
   readonly user$ = this.state$.pipe(map(s => s.user));
+  readonly userSig = toSignal(this.user$, { initialValue: null });
+
   readonly loading$ = this.state$.pipe(map(s => s.loading));
+  readonly isLoadingSig = computed(() => this.state$.value.loading);
 
   readonly error$ = this.state$.pipe(map(s => s.error));
-  readonly userSig = toSignal(this.user$, { initialValue: null });
-  readonly isLoadingSig = computed(() => this.state$.value.loading);
+  readonly errorSig = computed(() => this.state$.value.error);
+
   readonly isAuthenticatedSig = computed(() => Boolean(this.tokenService.token()));
-  avatarUrl = signal<string | null>(null);
 
   constructor() {
     this.restoreFromStorage();
@@ -77,48 +76,24 @@ export class AuthStore {
   logout() {
     this.tokenService.removeToken();
     localStorage.removeItem(USER);
-    this.avatarUrl.set(null);
     this.patch({ user: null });
-  }
-
-  updateUser(user: User) {
-    this.patch({ user });
   }
 
   private setSession(res: AuthResponse) {
     this.tokenService.setToken(res.accessToken);
     this.patch({ user: res.user });
-
-    this.userStore.setUser(res.user);
     localStorage.setItem(USER, JSON.stringify(res.user));
-
-    const url = res.user.avatarUrl
-      ? `${this.baseUrl}/${res.user.avatarUrl}?v=${Date.now()}`
-      : null;
-
-    this.avatarUrl.set(url);
   }
 
   private restoreFromStorage() {
     const raw = localStorage.getItem(USER);
     if (this.tokenService.token() && raw) {
       const user = JSON.parse(raw);
-
       this.patch({ user });
-      this.userStore.setUser(user);
-
-      const url = user.avatarUrl
-        ? `${this.baseUrl}/${user.avatarUrl}?v=${Date.now()}`
-        : null;
-
-      this.avatarUrl.set(url);
     }
   }
 
   private patch(partial: Partial<AuthState>) {
-    this.state$.next({
-      ...this.state$.value,
-      ...partial,
-    });
+    this.state$.next({ ...this.state$.value, ...partial });
   }
 }
